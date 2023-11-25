@@ -109,7 +109,7 @@ export default function Login({
           className={
             searchParams?.message
               ? "bg-red-500 rounded-md px-4 py-2 text-foreground mb-2"
-              : "bg-green-700  rounded-md px-4 py-2 text-foreground mb-2"
+              : "bg-emerald-400  rounded-md px-4 py-2 text-foreground mb-2"
           }
         >
           Sign In
