@@ -26,11 +26,12 @@ export default function Login({
     });
 
     if (error) {
-      console.log(error);
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/login?message=Check email to continue sign in process");
+    return redirect(
+      "/login?message=Please check the email you provided to continue sign up process."
+    );
   };
   const signIn = async (formData: FormData) => {
     "use server";
@@ -79,6 +80,12 @@ export default function Login({
         className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
         action={signIn}
       >
+        <h1 className="text-6xl font-black text-center">Sign in</h1>
+        {searchParams?.message && (
+          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+            {searchParams.message}
+          </p>
+        )}
         <label className="text-md" htmlFor="email">
           Email
         </label>
@@ -98,20 +105,24 @@ export default function Login({
           placeholder="••••••••"
           required
         />
-        <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
+        <button
+          className={
+            searchParams?.message
+              ? "bg-red-500 rounded-md px-4 py-2 text-foreground mb-2"
+              : "bg-green-700  rounded-md px-4 py-2 text-foreground mb-2"
+          }
+        >
           Sign In
         </button>
-        <button
-          formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
-        >
-          Sign Up
-        </button>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
-          </p>
-        )}
+        <span className="flex justify-items-center	items-center justify-between">
+          <p>Don't have an account?</p>
+          <button
+            formAction={signUp}
+            className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          >
+            Sign Up
+          </button>
+        </span>
       </form>
     </div>
   );
