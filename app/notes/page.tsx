@@ -23,7 +23,6 @@ export default async function Page() {
 
   return (
     <>
-      {/*@ts-expect-error */}
       <NewToDo />
       <pre>{JSON.stringify(todos, null, 2)}</pre>
     </>
