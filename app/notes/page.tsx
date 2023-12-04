@@ -3,21 +3,20 @@ import NewToDo from "@/components/NewToDo";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import Modal from "@/components/Modal";
-import { getToDo } from "@/lib/supabase";
 import { useEffect, useState } from "react";
-export default async function Page() {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  //console.log(user?.id);
+import { getUser, getToDo } from "@/lib/supabase";
 
-  if (!user) {
+export default async function Page() {
+  const newUser = await getUser();
+  const todosData = await getToDo();
+
+  if (!newUser) {
     // Redirect or handle the case where the user is not authenticated
     return <div>You need to be authenticated to view this page.</div>;
   }
 
+  // console.log(getUser().then((user) => user?.id));
+  // console.log(getToDo().then((value) => value?.map((a) => a.title)));
   // to do (BE): separate all data fetched from each part (to do, reminders, habit tracker etc.)
 
   /**
@@ -35,10 +34,10 @@ export default async function Page() {
    */
 
   //Fetch todos associated with the authenticated user
-  const { data: todos } = await supabase
-    .from("todo")
-    .select()
-    .eq("userId", user?.id);
+  // const { data: todos } = await supabase
+  //   .from("todo")
+  //   .select()
+  //   .eq("userId", newUser?.id);
 
   // const [modalIsOpen, setModalIsOpen] = useState(false);
   // const [currentTodo, setCurrentTodo] = useState<null | { title: string }>(
@@ -67,13 +66,10 @@ export default async function Page() {
 
   //   fetchTodos();
   // }, []);
-
   return (
     <>
       <NewToDo />
-      {todos?.map((todo) => (
-        <p key={todo.id}>{todo.title}</p>
-      ))}
+
       {/* <Modal isOpen={modalIsOpen} onClose={closeModal}>
         <h2 className="text-2xl mb-4">Todo Details</h2>
         {currentTodo && <p>{currentTodo?.title}</p>}
