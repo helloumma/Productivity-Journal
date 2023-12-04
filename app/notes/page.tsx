@@ -1,4 +1,3 @@
-//import { useState } from "react";
 import NewToDo from "@/components/NewToDo";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
@@ -7,14 +6,6 @@ import { useEffect, useState } from "react";
 import { getUser, getToDo } from "@/lib/supabase";
 
 export default async function Page() {
-  const newUser = await getUser();
-  const todosData = await getToDo();
-
-  if (!newUser) {
-    // Redirect or handle the case where the user is not authenticated
-    return <div>You need to be authenticated to view this page.</div>;
-  }
-
   // console.log(getUser().then((user) => user?.id));
   // console.log(getToDo().then((value) => value?.map((a) => a.title)));
   // to do (BE): separate all data fetched from each part (to do, reminders, habit tracker etc.)
@@ -66,6 +57,7 @@ export default async function Page() {
 
   //   fetchTodos();
   // }, []);
+
   return (
     <>
       <NewToDo />
