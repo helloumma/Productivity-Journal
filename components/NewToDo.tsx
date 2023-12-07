@@ -3,7 +3,6 @@ import { newToDo, getUser, getToDo } from "@/lib/supabase";
 export default async function NewToDo() {
   const getUserInfo = await getUser();
   const todosData = await getToDo();
-  console.log(getUserInfo);
 
   if (!getUserInfo) {
     // Redirect or handle the case where the user is not authenticated
@@ -15,7 +14,7 @@ export default async function NewToDo() {
       <form action={newToDo}>
         <input name="title" className="bg-green-800" />
       </form>
-      {todosData?.map((todo, i) => (
+      {todosData?.map((todo) => (
         <p key={todo.id}>{todo.title}</p>
       ))}
     </>

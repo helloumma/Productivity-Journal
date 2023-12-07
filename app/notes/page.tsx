@@ -1,15 +1,8 @@
+import HabitTracker from "@/components/HabitTracker";
 import NewToDo from "@/components/NewToDo";
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
-import Modal from "@/components/Modal";
-import { useEffect, useState } from "react";
-import { getUser, getToDo } from "@/lib/supabase";
-
-export default async function Page() {
-  // console.log(getUser().then((user) => user?.id));
-  // console.log(getToDo().then((value) => value?.map((a) => a.title)));
-  // to do (BE): separate all data fetched from each part (to do, reminders, habit tracker etc.)
-
+import Reminders from "@/components/Reminders";
+import Schedule from "@/components/Schedule";
+export default function Page() {
   /**
    * TO DO
    * - Create an onClick handler for each todo item
@@ -24,48 +17,24 @@ export default async function Page() {
    * - Set up types files for each different component (to do, habit tracker etc etc)
    */
 
-  //Fetch todos associated with the authenticated user
-  // const { data: todos } = await supabase
-  //   .from("todo")
-  //   .select()
-  //   .eq("userId", newUser?.id);
-
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const [currentTodo, setCurrentTodo] = useState<null | { title: string }>(
-  //   null
-  // );
-
-  // const openModal = (todo: { title: string }) => {
-  //   setCurrentTodo(todo);
-  //   setModalIsOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setCurrentTodo(null);
-  //   setModalIsOpen(false);
-  // };
-
-  // console.log("to do", getToDo);
-
-  // const [todos, setTodos] = useState(null);
-
-  // useEffect(() => {
-  //   async function fetchTodos() {
-  //     const todoData = await getToDo();
-  //     setTodos(todoData);
-  //   }
-
-  //   fetchTodos();
-  // }, []);
-
   return (
     <>
-      <NewToDo />
-
-      {/* <Modal isOpen={modalIsOpen} onClose={closeModal}>
-        <h2 className="text-2xl mb-4">Todo Details</h2>
-        {currentTodo && <p>{currentTodo?.title}</p>}
-      </Modal> */}
+      <div>
+        <h2>[TO DO]</h2>
+        <NewToDo />
+      </div>
+      <div>
+        <h2>[REMINDERS]</h2>
+        <Reminders />
+      </div>
+      <div>
+        <h2>[HABIT TRACKER]</h2>
+        <HabitTracker />
+      </div>
+      <div>
+        <h2>[SCHEDULE]</h2>
+        <Schedule />
+      </div>
     </>
   );
 }
