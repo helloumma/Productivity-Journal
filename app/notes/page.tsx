@@ -32,7 +32,7 @@ export default function Page() {
       <div className="w-1/2">
         <Reminders />
       </div>
-      <div className="w-full">
+      <div className="w-full bg-red-500">
         <MoodTracker />
       </div>
     </div>

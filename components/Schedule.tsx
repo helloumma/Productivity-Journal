@@ -7,6 +7,7 @@
  */
 
 import { newSchedule, getUser, getSchedule } from "@/lib/supabase";
+import AddButton from "./AddButton";
 
 export default async function Schedule() {
   const getUserInfo = await getUser();
@@ -26,6 +27,7 @@ export default async function Schedule() {
           value="Insert temp schedule item..."
         />
       </form>
+      <AddButton />
       {scheduleData?.map((schedule) => (
         <p key={schedule.id}>{schedule.item}</p>
       ))}
