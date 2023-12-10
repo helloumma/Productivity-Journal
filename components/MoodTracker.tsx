@@ -1,3 +1,7 @@
 export default function MoodTracker() {
-  return <div>Mood Tracker component</div>;
+  return (
+    <div className="text-2xl font-bold flex justify-center">
+      Mood Tracker 😁 🙂 🫠 😕 🙁
+    </div>
+  );
 }

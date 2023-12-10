@@ -15,7 +15,7 @@ export default async function HabitTracker() {
       <form action={newHabit}>
         <input
           name="habit"
-          className="border border-gray-300  p-2 rounded w-2/3"
+          className="border border-gray-300  p-2 rounded w-5/6"
           placeholder="Add new habit..."
         />
         <button

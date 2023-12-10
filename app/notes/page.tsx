@@ -19,20 +19,20 @@ import MoodTracker from "@/components/MoodTracker";
 
 export default function Page() {
   return (
-    <div className="flex flex-wrap">
-      <div className="w-1/2">
+    <div className="flex flex-wrap p-4">
+      <div className="w-1/2 p-4 border-left ">
         <Schedule />
       </div>
-      <div className="w-1/2">
+      <div className="w-1/2  p-4">
         <NewToDo />
       </div>
-      <div className="w-1/2">
+      <div className="w-1/2  p-4">
         <HabitTracker />
       </div>
-      <div className="w-1/2">
+      <div className="w-1/2  p-4">
         <Reminders />
       </div>
-      <div className="w-full bg-red-500">
+      <div className="w-full  p-4">
         <MoodTracker />
       </div>
     </div>
