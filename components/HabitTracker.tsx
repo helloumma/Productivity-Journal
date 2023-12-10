@@ -12,7 +12,11 @@ export default async function HabitTracker() {
   return (
     <>
       <form action={newHabit}>
-        <input name="habit" className="bg-orange-500" />
+        <input
+          name="habit"
+          className="bg-orange-500"
+          placeholder="insert habit"
+        />
       </form>
       {habitData?.map((habits) => (
         <p key={habits.id}>{habits.habit}</p>

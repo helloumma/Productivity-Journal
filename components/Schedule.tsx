@@ -20,7 +20,11 @@ export default async function Schedule() {
   return (
     <>
       <form action={newSchedule}>
-        <input name="item" className="bg-red-500" />
+        <input
+          name="item"
+          className="bg-red-500"
+          value="Insert temp schedule item..."
+        />
       </form>
       {scheduleData?.map((schedule) => (
         <p key={schedule.id}>{schedule.item}</p>

@@ -12,7 +12,11 @@ export default async function NewToDo() {
   return (
     <>
       <form action={newToDo}>
-        <input name="title" className="bg-green-800" />
+        <input
+          name="title"
+          className="bg-green-800"
+          value="Insert to do item..."
+        />
       </form>
       {todosData?.map((todo) => (
         <p key={todo.id}>{todo.title}</p>

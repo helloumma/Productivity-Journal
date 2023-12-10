@@ -1,21 +1,34 @@
-import { newReminder, getUser, getReminder } from "@/lib/supabase";
+"use client";
 
-export default async function Reminders() {
-  const getUserInfo = await getUser();
-  const reminderData = await getReminder();
+import { useReminders } from "@/lib/hooks";
 
-  if (!getUserInfo) {
-    // Redirect or handle the case where the user is not authenticated
-    return <div>You need to be authenticated to view this page.</div>;
-  }
+export default function Reminders() {
+  const { reminderData, addReminder } = useReminders();
+
+  const handleAddReminder = async (e: any) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    await addReminder(formData);
+  };
+
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    console.log("click");
+  };
 
   return (
     <>
-      <form action={newReminder}>
-        <input name="reminder" className="bg-blue-800" />
+      <form onSubmit={handleAddReminder}>
+        <input
+          name="reminder"
+          className="bg-blue-800"
+          placeholder="Insert reminder..."
+        />
       </form>
-      {reminderData?.map((reminders) => (
-        <p key={reminders.id}>{reminders.reminder}</p>
+      {reminderData.map((reminders: any) => (
+        <p key={reminders.id} onClick={handleClick}>
+          {reminders?.reminder}
+        </p>
       ))}
     </>
   );

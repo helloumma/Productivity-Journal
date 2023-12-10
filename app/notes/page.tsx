@@ -2,39 +2,39 @@ import HabitTracker from "@/components/HabitTracker";
 import NewToDo from "@/components/NewToDo";
 import Reminders from "@/components/Reminders";
 import Schedule from "@/components/Schedule";
-export default function Page() {
-  /**
-   * TO DO
-   * - Create an onClick handler for each todo item
-   * - Create a modal component which uses a WISWQIG thing to auto-populate with what is currently
-   * in the to-do list item
-   * - Program the modal to save the updated "to do" item
-   * - Program the modal to enable user to set a time for the "to do" item
-   * - Ensure the modal is reusable for things such as habit tracker and reminders component
-   * - Program the modal to enable users to assign a tag [MAY BE - not important atm]
-   * - Add a save button to be able to update the state (atm keep everything local)
-   * - Set up a libs file and put yo' SQL queries there
-   * - Set up types files for each different component (to do, habit tracker etc etc)
-   */
+import MoodTracker from "@/components/MoodTracker";
+/**
+ * TO DO [styling]
+ * - Add a reusable 'add/plus' button for each bit (for the onClick to modal)
+ * - Within each component style it as it should look once the user has added an item
+ * - Create an 'edit' icon button (for onClick to modal)
+ */
 
+/**
+ * TO Do [functionality]
+ * - Program an onClick on the add button to a modal (within the components - do one, all the others are the same)
+ * - Program onClick for 'edit' icon to a modal
+ * - Ensure the modal can be closed once opened
+ */
+
+export default function Page() {
   return (
-    <>
-      <div>
-        <h2>[TO DO]</h2>
-        <NewToDo />
-      </div>
-      <div>
-        <h2>[REMINDERS]</h2>
-        <Reminders />
-      </div>
-      <div>
-        <h2>[HABIT TRACKER]</h2>
-        <HabitTracker />
-      </div>
-      <div>
-        <h2>[SCHEDULE]</h2>
+    <div className="flex flex-wrap">
+      <div className="w-1/2">
         <Schedule />
       </div>
-    </>
+      <div className="w-1/2">
+        <NewToDo />
+      </div>
+      <div className="w-1/2">
+        <HabitTracker />
+      </div>
+      <div className="w-1/2">
+        <Reminders />
+      </div>
+      <div className="w-full">
+        <MoodTracker />
+      </div>
+    </div>
   );
 }
