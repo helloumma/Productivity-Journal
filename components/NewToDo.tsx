@@ -17,7 +17,7 @@ export default async function NewToDo() {
       <form action={newToDo}>
         <input
           name="title"
-          className="border border-gray-300 text-gray-300 p-2 rounded w-2/3"
+          className="border border-gray-300  p-2 rounded w-2/3"
           placeholder="Add new task..."
         />
         <button
