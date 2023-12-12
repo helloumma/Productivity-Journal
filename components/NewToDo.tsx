@@ -31,13 +31,13 @@ export default async function NewToDo() {
       {todosData?.map((todo) => (
         <div className="flex pt-4">
           <div className="flex w-3/4">
-            <input
+            {/*<input
               type="checkbox"
               className="form-checkbox h-4 w-4 text-indigo-600"
-            />
-            <p key={todo.id} className="ml-4">
-              {todo.title}
-            </p>
+      />*/}
+            <ul key={todo.id} className="ml-4 list-disc">
+              <li>{todo.title}</li>
+            </ul>
           </div>
           <div className="flex w-1/4">
             <EditButton />
