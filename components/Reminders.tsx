@@ -79,10 +79,11 @@ export default function Reminders() {
           </div>
 
           <div className="flex ">
-            <input
+            <textarea
               name="reminder"
               className="border border-gray-300  p-8 rounded w-full"
               placeholder="Add new reminder..."
+              //rows={2}
             />
           </div>
         </div>
