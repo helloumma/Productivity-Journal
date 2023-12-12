@@ -37,6 +37,7 @@ export async function getReminder() {
     .from("reminders")
     .select()
     .eq("userId", (await user)?.id);
+  console.log(reminder);
   return reminder;
 }
 

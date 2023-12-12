@@ -20,6 +20,7 @@ export function useReminders() {
       // No need to fetch reminders here since useEffect handles it
     } catch (error) {
       console.error("Error adding reminder:", error);
+      throw error;
     }
   };
 
@@ -28,4 +29,25 @@ export function useReminders() {
   }, []); // Run once on component mount
 
   return { reminderData, addReminder, fetchReminders };
+}
+
+export function addReminder() {}
+
+export function renderReminders() {
+  const [newData, setNewData] = useState<[]>();
+
+  useEffect(() => {
+    const fetchNewReminders = async () => {
+      try {
+        const { data }: any = await getReminder();
+        setNewData(data);
+
+        return newData;
+      } catch (err) {
+        throw err;
+      }
+    };
+    fetchNewReminders();
+  });
+  return { newData };
 }

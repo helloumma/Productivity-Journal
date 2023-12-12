@@ -1,11 +1,12 @@
 "use client";
 
-import { useReminders } from "@/lib/hooks";
+import { useReminders, renderReminders, newData } from "@/lib/hooks";
+import { getReminder } from "@/lib/supabase";
+import { useEffect, useState } from "react";
 
 // create one part for setting the reminder
 // create another part to show reminder
 // move the setting reminder part to a modal eventually
-
 export default function Reminders() {
   const { reminderData, addReminder } = useReminders();
 
@@ -19,7 +20,19 @@ export default function Reminders() {
     e.preventDefault();
     console.log("click");
   };
+  // const { newData } = renderReminders();
+  // console.log(newData);
 
+  const [newData, setNewData] = useState<any>();
+
+  useEffect(() => {
+    const fetchNewReminders = async () => {
+      const data = await getReminder();
+      setNewData(data);
+    };
+    fetchNewReminders();
+  }, []);
+  console.log(newData);
   //   <div className="flex flex-wrap p-4">
   //   <div className="w-1/2 p-4 border-left ">
   //     <Schedule />
@@ -96,7 +109,7 @@ export default function Reminders() {
           </button>
         </div>
       </form>
-      {reminderData.map((reminders: any) => (
+      {newData.map((reminders: any) => (
         <p key={reminders.id} onClick={handleClick}>
           {reminders?.reminder}
         </p>
