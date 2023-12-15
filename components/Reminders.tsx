@@ -1,29 +1,22 @@
 "use client";
 
-import { useReminders, renderReminders, newData } from "@/lib/hooks";
-import { getReminder } from "@/lib/supabase";
+import { addNewReminder } from "@/lib/hooks";
+// to do: set up libs folder with a types file
+
+import { getReminder, getUser, newReminder } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 
-// create one part for setting the reminder
-// create another part to show reminder
-// move the setting reminder part to a modal eventually
-export default function Reminders() {
-  const { reminderData, addReminder } = useReminders();
+// @ts-ignore
+import { experimental_useFormState as useFormState } from "react-dom";
 
-  const handleAddReminder = async (e: any) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    await addReminder(formData);
-  };
+export default function Reminders() {
+  const [newData, setNewData] = useState<any>();
+  const [state, formAction] = useFormState(newReminder, null);
 
   const handleClick = (e: any) => {
     e.preventDefault();
     console.log("click");
   };
-  // const { newData } = renderReminders();
-  // console.log(newData);
-
-  const [newData, setNewData] = useState<any>();
 
   useEffect(() => {
     const fetchNewReminders = async () => {
@@ -32,28 +25,11 @@ export default function Reminders() {
     };
     fetchNewReminders();
   }, []);
-  console.log(newData);
-  //   <div className="flex flex-wrap p-4">
-  //   <div className="w-1/2 p-4 border-left ">
-  //     <Schedule />
-  //   </div>
-  //   <div className="w-1/2  p-4">
-  //     <NewToDo />
-  //   </div>
-  //   <div className="w-1/2  p-4">
-  //     <HabitTracker />
-  //   </div>
-  //   <div className="w-1/2  p-4">
-  //     <Reminders />
-  //   </div>
-  //   <div className="w-full  p-4">
-  //     <MoodTracker />
-  //   </div>
-  // </div>
+
   return (
     <>
       <h1 className="text-2xl font-bold">Reminders</h1>
-      <form onSubmit={handleAddReminder}>
+      <form action={formAction}>
         <div className="grid grid-cols-2 gap-4">
           <div className="grid grid-rows-2 gap-4">
             <div className="flex p-1 items-center">
@@ -109,7 +85,7 @@ export default function Reminders() {
           </button>
         </div>
       </form>
-      {newData.map((reminders: any) => (
+      {newData?.map((reminders: any) => (
         <p key={reminders.id} onClick={handleClick}>
           {reminders?.reminder}
         </p>
@@ -117,3 +93,30 @@ export default function Reminders() {
     </>
   );
 }
+// const handleAddReminder = async (e: React.FormEvent<HTMLFormElement>) => {
+//   const router = useRouter();
+
+//   e.preventDefault();
+//   const formData = new FormData(e.currentTarget);
+//   await newReminder(formData);
+//   e.currentTarget.reset();
+// };
+
+// // const handleAddReminder = async (e: React.FormEvent<HTMLFormElement>) => {
+// //   e.preventDefault();
+// //   const formData = new FormData(e.currentTarget);
+
+// //   const reminderData = {
+// //     reminder: formData.get("reminder") as string,
+// //     userId: (await user)?.id,
+// //   };
+
+// //   newReminder(reminderData as any);
+// //   //e.currentTarget.reset();
+// // };
+
+// // ignore
+// const handleClick = (e: any) => {
+//   e.preventDefault();
+//   console.log("click");
+// };

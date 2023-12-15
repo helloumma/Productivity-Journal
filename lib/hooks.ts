@@ -1,53 +1,23 @@
 // Custom Hook: useReminders
 import { useEffect, useState } from "react";
 import { getReminder, newReminder } from "@/lib/supabase";
+import { revalidatePath } from "next/cache";
+//import { revalidatePath } from "@/lib/utils"; // Make sure to import revalidatePath from the correct path
+import { useRouter } from "next/router";
 
-export function useReminders() {
-  const [reminderData, setReminderData] = useState([]);
-
-  const fetchReminders = async () => {
+export function addNewReminder() {
+  //const router = useRouter();
+  const addReminder = async (formData: FormData, e: any) => {
+    e.preventDefault();
+    const formDataReminders = new FormData(e.target);
     try {
-      const { data }: any = await getReminder();
-      setReminderData(data || []);
-    } catch (error) {
-      console.error("Error fetching reminders:", error);
+      await newReminder(formDataReminders);
+      // Assuming revalidatePath is defined and does what you intend
+      //router.reload();
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const addReminder = async (formData: FormData) => {
-    try {
-      await newReminder(formData);
-      // No need to fetch reminders here since useEffect handles it
-    } catch (error) {
-      console.error("Error adding reminder:", error);
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    fetchReminders();
-  }, []); // Run once on component mount
-
-  return { reminderData, addReminder, fetchReminders };
-}
-
-export function addReminder() {}
-
-export function renderReminders() {
-  const [newData, setNewData] = useState<[]>();
-
-  useEffect(() => {
-    const fetchNewReminders = async () => {
-      try {
-        const { data }: any = await getReminder();
-        setNewData(data);
-
-        return newData;
-      } catch (err) {
-        throw err;
-      }
-    };
-    fetchNewReminders();
-  });
-  return { newData };
+  return addReminder;
 }

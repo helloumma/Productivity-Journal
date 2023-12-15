@@ -37,11 +37,10 @@ export async function getReminder() {
     .from("reminders")
     .select()
     .eq("userId", (await user)?.id);
-  console.log(reminder);
   return reminder;
 }
 
-export async function newReminder(formData: FormData) {
+export async function newReminder(prevState: any, formData: FormData) {
   const reminder = formData.get("reminder");
   await supabase
     .from("reminders")
