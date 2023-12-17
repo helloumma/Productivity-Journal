@@ -20,19 +20,19 @@ import MoodTracker from "@/components/MoodTracker";
 export default function Page() {
   return (
     <div className="flex flex-wrap p-4">
-      <div className="w-1/2 p-4 border-left ">
+      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
         <Schedule />
       </div>
-      <div className="w-1/2  p-4">
+      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
         <NewToDo />
       </div>
-      <div className="w-1/2  p-4">
+      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
         <HabitTracker />
       </div>
-      <div className="w-1/2  p-4">
+      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
         <Reminders />
       </div>
-      <div className="w-full  p-4">
+      <div className="w-full p-4 shadow-xl rounded border-slate-600 border">
         <MoodTracker />
       </div>
     </div>
