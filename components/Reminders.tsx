@@ -2,6 +2,10 @@
 
 // to do: set up libs folder with a types file
 
+// to do: add new cols to the table for date and time
+
+// POST that data to the table
+
 import { getReminder, newReminder } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 
@@ -58,7 +62,7 @@ export default function Reminders() {
               </div>
 
               <input
-                name="date"
+                name="time"
                 className="border p-2 rounded w-full"
                 placeholder="Select time"
                 type="time"
@@ -86,11 +90,20 @@ export default function Reminders() {
           </button>
         </div>
       </form>
-      {newData?.map((reminders: any) => (
-        <p key={reminders.id} onClick={handleClick}>
-          {reminders?.reminder}
-        </p>
-      ))}
+      {newData?.map(
+        (reminders: {
+          id: number;
+          reminder: string;
+          date: Date;
+          time: any;
+        }) => (
+          <p key={reminders.id} onClick={handleClick}>
+            {reminders?.reminder}
+            {reminders?.date}
+            {reminders?.time}
+          </p>
+        )
+      )}
     </>
   );
 }

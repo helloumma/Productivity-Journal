@@ -43,9 +43,11 @@ export async function getReminder() {
 
 export async function newReminder(formData: FormData) {
   const reminder = formData.get("reminder");
+  const time = formData.get("time");
+  const date = formData.get("date");
   await supabase
     .from("reminders")
-    .insert({ reminder, userId: (await user)?.id });
+    .insert({ reminder, time, date, userId: (await user)?.id });
   revalidatePath("/notes");
 }
 
