@@ -1,47 +1,18 @@
 "use client";
 
-import { addNewReminder } from "@/lib/hooks";
 // to do: set up libs folder with a types file
 
-import { getReminder, getUser, newReminder } from "@/lib/supabase";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/dist/server/api-utils";
+import { getReminder, newReminder } from "@/lib/supabase";
 import { useEffect, useState } from "react";
-
-// @ts-ignore
-import { experimental_useFormState as useFormState } from "react-dom";
 
 export default function Reminders() {
   const [newData, setNewData] = useState<any>();
-  // @ts-ignore
-  //const [state, formAction] = useFormState(newReminder, []);
-  const [addData, setAddData] = useState<any>({ reminder: "" });
 
   const handleClick = (e: any) => {
     e.preventDefault();
     console.log("click");
   };
 
-  const [formData, setFormData] = useState({
-    date: "",
-    time: "",
-    reminder: "",
-  });
-
-  // const handleInputChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
-  const handleAddReminder = async (e: any) => {
-    e.preventDefault;
-    const newFormData = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      newFormData.append(key, value);
-    });
-
-    await newReminder(newFormData);
-    window.location.reload(); // Reload the page
-  };
   useEffect(() => {
     const fetchNewReminders = async () => {
       const data = await getReminder();
@@ -123,30 +94,3 @@ export default function Reminders() {
     </>
   );
 }
-// const handleAddReminder = async (e: React.FormEvent<HTMLFormElement>) => {
-//   const router = useRouter();
-
-//   e.preventDefault();
-//   const formData = new FormData(e.currentTarget);
-//   await newReminder(formData);
-//   e.currentTarget.reset();
-// };
-
-// // const handleAddReminder = async (e: React.FormEvent<HTMLFormElement>) => {
-// //   e.preventDefault();
-// //   const formData = new FormData(e.currentTarget);
-
-// //   const reminderData = {
-// //     reminder: formData.get("reminder") as string,
-// //     userId: (await user)?.id,
-// //   };
-
-// //   newReminder(reminderData as any);
-// //   //e.currentTarget.reset();
-// // };
-
-// // ignore
-// const handleClick = (e: any) => {
-//   e.preventDefault();
-//   console.log("click");
-// };
