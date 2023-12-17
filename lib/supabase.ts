@@ -40,7 +40,7 @@ export async function getReminder() {
   return reminder;
 }
 
-export async function newReminder(prevState: any, formData: FormData) {
+export async function newReminder(formData: FormData) {
   const reminder = formData.get("reminder");
   await supabase
     .from("reminders")

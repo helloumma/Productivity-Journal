@@ -11,11 +11,28 @@ import { experimental_useFormState as useFormState } from "react-dom";
 
 export default function Reminders() {
   const [newData, setNewData] = useState<any>();
-  const [state, formAction] = useFormState(newReminder, null);
+  // @ts-ignore
+  //const [state, formAction] = useFormState(newReminder, []);
+  const [addData, setAddData] = useState<any>({ reminder: "" });
 
   const handleClick = (e: any) => {
     e.preventDefault();
     console.log("click");
+  };
+
+  const handleAddReminder = async (e: React.FormEvent<HTMLFormElement>) => {
+    //const router = useRouter();
+
+    e.preventDefault;
+    const formData = new FormData();
+    formData.append("reminders", addData);
+    await newReminder(formData);
+    //e.currentTarget.reset();
+  };
+
+  const onChange = (e: any) => {
+    setAddData(e.target.value);
+    console.log(addData);
   };
 
   useEffect(() => {
@@ -29,7 +46,7 @@ export default function Reminders() {
   return (
     <>
       <h1 className="text-2xl font-bold">Reminders</h1>
-      <form action={formAction}>
+      <form action={newReminder}>
         <div className="grid grid-cols-2 gap-4">
           <div className="grid grid-rows-2 gap-4">
             <div className="flex p-1 items-center">
@@ -72,6 +89,7 @@ export default function Reminders() {
               name="reminder"
               className="border border-gray-300  p-8 rounded w-full"
               placeholder="Add new reminder..."
+              onChange={onChange}
               //rows={2}
             />
           </div>
