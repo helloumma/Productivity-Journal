@@ -4,6 +4,8 @@ import { addNewReminder } from "@/lib/hooks";
 // to do: set up libs folder with a types file
 
 import { getReminder, getUser, newReminder } from "@/lib/supabase";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/dist/server/api-utils";
 import { useEffect, useState } from "react";
 
 // @ts-ignore
@@ -20,21 +22,26 @@ export default function Reminders() {
     console.log("click");
   };
 
-  const handleAddReminder = async (e: React.FormEvent<HTMLFormElement>) => {
-    //const router = useRouter();
+  const [formData, setFormData] = useState({
+    date: "",
+    time: "",
+    reminder: "",
+  });
 
+  // const handleInputChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
+
+  const handleAddReminder = async (e: any) => {
     e.preventDefault;
-    const formData = new FormData();
-    formData.append("reminders", addData);
-    await newReminder(formData);
-    //e.currentTarget.reset();
-  };
+    const newFormData = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      newFormData.append(key, value);
+    });
 
-  const onChange = (e: any) => {
-    setAddData(e.target.value);
-    console.log(addData);
+    await newReminder(newFormData);
+    window.location.reload(); // Reload the page
   };
-
   useEffect(() => {
     const fetchNewReminders = async () => {
       const data = await getReminder();
@@ -42,6 +49,10 @@ export default function Reminders() {
     };
     fetchNewReminders();
   }, []);
+
+  const handleSubmit = () => {
+    window.location.reload();
+  };
 
   return (
     <>
@@ -89,7 +100,7 @@ export default function Reminders() {
               name="reminder"
               className="border border-gray-300  p-8 rounded w-full"
               placeholder="Add new reminder..."
-              onChange={onChange}
+              //onChange={onChange}
               //rows={2}
             />
           </div>
@@ -98,6 +109,7 @@ export default function Reminders() {
           <button
             className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7"
             type="submit"
+            onClick={handleSubmit}
           >
             Add reminder
           </button>

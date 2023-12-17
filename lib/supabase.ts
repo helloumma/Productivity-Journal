@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const cookieStore = cookies();
 const supabase = createClient(cookieStore);
@@ -44,8 +45,7 @@ export async function newReminder(formData: FormData) {
   const reminder = formData.get("reminder");
   await supabase
     .from("reminders")
-    .insert({ reminder, userId: (await user)?.id })
-    .select();
+    .insert({ reminder, userId: (await user)?.id });
   revalidatePath("/notes");
 }
 
