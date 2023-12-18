@@ -46,3 +46,11 @@
 - Mood tracker component:
   - Some form of showing analysis of click on different emojis
   - Potentially to be removed from whole thing
+- Handle how user is redirected if not logged in
+- What happens to base page? (currently using /notes)
+- Unit tests
+- Delete other unncessary files that came with bootstrapped supabase/next.js app
+- Header/nav bar component
+  - log in/out button
+  - flip between days in the calendar - have a date picker the user can go to
+  - save icon button to save all the data from different components

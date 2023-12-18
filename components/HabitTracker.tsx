@@ -1,13 +1,39 @@
+"use client";
+
 import { newHabit, getUser, getHabit } from "@/lib/supabase";
+import { useEffect, useState } from "react";
 
-export default async function HabitTracker() {
-  const getUserInfo = await getUser();
-  const habitData = await getHabit();
+/**
+ * TO DO
+ * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
+ * - Program a temp dummy onClick on each item mapped over
+ * - Add an icon form input (not necessary to store as such)
+ * - Type checking
+ */
 
-  if (!getUserInfo) {
-    // Redirect or handle the case where the user is not authenticated
-    return <div>You need to be authenticated to view this page.</div>;
-  }
+export default function HabitTracker() {
+  // const getUserInfo = await getUser();
+  // const habitData = await getHabit();
+
+  // if (!getUserInfo) {
+  //   // Redirect or handle the case where the user is not authenticated
+  //   return <div>You need to be authenticated to view this page.</div>;
+  // }
+
+  const [data, setData] = useState<any>();
+
+  const handleClick = (e: any) => {
+    e.preventDefault;
+    console.log("click");
+  };
+
+  useEffect(() => {
+    const fetchHabits = async () => {
+      const getData = await getHabit();
+      setData(getData);
+    };
+    fetchHabits();
+  }, []);
 
   return (
     <>
@@ -25,10 +51,12 @@ export default async function HabitTracker() {
           Add habit
         </button>
       </form>
-      {habitData?.map((habits) => (
-        <div className="pb-2">
+      {data?.map((habits: { id: number; habit: string }, i: number) => (
+        <div className="pb-2" key={i + 1}>
           <div className="flex justify-between pb-2">
-            <p key={habits.id}>{habits.habit}</p>
+            <p key={habits.id} onClick={handleClick}>
+              {habits.habit}
+            </p>
             <input
               type="checkbox"
               className="form-checkbox h-4 w-4 text-indigo-600"

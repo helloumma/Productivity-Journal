@@ -11,7 +11,7 @@ export default function Reminders() {
   const [newData, setNewData] = useState<any>();
 
   const handleClick = (e: any) => {
-    e.preventDefault();
+    e.preventDefault;
     console.log("click");
   };
 
