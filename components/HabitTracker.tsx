@@ -6,7 +6,6 @@ import { habit } from "@/lib/habitTracker/types";
 /**
  * TO DO
  * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
- * - Program a temp dummy onClick on each item mapped over
  * - Add an icon form input (not necessary to store as such)
  */
 
@@ -34,10 +33,19 @@ export default function HabitTracker() {
     fetchHabits();
   }, []);
 
+  const handleSubmit = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <h1 className="text-2xl font-bold">Habit Tracker</h1>
       <form action={newHabit}>
+        <input
+          name="emoji"
+          className="border border-gray-300  p-2 rounded w-1/6"
+          placeholder="emoji"
+        />
         <input
           name="habit"
           className="border border-gray-300  p-2 rounded w-5/6"
@@ -46,6 +54,7 @@ export default function HabitTracker() {
         <button
           className="border border-gray-300 p-2 ml-2 rounded w-1/7"
           type="submit"
+          onClick={handleSubmit}
         >
           Add habit
         </button>
@@ -55,6 +64,7 @@ export default function HabitTracker() {
           <div className="flex justify-between pb-2">
             <p key={habits.id} onClick={handleClick}>
               {habits.habit}
+              {habits.emoji}
             </p>
             <input
               type="checkbox"

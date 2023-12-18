@@ -61,9 +61,10 @@ export async function getHabit() {
 
 export async function newHabit(formData: FormData) {
   const habit = formData.get("habit");
+  const emoji = formData.get("emoji");
   await supabase
     .from("habitTracker")
-    .insert({ habit, userId: (await user)?.id })
+    .insert({ habit, emoji, userId: (await user)?.id })
     .select();
   revalidatePath("/notes");
 }

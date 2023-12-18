@@ -54,8 +54,8 @@ export default function NewToDo() {
         </button>
       </form>
 
-      {data?.map((todo: ToDo) => (
-        <div className="flex pt-4">
+      {data?.map((todo: ToDo, i: number) => (
+        <div className="flex pt-4" key={i + 1}>
           <div className="flex w-3/4">
             {/*<input
               type="checkbox"
