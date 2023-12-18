@@ -2,12 +2,10 @@
 
 // to do: set up libs folder with a types file
 
-// to do: add new cols to the table for date and time
-
-// POST that data to the table
+// to do: add an onClick to each item - open up a modal and show the data that was mapped over
 
 import { getReminder, newReminder } from "@/lib/supabase";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export default function Reminders() {
   const [newData, setNewData] = useState<any>();
@@ -94,14 +92,14 @@ export default function Reminders() {
         (reminders: {
           id: number;
           reminder: string;
-          date: Date;
-          time: any;
+          date: ReactNode;
+          time: ReactNode;
         }) => (
-          <p key={reminders.id} onClick={handleClick}>
-            {reminders?.reminder}
-            {reminders?.date}
-            {reminders?.time}
-          </p>
+          <div key={reminders.id} onClick={handleClick}>
+            <p>reminder: {reminders?.reminder}</p>
+            <p>date: {reminders?.date}</p>
+            <p>time: {reminders?.time}</p>
+          </div>
         )
       )}
     </>
