@@ -2,13 +2,12 @@
 
 import { newHabit, getUser, getHabit } from "@/lib/supabase";
 import { useEffect, useState } from "react";
-
+import { habit } from "@/lib/habitTracker/types";
 /**
  * TO DO
  * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
  * - Program a temp dummy onClick on each item mapped over
  * - Add an icon form input (not necessary to store as such)
- * - Type checking
  */
 
 export default function HabitTracker() {
@@ -51,7 +50,7 @@ export default function HabitTracker() {
           Add habit
         </button>
       </form>
-      {data?.map((habits: { id: number; habit: string }, i: number) => (
+      {data?.map((habits: habit, i: number) => (
         <div className="pb-2" key={i + 1}>
           <div className="flex justify-between pb-2">
             <p key={habits.id} onClick={handleClick}>

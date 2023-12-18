@@ -4,13 +4,9 @@ import { newToDo, getUser, getToDo } from "@/lib/supabase";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import { useEffect, useState } from "react";
-
+import { ToDo } from "@/lib/toDo/types";
 /**
  * TO DO
- * - Change to client component
- * - Program data fetch and form like reminders component
- * - Program a temp dummy onClick on each item mapped over
- * - Type checking
  * - Edit functionality
  * - Delete functionality
  * - Showing data from the list on the schedule component
@@ -58,7 +54,7 @@ export default function NewToDo() {
         </button>
       </form>
 
-      {data?.map((todo: { id: number; title: string }) => (
+      {data?.map((todo: ToDo) => (
         <div className="flex pt-4">
           <div className="flex w-3/4">
             {/*<input

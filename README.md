@@ -27,7 +27,6 @@
 
 - Validation on all fields in forms
 - Type checking for all four components
-- Transform habit tracker and to do components to use both server and client
 - onClick events to add modals within components
 - To Do component:
   - Program a modal to add "to dos" to the list (with the ability to add a date/time)

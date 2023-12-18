@@ -1,11 +1,10 @@
 "use client";
 
-// to do: set up libs folder with a types file
-
 // to do: add an onClick to each item - open up a modal and show the data that was mapped over
 
 import { getReminder, newReminder } from "@/lib/supabase";
 import { ReactNode, useEffect, useState } from "react";
+import { reminders } from "@/lib/reminders/types";
 
 export default function Reminders() {
   const [newData, setNewData] = useState<any>();
@@ -88,20 +87,13 @@ export default function Reminders() {
           </button>
         </div>
       </form>
-      {newData?.map(
-        (reminders: {
-          id: number;
-          reminder: string;
-          date: ReactNode;
-          time: ReactNode;
-        }) => (
-          <div key={reminders.id} onClick={handleClick}>
-            <p>reminder: {reminders?.reminder}</p>
-            <p>date: {reminders?.date}</p>
-            <p>time: {reminders?.time}</p>
-          </div>
-        )
-      )}
+      {newData?.map((reminders: reminders) => (
+        <div key={reminders.id} onClick={handleClick}>
+          <p>reminder: {reminders?.reminder}</p>
+          <p>date: {reminders?.date}</p>
+          <p>time: {reminders?.time}</p>
+        </div>
+      ))}
     </>
   );
 }
