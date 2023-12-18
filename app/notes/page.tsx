@@ -3,37 +3,34 @@ import NewToDo from "@/components/NewToDo";
 import Reminders from "@/components/Reminders";
 import Schedule from "@/components/Schedule";
 import MoodTracker from "@/components/MoodTracker";
-/**
- * TO DO [styling]
- * - Add a reusable 'add/plus' button for each bit (for the onClick to modal)
- * - Within each component style it as it should look once the user has added an item
- * - Create an 'edit' icon button (for onClick to modal)
- */
+import { getToDo } from "@/lib/supabase";
 
 /**
- * TO Do [functionality]
- * - Program an onClick on the add button to a modal (within the components - do one, all the others are the same)
- * - Program onClick for 'edit' icon to a modal
- * - Ensure the modal can be closed once opened
+ * TO DO
+ * - Move all data handling to be HERE and then send things like new Habit, getReminders from this component
  */
+
+//     box-shadow: 13px 12px 2px 1px rgba(0, 0, 255, .2);
 
 export default function Page() {
   return (
-    <div className="flex flex-wrap p-4">
-      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
-        <Schedule />
-      </div>
-      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
-        <NewToDo />
-      </div>
-      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
-        <HabitTracker />
-      </div>
-      <div className="w-1/2 p-4 shadow-xl rounded border-slate-600 border">
-        <Reminders />
-      </div>
-      <div className="w-full p-4 shadow-xl rounded border-slate-600 border">
-        <MoodTracker />
+    <div className=" p-4">
+      <div className="flex flex-wrap shadow-custom">
+        <div className="w-1/2 p-4  border-slate-600 border">
+          <Schedule />
+        </div>
+        <div className="w-1/2 p-4  border-slate-600 border">
+          <NewToDo />
+        </div>
+        <div className="w-1/2 p-4  border-slate-600 border">
+          <HabitTracker />
+        </div>
+        <div className="w-1/2 p-4  border-slate-600 border">
+          <Reminders />
+        </div>
+        <div className="w-full p-4  border-slate-600 border">
+          <MoodTracker />
+        </div>
       </div>
     </div>
   );

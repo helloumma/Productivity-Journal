@@ -6,6 +6,13 @@ import { getReminder, newReminder } from "@/lib/supabase";
 import { ReactNode, useEffect, useState } from "react";
 import { reminders } from "@/lib/reminders/types";
 
+/**
+ * TO DO
+ * - Render each reminder as card/rectangle and have three dot icon on top right
+ * - Use this icon to edit or remove the render item in the map
+ * Functionality to un-render reminders that have timed out (or something similar feature wise)
+ */
+
 export default function Reminders() {
   const [newData, setNewData] = useState<any>();
 

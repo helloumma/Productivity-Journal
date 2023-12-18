@@ -5,12 +5,14 @@ import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import { useEffect, useState } from "react";
 import { ToDo } from "@/lib/toDo/types";
+import "../styles/styles.css";
 /**
  * TO DO
  * - Edit functionality
  * - Delete functionality
  * - Showing data from the list on the schedule component
  * - Reminder: add edit and delete icons back in with functionality
+ * - Add inputs for date and time (this will be moved to the modal)
  */
 
 export default function NewToDo() {
@@ -37,6 +39,10 @@ export default function NewToDo() {
     fetchList();
   }, []);
 
+  const handleSubmit = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <h1 className="text-2xl font-bold">To Do</h1>
@@ -49,6 +55,7 @@ export default function NewToDo() {
         <button
           className="border border-gray-300 p-2 ml-2 rounded w-1/7"
           type="submit"
+          onClick={handleSubmit}
         >
           Add task
         </button>
@@ -61,7 +68,14 @@ export default function NewToDo() {
               type="checkbox"
               className="form-checkbox h-4 w-4 text-indigo-600"
       />*/}
-            <ul key={todo.id} className="ml-4 list-disc">
+            <ul key={todo.id} className="ml-4 flex">
+              <input
+                type="checkbox"
+                className="checkbox appearance-none h-6 w-6 border border-gray-300 
+                rounded-full bg-white checked:bg-blue-600 checked:border-transparent 
+                focus:outline-none mr-2 cursor-pointer"
+                style={{ borderRadius: "50%" }}
+              />
               <li onClick={handleClick}>{todo.title}</li>
             </ul>
           </div>

@@ -6,7 +6,14 @@ import { habit } from "@/lib/habitTracker/types";
 /**
  * TO DO
  * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
- * - Add an icon form input (not necessary to store as such)
+ * - Find out if an emoji picker is a thing
+ * - Replace the green bars with a toggle instead(?)
+ */
+
+/**
+ * TO DO [STYLING]
+ * - Create a grid for emoji, habit and toggle
+ * - Add some dummy small chart dials
  */
 
 export default function HabitTracker() {
