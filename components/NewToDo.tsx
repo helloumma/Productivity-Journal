@@ -52,7 +52,7 @@ export default function NewToDo() {
       <form action={newToDo}>
         <input
           name="title"
-          className="border border-gray-300  p-2 rounded w-2/3"
+          className="border border-gray-300 p-2 rounded w-2/3"
           placeholder="Add new task..."
         />
         <button
@@ -65,13 +65,9 @@ export default function NewToDo() {
       </form>
 
       {data?.map((todo: ToDo, i: number) => (
-        <div className="flex bg-purple-100 m-2 p-4" key={i + 1}>
-          <div className="flex w-3/4">
-            {/*<input
-              type="checkbox"
-              className="form-checkbox h-4 w-4 text-indigo-600"
-      />*/}
-            <ul key={todo.id} className="ml-4 flex">
+        <div className=" bg-indigo-100 m-2 p-4" key={i + 1}>
+          <ul key={todo.id} className="ml-4 flex justify-between">
+            <div className="flex ">
               <input
                 type="checkbox"
                 className="checkbox appearance-none h-6 w-6 border border-gray-300 
@@ -80,8 +76,25 @@ export default function NewToDo() {
                 style={{ borderRadius: "50%" }}
               />
               <li onClick={handleClick}>{todo.title}</li>
-            </ul>
-          </div>
+            </div>
+            <div>
+              <svg
+                className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 4 16"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+                />
+              </svg>
+            </div>
+          </ul>
+
           {/* <div className="flex w-1/4">
             <EditButton />
             <DeleteButton />
