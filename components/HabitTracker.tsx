@@ -3,6 +3,7 @@
 import { newHabit, getUser, getHabit } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import { habit } from "@/lib/habitTracker/types";
+import Toggle from "./Toggle";
 /**
  * TO DO
  * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
@@ -68,41 +69,48 @@ export default function HabitTracker() {
       </form>
       {data?.map((habits: habit, i: number) => (
         <div className="pb-2" key={i + 1}>
-          <div className="flex justify-between pb-2">
-            <p key={habits.id} onClick={handleClick}>
-              {habits.habit}
-              {habits.emoji}
-            </p>
-            <input
+          <div
+            className="flex justify-between p-4 bg-green-200"
+            key={habits.id}
+          >
+            <div className="flex">
+              <p>{habits.emoji}</p>
+              <p onClick={handleClick}>{habits.habit}</p>
+            </div>
+
+            {/* <input
               type="checkbox"
               className="form-checkbox h-4 w-4 text-indigo-600"
-            />
+            /> */}
+            <div className="flex">
+              <Toggle />
+              <svg
+                className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 4 16"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+                />
+              </svg>
+            </div>
           </div>
 
-          <div className="h-2 w-full bg-gray-200 rounded-full">
+          {/* <div className="h-2 w-full bg-gray-200 rounded-full">
             <div
               className="h-full bg-green-500 rounded-full"
               style={{
                 width: "75%",
               }}
             />
-          </div>
+          </div> */}
         </div>
       ))}
-      <svg
-        className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 4 16"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-width="2"
-          d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
-        />
-      </svg>
     </>
   );
 }
