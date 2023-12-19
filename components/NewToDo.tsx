@@ -26,7 +26,9 @@ export default function NewToDo() {
   // }
 
   const [data, setData] = useState<any>();
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [dropdownStates, setDropdownStates] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const handleClick = (e: any) => {
     e.preventDefault;
@@ -44,7 +46,12 @@ export default function NewToDo() {
   const handleSubmit = () => {
     window.location.reload();
   };
-
+  const handleDropdownToggle = (todoId: string) => {
+    setDropdownStates((prevStates) => ({
+      ...prevStates,
+      [todoId]: !prevStates[todoId],
+    }));
+  };
   return (
     <>
       <div>
@@ -80,11 +87,7 @@ export default function NewToDo() {
               <li onClick={handleClick}>{todo.title}</li>
             </div>
             <div>
-              <button
-                onClick={() =>
-                  showDropdown ? setShowDropdown(false) : setShowDropdown(true)
-                }
-              >
+              <button onClick={() => handleDropdownToggle(todo.id as string)}>
                 <svg
                   className="w-[24px] h-[24px] text-gray-800 dark:text-white"
                   aria-hidden="true"
@@ -100,7 +103,7 @@ export default function NewToDo() {
                   />
                 </svg>
               </button>
-              {showDropdown ? <DropdownMenu /> : "not working"}
+              {dropdownStates[todo.id] && <DropdownMenu />}
             </div>
           </ul>
 
