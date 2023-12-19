@@ -46,6 +46,7 @@ export default function NewToDo() {
   const handleSubmit = () => {
     window.location.reload();
   };
+
   const handleDropdownToggle = (todoId: string) => {
     setDropdownStates((prevStates) => ({
       ...prevStates,

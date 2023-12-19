@@ -1,8 +1,11 @@
-export default function DropdownMenu() {
+export default function DropdownMenu({ reminders }: any) {
   return (
     <div
-      className=" w-1/12 absolute right-16 z-10 mt-0  origin-top-right
-       rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+      className={
+        reminders
+          ? `w-1/12 absolute -ml-10 right-21 z-10 mt-32  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`
+          : `w-1/12 absolute right-16 z-10 mt-0  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`
+      }
       role="menu"
       aria-orientation="vertical"
       aria-labelledby="menu-button"

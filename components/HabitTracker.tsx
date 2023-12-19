@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { habit } from "@/lib/habitTracker/types";
 import Toggle from "./Toggle";
 import CircleDial from "./CircleDial";
+import DropdownMenu from "./DropdownMenu";
 /**
  * TO DO
  * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
@@ -28,6 +29,9 @@ export default function HabitTracker() {
   // }
 
   const [data, setData] = useState<any>();
+  const [dropdownStates, setDropdownStates] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const handleClick = (e: any) => {
     e.preventDefault;
@@ -44,6 +48,13 @@ export default function HabitTracker() {
 
   const handleSubmit = () => {
     window.location.reload();
+  };
+
+  const handleDropdownToggle = (todoId: string) => {
+    setDropdownStates((prevStates) => ({
+      ...prevStates,
+      [todoId]: !prevStates[todoId],
+    }));
   };
 
   return (
@@ -87,20 +98,23 @@ export default function HabitTracker() {
             /> */}
             <div className="flex items-center">
               <Toggle />
-              <svg
-                className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 4 16"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
-                />
-              </svg>
+              <button onClick={() => handleDropdownToggle(habits.id as string)}>
+                <svg
+                  className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 4 16"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="2"
+                    d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+                  />
+                </svg>
+              </button>
+              {dropdownStates[habits.id] && <DropdownMenu reminders={true} />}
             </div>
           </div>
 

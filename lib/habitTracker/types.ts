@@ -1,5 +1,5 @@
 export type habit = {
-  id: number;
+  id: number | string;
   habit: string;
   emoji: any;
 };
