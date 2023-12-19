@@ -4,6 +4,7 @@ import Reminders from "@/components/Reminders";
 import Schedule from "@/components/Schedule";
 import MoodTracker from "@/components/MoodTracker";
 import { getToDo } from "@/lib/supabase";
+import NotesHeader from "@/components/NotesHeader";
 
 /**
  * TO DO
@@ -16,6 +17,9 @@ export default function Page() {
   return (
     <div className=" p-4">
       <div className="flex flex-wrap shadow-custom">
+        <div className="w-full p-4  border-slate-600 border">
+          <NotesHeader />
+        </div>
         <div className="w-1/2 p-4  border-slate-600 border">
           <Schedule />
         </div>

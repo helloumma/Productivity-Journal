@@ -45,7 +45,10 @@ export default function NewToDo() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold">To Do</h1>
+      <div>
+        <h1 className="text-2xl font-bold">To Do</h1>
+      </div>
+
       <form action={newToDo}>
         <input
           name="title"
@@ -62,7 +65,7 @@ export default function NewToDo() {
       </form>
 
       {data?.map((todo: ToDo, i: number) => (
-        <div className="flex pt-4" key={i + 1}>
+        <div className="flex bg-purple-100 m-2 p-4" key={i + 1}>
           <div className="flex w-3/4">
             {/*<input
               type="checkbox"

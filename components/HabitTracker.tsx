@@ -89,6 +89,20 @@ export default function HabitTracker() {
           </div>
         </div>
       ))}
+      <svg
+        className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 4 16"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-width="2"
+          d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+        />
+      </svg>
     </>
   );
 }
