@@ -4,6 +4,7 @@ import { newHabit, getUser, getHabit } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import { habit } from "@/lib/habitTracker/types";
 import Toggle from "./Toggle";
+import CircleDial from "./CircleDial";
 /**
  * TO DO
  * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
@@ -73,16 +74,18 @@ export default function HabitTracker() {
             className="flex justify-between p-4 bg-green-200"
             key={habits.id}
           >
-            <div className="flex">
-              <p>{habits.emoji}</p>
-              <p onClick={handleClick}>{habits.habit}</p>
+            <div className="flex items-center">
+              <div className="p-4">{habits.emoji}</div>
+              <p className="text-xl font-bold ml-2" onClick={handleClick}>
+                {habits.habit}
+              </p>
             </div>
 
             {/* <input
               type="checkbox"
               className="form-checkbox h-4 w-4 text-indigo-600"
             /> */}
-            <div className="flex">
+            <div className="flex items-center">
               <Toggle />
               <svg
                 className="w-[24px] h-[24px] text-gray-800 dark:text-white"
@@ -111,6 +114,12 @@ export default function HabitTracker() {
           </div> */}
         </div>
       ))}
+      <div className="flex">
+        <CircleDial percentage={75} title={"🎄 test"} />
+        <CircleDial percentage={50} title={"🫠 another test"} />
+        <CircleDial percentage={95} title={"🎄 test"} />
+        <CircleDial percentage={35} title={"🫠 another test"} />
+      </div>
     </>
   );
 }
