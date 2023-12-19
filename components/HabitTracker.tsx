@@ -69,7 +69,7 @@ export default function HabitTracker() {
         </button>
       </form>
       {data?.map((habits: habit, i: number) => (
-        <div className="pb-2" key={i + 1}>
+        <div className="pb-3" key={i + 1}>
           <div
             className="flex justify-between p-4 bg-green-200"
             key={habits.id}

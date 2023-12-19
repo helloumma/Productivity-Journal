@@ -95,10 +95,16 @@ export default function Reminders() {
         </div>
       </form>
       {newData?.map((reminders: reminders) => (
-        <div key={reminders.id} onClick={handleClick}>
-          <p>reminder: {reminders?.reminder}</p>
-          <p>date: {reminders?.date}</p>
-          <p>time: {reminders?.time}</p>
+        <div
+          key={reminders.id}
+          onClick={handleClick}
+          className="bg-gray-300 p-4 mb-4"
+        >
+          <h1 className="text-xl font-bold">{reminders?.reminder}</h1>
+          <div className="flex text-gray-400">
+            <p className="text-sm gray-200">{reminders?.date}</p>
+            <p className="text-sm ml-4">{reminders?.time}</p>
+          </div>
         </div>
       ))}
     </>

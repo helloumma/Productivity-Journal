@@ -2,7 +2,7 @@ import AuthButton from "./AuthButton";
 
 export default function NotesHeader() {
   return (
-    <div className="flex justify-between align-center">
+    <div className="flex justify-between items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="21"
