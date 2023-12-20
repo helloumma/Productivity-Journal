@@ -20,16 +20,16 @@ export default function Page() {
         <div className="w-full p-4  border-slate-600 border">
           <NotesHeader />
         </div>
-        <div className="w-1/2 p-4  border-slate-600 border">
+        <div className="w-1/2 border-slate-600 border">
           <Schedule />
         </div>
-        <div className="w-1/2 p-4  border-slate-600 border">
+        <div className="w-1/2 border-slate-600 border">
           <NewToDo />
         </div>
-        <div className="w-1/2 p-4  border-slate-600 border">
+        <div className="w-1/2 border-slate-600 border">
           <HabitTracker />
         </div>
-        <div className="w-1/2 p-4  border-slate-600 border">
+        <div className="w-1/2 border-slate-600 border">
           <Reminders />
         </div>
         <div className="w-full p-4  border-slate-600 border">

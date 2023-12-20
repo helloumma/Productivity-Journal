@@ -20,7 +20,9 @@ export default async function Schedule() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold">Schedule</h1>
+      <div className="border-b-4 border-gray-500 border-double">
+        <h1 className="text-2xl font-bold p-2">Schedule</h1>
+      </div>
 
       {/*<form action={newSchedule}>
         <input

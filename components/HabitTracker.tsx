@@ -59,14 +59,14 @@ export default function HabitTracker() {
 
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-500">
-        <h1 className="text-2xl font-bold">Habit Tracker</h1>
+      <div className="flex items-center justify-between border-b-4 border-gray-500 border-double">
+        <h1 className="text-2xl font-bold p-2">Habit Tracker</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
           fill="currentColor"
-          className="bi bi-plus-circle-fill"
+          className="bi bi-plus-circle-fill mr-8"
           viewBox="0 0 16 16"
         >
           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
@@ -93,7 +93,7 @@ export default function HabitTracker() {
         </button>
       </form>
       {data?.map((habits: habit, i: number) => (
-        <div className="pb-3" key={i + 1}>
+        <div className="pb-3 p-4" key={i + 1}>
           <div
             className="flex justify-between p-4 bg-green-200 dark:bg-green-700"
             key={habits.id}
