@@ -57,12 +57,12 @@ export default function NewToDo() {
 
   const [showModal, setShowModal] = useState(false);
 
-  const toggleModal = () => setShowModal(!showModal);
+  const toggleModal = () => setShowModal(false);
   return (
     <>
       <div className="flex items-center border-b-4 border-gray-500 border-double justify-between">
         <h1 className="text-2xl font-bold p-2 ">To Do</h1>
-        <button onClick={toggleModal}>
+        <button onClick={() => setShowModal(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -77,7 +77,7 @@ export default function NewToDo() {
         </button>
       </div>
 
-      <form action={newToDo}>
+      {/* <form action={newToDo}>
         <input
           name="title"
           className="border border-gray-300 p-2 rounded w-2/3"
@@ -90,11 +90,24 @@ export default function NewToDo() {
         >
           Add task
         </button>
-      </form>
+      </form> */}
 
       <Modal show={showModal} onClose={toggleModal}>
         <h1 className="text-lg font-bold">Modal Title</h1>
-        <p>This is a modal component with TailwindCSS.</p>
+        <form action={newToDo}>
+          <input
+            name="title"
+            className="border border-gray-300 p-2 rounded w-2/3"
+            placeholder="Add new task..."
+          />
+          <button
+            className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Add task
+          </button>
+        </form>
       </Modal>
 
       {data?.map((todo: ToDo, i: number) => (
