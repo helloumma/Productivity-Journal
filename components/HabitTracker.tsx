@@ -6,6 +6,7 @@ import { habit } from "@/lib/habitTracker/types";
 import Toggle from "./Toggle";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
+import Modal from "./Modal";
 /**
  * TO DO
  * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
@@ -29,6 +30,7 @@ export default function HabitTracker() {
   // }
 
   const [data, setData] = useState<any>();
+  const [showModal, setShowModal] = useState(false);
   const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
   }>({});
@@ -57,41 +59,48 @@ export default function HabitTracker() {
     }));
   };
 
+  const toggleModal = () => setShowModal(false);
+
   return (
     <>
       <div className="flex items-center justify-between border-b-4 border-gray-500 border-double">
         <h1 className="text-2xl font-bold p-2">Habit Tracker</h1>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          className="bi bi-plus-circle-fill mr-8"
-          viewBox="0 0 16 16"
-        >
-          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-        </svg>
-      </div>
-      <hr />
-      <form action={newHabit}>
-        <input
-          name="emoji"
-          className="border border-gray-300  p-2 rounded w-1/6"
-          placeholder="emoji"
-        />
-        <input
-          name="habit"
-          className="border border-gray-300  p-2 rounded w-5/6"
-          placeholder="Add new habit..."
-        />
-        <button
-          className="border border-gray-300 p-2 ml-2 rounded w-1/7"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Add habit
+        <button onClick={() => setShowModal(true)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-plus-circle-fill mr-8"
+            viewBox="0 0 16 16"
+          >
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+          </svg>
         </button>
-      </form>
+      </div>
+
+      <Modal show={showModal} onClose={toggleModal}>
+        <form action={newHabit}>
+          <input
+            name="emoji"
+            className="border border-gray-300  p-2 rounded w-1/6"
+            placeholder="emoji"
+          />
+          <input
+            name="habit"
+            className="border border-gray-300  p-2 rounded w-5/6"
+            placeholder="Add new habit..."
+          />
+          <button
+            className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Add habit
+          </button>
+        </form>
+      </Modal>
+
       {data?.map((habits: habit, i: number) => (
         <div className="pb-3 p-4" key={i + 1}>
           <div
