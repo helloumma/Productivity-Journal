@@ -1,6 +1,6 @@
 "use client";
 
-import { newToDo, getUser, getToDo } from "@/lib/supabase";
+import { newToDo, getUser, getToDo } from "@/actions/supabase";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import { useEffect, useState } from "react";

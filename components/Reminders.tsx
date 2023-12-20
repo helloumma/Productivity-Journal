@@ -2,7 +2,7 @@
 
 // to do: add an onClick to each item - open up a modal and show the data that was mapped over
 
-import { getReminder, newReminder } from "@/lib/supabase";
+import { getReminder, newReminder } from "@/actions/supabase";
 import { ReactNode, useEffect, useState } from "react";
 import { reminders } from "@/lib/reminders/types";
 

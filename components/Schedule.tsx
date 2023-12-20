@@ -6,7 +6,7 @@
  * -
  */
 
-import { newSchedule, getUser, getSchedule } from "@/lib/supabase";
+import { newSchedule, getUser, getSchedule } from "@/actions/supabase";
 import AddButton from "./AddButton";
 
 export default async function Schedule() {

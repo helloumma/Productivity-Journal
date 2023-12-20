@@ -1,6 +1,6 @@
 "use client";
 
-import { newHabit, getUser, getHabit } from "@/lib/supabase";
+import { newHabit, getUser, getHabit } from "@/actions/supabase";
 import { useEffect, useState } from "react";
 import { habit } from "@/lib/habitTracker/types";
 import Toggle from "./Toggle";

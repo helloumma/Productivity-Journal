@@ -3,7 +3,7 @@ import NewToDo from "@/components/NewToDo";
 import Reminders from "@/components/Reminders";
 import Schedule from "@/components/Schedule";
 import MoodTracker from "@/components/MoodTracker";
-import { getToDo } from "@/lib/supabase";
+import { getToDo } from "@/actions/supabase";
 import NotesHeader from "@/components/NotesHeader";
 
 /**
