@@ -5,6 +5,7 @@
 import { getReminder, newReminder } from "@/actions/supabase";
 import { ReactNode, useEffect, useState } from "react";
 import { reminders } from "@/lib/reminders/types";
+import Modal from "./Modal";
 
 /**
  * TO DO
@@ -15,6 +16,7 @@ import { reminders } from "@/lib/reminders/types";
 
 export default function Reminders() {
   const [newData, setNewData] = useState<any>();
+  const [showModal, setShowModal] = useState(false);
 
   const handleClick = (e: any) => {
     e.preventDefault;
@@ -33,80 +35,86 @@ export default function Reminders() {
     window.location.reload();
   };
 
+  const toggleModal = () => setShowModal(false);
+
   return (
     <>
       <div className="flex items-center justify-between border-b-4 border-gray-500 border-double">
         <h1 className="text-2xl font-bold p-2">Reminders</h1>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          className="bi bi-plus-circle-fill mr-8"
-          viewBox="0 0 16 16"
-        >
-          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-        </svg>
+        <button onClick={() => setShowModal(true)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-plus-circle-fill mr-8"
+            viewBox="0 0 16 16"
+          >
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+          </svg>
+        </button>
       </div>
 
-      <form action={newReminder}>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid grid-rows-2 gap-4">
-            <div className="flex p-1 items-center">
-              <div className="space-y-1 ">
-                <label
-                  className="text-sm font-medium leading-none"
-                  htmlFor="date"
-                >
-                  Date
-                </label>
+      <Modal show={showModal} onClose={toggleModal}>
+        <form action={newReminder}>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-rows-2 gap-4">
+              <div className="flex p-1 items-center">
+                <div className="space-y-1 ">
+                  <label
+                    className="text-sm font-medium leading-none"
+                    htmlFor="date"
+                  >
+                    Date
+                  </label>
+                </div>
+                <input
+                  name="date"
+                  className="border p-2 rounded w-full"
+                  placeholder="Select date"
+                  type="date"
+                />
               </div>
-              <input
-                name="date"
-                className="border p-2 rounded w-full"
-                placeholder="Select date"
-                type="date"
-              />
-            </div>
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none"
-                  htmlFor="date"
-                >
-                  Time
-                </label>
-              </div>
+              <div className="flex p-1 items-center">
+                <div className="space-y-1">
+                  <label
+                    className="text-sm font-medium leading-none"
+                    htmlFor="date"
+                  >
+                    Time
+                  </label>
+                </div>
 
-              <input
-                name="time"
-                className="border p-2 rounded w-full"
-                placeholder="Select time"
-                type="time"
+                <input
+                  name="time"
+                  className="border p-2 rounded w-full"
+                  placeholder="Select time"
+                  type="time"
+                />
+              </div>
+            </div>
+
+            <div className="flex ">
+              <textarea
+                name="reminder"
+                className="border border-gray-300  p-8 rounded w-full"
+                placeholder="Add new reminder..."
+                //onChange={onChange}
+                //rows={2}
               />
             </div>
           </div>
-
-          <div className="flex ">
-            <textarea
-              name="reminder"
-              className="border border-gray-300  p-8 rounded w-full"
-              placeholder="Add new reminder..."
-              //onChange={onChange}
-              //rows={2}
-            />
+          <div className="flex mt-2 justify-center">
+            <button
+              className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Add reminder
+            </button>
           </div>
-        </div>
-        <div className="flex mt-2 justify-center">
-          <button
-            className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Add reminder
-          </button>
-        </div>
-      </form>
+        </form>
+      </Modal>
       <div className="p-4">
         {newData?.map((reminders: reminders) => (
           <div className="flex bg-gray-300 p-4 mb-4 justify-between items-center">

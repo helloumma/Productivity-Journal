@@ -27,6 +27,7 @@ export default function NewToDo() {
   // }
 
   const [data, setData] = useState<any>();
+  const [showModal, setShowModal] = useState(false);
   const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
   }>({});
@@ -54,8 +55,6 @@ export default function NewToDo() {
       [todoId]: !prevStates[todoId],
     }));
   };
-
-  const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => setShowModal(false);
   return (
