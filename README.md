@@ -54,4 +54,5 @@
   - flip between days in the calendar - have a date picker the user can go to
   - save icon button to save all the data from different components
 - Centralise all data to be coming from the index page/think about state management
+- Make all state go from the top, so setting data and showing/hiding the modal (all the same in all components)
 - Must change the onSubmit - window location isn't a good fix (do more research on validatePath when it comes to server side)
