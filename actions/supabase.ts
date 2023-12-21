@@ -3,7 +3,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 const cookieStore = cookies();
 const supabase = createClient(cookieStore);
@@ -31,6 +30,12 @@ export async function newToDo(formData: FormData) {
     .insert({ title, userId: (await user)?.id })
     .select();
   revalidatePath("/notes");
+}
+
+export async function deleteToDo(id: any) {
+  const { error } = await supabase.from("todo").delete().match({ id });
+
+  return error;
 }
 
 export async function getReminder() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { newToDo, getUser, getToDo } from "@/actions/supabase";
+import { newToDo, getUser, getToDo, deleteToDo } from "@/actions/supabase";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import { useEffect, useState } from "react";
@@ -139,7 +139,9 @@ export default function NewToDo() {
                   />
                 </svg>
               </button>
-              {dropdownStates[todo.id] && <DropdownMenu />}
+              {dropdownStates[todo.id] && (
+                <DropdownMenu deleteItem={() => deleteToDo(todo.id)} />
+              )}
             </div>
           </ul>
 

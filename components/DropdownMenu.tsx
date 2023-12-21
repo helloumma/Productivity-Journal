@@ -1,4 +1,4 @@
-export default function DropdownMenu({ reminders }: any) {
+export default function DropdownMenu({ reminders, deleteItem }: any) {
   return (
     <div
       className={
@@ -28,6 +28,7 @@ export default function DropdownMenu({ reminders }: any) {
           role="menuitem"
           tabIndex={-1}
           id="menu-item-1"
+          onClick={deleteItem}
         >
           Delete
         </a>
