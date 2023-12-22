@@ -37,6 +37,13 @@ export async function deleteToDo(id: string) {
   revalidatePath("/notes");
 }
 
+// to do
+export async function editToDo(id: string, formData: FormData) {
+  const title = formData.get("title");
+  await supabase.from("todos").update({ title }).eq("id", id).select();
+  revalidatePath("/notes");
+}
+
 export async function getReminder() {
   const { data: reminder } = await supabase
     .from("reminders")

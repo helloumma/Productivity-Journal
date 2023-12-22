@@ -155,7 +155,7 @@ export default function NewToDo() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
+                    strokeLinecap="round"
                     stroke-width="2"
                     d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
                   />
