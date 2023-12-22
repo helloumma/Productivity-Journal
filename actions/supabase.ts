@@ -32,10 +32,10 @@ export async function newToDo(formData: FormData) {
   revalidatePath("/notes");
 }
 
-export async function deleteToDo(id: any) {
-  const { error } = await supabase.from("todo").delete().match({ id });
+export async function deleteToDo(id: string) {
+  await supabase.from("todo").delete().eq("id", id);
 
-  return error;
+  revalidatePath("/notes");
 }
 
 export async function getReminder() {

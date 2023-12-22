@@ -73,14 +73,13 @@ export default function HabitTracker() {
 
         <button onClick={() => setShowModal(true)}>
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            viewBox="0 0 24 24"
             fill="currentColor"
-            className="bi bi-plus-circle-fill mr-8"
-            viewBox="0 0 16 16"
+            height="1.5em"
+            width="1.5em"
+            className="mr-8"
           >
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+            <path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z" />
           </svg>
         </button>
       </div>

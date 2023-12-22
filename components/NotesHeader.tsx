@@ -31,6 +31,14 @@ export default function NotesHeader() {
         <path d="M12 1a1 1 0 011 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 011-1h8zM4 0a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V2a2 2 0 00-2-2H4z" />
         <path d="M8 10a3 3 0 100-6 3 3 0 000 6z" />
       </svg>
+      <svg viewBox="0 0 24 24" fill="currentColor" height="1em" width="1em">
+        <path fill="none" d="M0 0h24v24H0z" />
+        <path d="M20 22H4v-2a5 5 0 015-5h6a5 5 0 015 5v2zm-8-9a6 6 0 110-12 6 6 0 010 12z" />
+      </svg>
+      <svg viewBox="0 0 24 24" fill="currentColor" height="1em" width="1em">
+        <path fill="none" d="M0 0h24v24H0z" />
+        <path d="M20 22h-2v-2a3 3 0 00-3-3H9a3 3 0 00-3 3v2H4v-2a5 5 0 015-5h6a5 5 0 015 5v2zm-8-9a6 6 0 110-12 6 6 0 010 12zm0-2a4 4 0 100-8 4 4 0 000 8z" />
+      </svg>
       <AuthButton />
       <svg fill="none" viewBox="0 0 24 24" height="1em" width="1em">
         <path
