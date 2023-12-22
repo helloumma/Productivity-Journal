@@ -142,9 +142,12 @@ export default function Reminders() {
       </Modal>
       <div className="p-4">
         {newData?.map((reminders: reminders) => (
-          <div className="flex bg-gray-300 p-4 mb-4 justify-between items-center">
+          <div
+            className="flex bg-gray-300 p-4 mb-4 justify-between items-center"
+            key={reminders.id}
+          >
             <div>
-              <div key={reminders.id} onClick={handleClick}>
+              <div onClick={handleClick}>
                 <h1 className="text-xl font-bold">{reminders?.reminder}</h1>
                 <div className="flex text-gray-400">
                   <p className="text-sm gray-200">{reminders?.date}</p>
