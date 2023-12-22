@@ -1,6 +1,6 @@
 "use client";
 
-import { newHabit, getUser, getHabit } from "@/actions/supabase";
+import { newHabit, getUser, getHabit, deleteHabit } from "@/actions/supabase";
 import { useEffect, useState } from "react";
 import { habit } from "@/lib/habitTracker/types";
 import Toggle from "./Toggle";
@@ -60,6 +60,21 @@ export default function HabitTracker() {
   };
 
   const toggleModal = () => setShowModal(false);
+
+  const handleDelete = async (id: string) => {
+    // to do: refresh router path thing
+    await deleteHabit(id);
+
+    // if (success) {
+    //   // Remove the item from the state
+    //   setData(data.filter((item: ToDo) => item.id !== id));
+    // } else {
+    //   // Handle the error case
+    //   console.error("Failed to delete the item.");
+    // }
+
+    window.location.reload();
+  };
 
   return (
     <>
@@ -141,7 +156,12 @@ export default function HabitTracker() {
                   />
                 </svg>
               </button>
-              {dropdownStates[habits.id] && <DropdownMenu reminders={true} />}
+              {dropdownStates[habits.id] && (
+                <DropdownMenu
+                  reminders={true}
+                  deleteItem={() => handleDelete(habits.id as string)}
+                />
+              )}
             </div>
           </div>
 

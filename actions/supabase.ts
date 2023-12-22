@@ -34,7 +34,6 @@ export async function newToDo(formData: FormData) {
 
 export async function deleteToDo(id: string) {
   await supabase.from("todo").delete().eq("id", id);
-
   revalidatePath("/notes");
 }
 
@@ -56,6 +55,11 @@ export async function newReminder(formData: FormData) {
   revalidatePath("/notes");
 }
 
+export async function deleteReminder(id: string) {
+  await supabase.from("reminders").delete().eq("id", id);
+  revalidatePath("/notes");
+}
+
 export async function getHabit() {
   const { data: habit } = await supabase
     .from("habitTracker")
@@ -71,6 +75,11 @@ export async function newHabit(formData: FormData) {
     .from("habitTracker")
     .insert({ habit, emoji, userId: (await user)?.id })
     .select();
+  revalidatePath("/notes");
+}
+
+export async function deleteHabit(id: string) {
+  await supabase.from("habitTracker").delete().eq("id", id);
   revalidatePath("/notes");
 }
 
