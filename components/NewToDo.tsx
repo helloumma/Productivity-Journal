@@ -8,6 +8,7 @@ import { ToDo } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
 import "../styles/styles.css";
 import Modal from "./Modal";
+import { revalidatePath } from "next/cache";
 /**
  * TO DO
  * - Edit functionality
@@ -57,10 +58,31 @@ export default function NewToDo() {
   };
 
   const toggleModal = () => setShowModal(false);
+
+  const handleDelete = async (id: any) => {
+    // to do: refresh router path thing
+    const success = await deleteToDo(id);
+
+    if (success) {
+      // Remove the item from the state
+      setData(data.filter((item: ToDo) => item.id !== id));
+    } else {
+      // Handle the error case
+      console.error("Failed to delete the item.");
+    }
+  };
+
   return (
     <>
-      <div className="flex items-center border-b-4 border-gray-500 border-double justify-between">
-        <h1 className="text-2xl font-bold p-2 ">To Do</h1>
+      <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">
+        <div className="flex items-center">
+          <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
+            <path d="M3.5 2a.5.5 0 00-.5.5v12a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-12a.5.5 0 00-.5-.5H12a.5.5 0 010-1h.5A1.5 1.5 0 0114 2.5v12a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 14.5v-12A1.5 1.5 0 013.5 1H4a.5.5 0 010 1h-.5z" />
+            <path d="M10 .5a.5.5 0 00-.5-.5h-3a.5.5 0 00-.5.5.5.5 0 01-.5.5.5.5 0 00-.5.5V2a.5.5 0 00.5.5h5A.5.5 0 0011 2v-.5a.5.5 0 00-.5-.5.5.5 0 01-.5-.5z" />
+          </svg>
+          <h1 className="text-2xl font-bold p-2 ">To Do</h1>
+        </div>
+
         <button onClick={() => setShowModal(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +162,7 @@ export default function NewToDo() {
                 </svg>
               </button>
               {dropdownStates[todo.id] && (
-                <DropdownMenu deleteItem={() => deleteToDo(todo.id)} />
+                <DropdownMenu deleteItem={() => handleDelete(todo.id)} />
               )}
             </div>
           </ul>
