@@ -85,8 +85,13 @@ export default function NewToDo() {
     window.location.reload();
   };
 
-  const handleChange = (e: any) => {
-    console.log(e.target.value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (currentTodo) {
+      setCurrentTodo({
+        ...currentTodo,
+        title: e.target.value,
+      });
+    }
   };
 
   const handleEdit = (todo: ToDo) => {
@@ -128,8 +133,8 @@ export default function NewToDo() {
               name="title"
               className="border border-gray-300 p-2 rounded w-2/3"
               placeholder="Edit task..."
-              value={currentTodo ? currentTodo : ""}
-              onChange={(e: any) => console.log(e.target.value)}
+              value={currentTodo ? currentTodo.title : ""}
+              onChange={handleInputChange}
             />
             <button
               className="border border-gray-300 p-2 ml-2 rounded w-1/7"
@@ -191,7 +196,7 @@ export default function NewToDo() {
               {dropdownStates[todo.id] && (
                 <DropdownMenu
                   deleteItem={() => handleDelete(todo.id as string)}
-                  editItem={() => handleEdit(todo.title as any)}
+                  editItem={() => handleEdit(todo as any)}
                 />
               )}
             </div>
