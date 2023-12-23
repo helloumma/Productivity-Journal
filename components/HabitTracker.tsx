@@ -60,7 +60,7 @@ export default function HabitTracker() {
       setCurrentHabit({
         ...currentHabit,
 
-        emoji: e.target.value,
+        habit: e.target.value,
       });
     }
   };
