@@ -27,7 +27,7 @@ export default function NotesHeader() {
           className=" p-2 rounded w-1/10 mx-8 bg-transparent"
           placeholder="Select date"
           type="date"
-          value={defaultValue}
+          defaultValue={defaultValue}
         />
         <svg fill="none" viewBox="0 0 24 24" height="1em" width="1em">
           <path
