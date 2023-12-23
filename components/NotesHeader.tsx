@@ -1,6 +1,11 @@
 import AuthButton from "./AuthButton";
 import ThemeToggle from "./ThemeProvider";
 export default function NotesHeader() {
+  const date = new Date();
+  const futureDate = date.getDate();
+  date.setDate(futureDate);
+  const defaultValue = date.toLocaleDateString("en-CA");
+
   return (
     <div className="flex justify-between items-center">
       <div>
@@ -19,9 +24,10 @@ export default function NotesHeader() {
         </svg>
         <input
           name="header-date"
-          className="border p-2 rounded w-1/10 mx-8"
+          className=" p-2 rounded w-1/10 mx-8 bg-transparent"
           placeholder="Select date"
           type="date"
+          value={defaultValue}
         />
         <svg fill="none" viewBox="0 0 24 24" height="1em" width="1em">
           <path
