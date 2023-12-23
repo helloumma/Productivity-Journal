@@ -45,7 +45,7 @@ export async function editToDo(title: any, id: string) {
     .eq("id", id)
     .select();
   if (error) console.log(error);
-  // revalidatePath("/notes");
+  revalidatePath("/notes");
   return data;
 }
 

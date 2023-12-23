@@ -86,6 +86,8 @@ export default function NewToDo() {
       console.log("error");
     }
     setShowModal(false);
+    window.location.reload();
+    console.log(data);
   };
   return (
     <>
