@@ -7,10 +7,11 @@ const ThemeToggle = () => {
 
   // Effect to detect system theme
   useEffect(() => {
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
-      ? "dark"
-      : "light";
+    const systemTheme =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
     setTheme(systemTheme);
   }, []);
 
