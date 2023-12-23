@@ -28,7 +28,8 @@ export default function NewToDo() {
   // }
 
   const [data, setData] = useState<any>();
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [editModal, setEditModal] = useState<boolean>(false);
   const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
   }>({});
@@ -57,7 +58,10 @@ export default function NewToDo() {
     }));
   };
 
-  const toggleModal = () => setShowModal(false);
+  const toggleModal = () => {
+    setShowModal(false);
+    setEditModal(false);
+  };
 
   const handleDelete = async (id: string) => {
     // to do: refresh router path thing
@@ -72,6 +76,15 @@ export default function NewToDo() {
     // }
 
     window.location.reload();
+  };
+
+  const handleChange = (e: any) => {
+    console.log(e.target.value);
+  };
+
+  const handleEdit = () => {
+    setShowModal(true);
+    setEditModal(true);
   };
 
   return (
@@ -98,37 +111,26 @@ export default function NewToDo() {
         </button>
       </div>
 
-      {/* <form action={newToDo}>
-        <input
-          name="title"
-          className="border border-gray-300 p-2 rounded w-2/3"
-          placeholder="Add new task..."
-        />
-        <button
-          className="border border-gray-300 p-2 ml-2 rounded w-1/7"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Add task
-        </button>
-      </form> */}
-
+      {/* some form of logic to understand if add or edit button was clicked and then render correct form */}
       <Modal show={showModal} onClose={toggleModal}>
-        <h1 className="text-lg font-bold">Modal Title</h1>
-        <form action={newToDo}>
-          <input
-            name="title"
-            className="border border-gray-300 p-2 rounded w-2/3"
-            placeholder="Add new task..."
-          />
-          <button
-            className="border border-gray-300 p-2 ml-2 rounded w-1/7"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Add task
-          </button>
-        </form>
+        {editModal && "edit form here"}
+        {!editModal && (
+          <form action={newToDo}>
+            <input
+              name="title"
+              className="border border-gray-300 p-2 rounded w-2/3"
+              placeholder="Add new task..."
+            />
+            <button
+              className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+              type="submit"
+              onClick={handleSubmit}
+              onChange={handleChange}
+            >
+              Add task
+            </button>
+          </form>
+        )}
       </Modal>
 
       {data?.map((todo: ToDo, i: number) => (
@@ -164,6 +166,7 @@ export default function NewToDo() {
               {dropdownStates[todo.id] && (
                 <DropdownMenu
                   deleteItem={() => handleDelete(todo.id as string)}
+                  editItem={handleEdit}
                 />
               )}
             </div>
@@ -178,3 +181,18 @@ export default function NewToDo() {
     </>
   );
 }
+
+/* <form action={newToDo}>
+        <input
+          name="title"
+          className="border border-gray-300 p-2 rounded w-2/3"
+          placeholder="Add new task..."
+        />
+        <button
+          className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Add task
+        </button>
+      </form> */

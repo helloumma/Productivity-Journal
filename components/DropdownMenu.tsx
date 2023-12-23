@@ -1,4 +1,4 @@
-export default function DropdownMenu({ reminders, deleteItem }: any) {
+export default function DropdownMenu({ reminders, deleteItem, editItem }: any) {
   return (
     <div
       className={
@@ -18,6 +18,7 @@ export default function DropdownMenu({ reminders, deleteItem }: any) {
           role="menuitem"
           tabIndex={-1}
           id="menu-item-0"
+          onClick={editItem}
         >
           <div className="flex items-center">
             <svg

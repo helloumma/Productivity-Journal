@@ -38,10 +38,19 @@ export async function deleteToDo(id: string) {
 }
 
 // to do
-export async function editToDo(id: string, formData: FormData) {
-  const title = formData.get("title");
-  await supabase.from("todos").update({ title }).eq("id", id).select();
+export async function editToDo(id: string, value: any) {
+  // const title = formData.get("title");
+  // await supabase.from("todos").update({ title }).eq("id", id).select();
+  // revalidatePath("/notes");
+
+  const { data: updateData, error } = await supabase
+    .from("todos")
+    .update({ value })
+    .eq("id", id);
+  if (error) console.log(error);
+
   revalidatePath("/notes");
+  return updateData;
 }
 
 export async function getReminder() {
