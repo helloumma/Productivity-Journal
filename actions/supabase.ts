@@ -37,7 +37,6 @@ export async function deleteToDo(id: string) {
   revalidatePath("/notes");
 }
 
-// to do
 export async function editToDo(title: any, id: string) {
   const { data, error } = await supabase
     .from("todo")
@@ -93,6 +92,18 @@ export async function newHabit(formData: FormData) {
 export async function deleteHabit(id: string) {
   await supabase.from("habitTracker").delete().eq("id", id);
   revalidatePath("/notes");
+}
+
+export async function editHabit(habit: any, id: string, emoji: any) {
+  const { data, error } = await supabase
+    .from("habitTracker")
+    .update({ habit: habit, emoji: emoji })
+    .eq("id", id)
+    .select();
+  if (error) console.log(error);
+  revalidatePath("/notes");
+  console.log(data);
+  return data;
 }
 
 export async function getSchedule() {

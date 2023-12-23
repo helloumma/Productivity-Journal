@@ -1,39 +1,27 @@
 "use client";
 
-import { newHabit, getUser, getHabit, deleteHabit } from "@/actions/supabase";
+import {
+  newHabit,
+  getUser,
+  getHabit,
+  deleteHabit,
+  editHabit,
+} from "@/actions/supabase";
 import { useEffect, useState } from "react";
 import { habit } from "@/lib/habitTracker/types";
 import Toggle from "./Toggle";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
-/**
- * TO DO
- * - Program progress bar for each click on checkbox (should this data be stored locally or within the db(?))
- * - Find out if an emoji picker is a thing
- * - Replace the green bars with a toggle instead(?)
- */
-
-/**
- * TO DO [STYLING]
- * - Create a grid for emoji, habit and toggle
- * - Add some dummy small chart dials
- */
 
 export default function HabitTracker() {
-  // const getUserInfo = await getUser();
-  // const habitData = await getHabit();
-
-  // if (!getUserInfo) {
-  //   // Redirect or handle the case where the user is not authenticated
-  //   return <div>You need to be authenticated to view this page.</div>;
-  // }
-
   const [data, setData] = useState<any>();
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [editModal, setEditModal] = useState<boolean>(false);
   const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
   }>({});
+  const [currentHabit, setCurrentHabit] = useState<any>(null);
 
   const handleClick = (e: any) => {
     e.preventDefault;
@@ -62,18 +50,58 @@ export default function HabitTracker() {
   const toggleModal = () => setShowModal(false);
 
   const handleDelete = async (id: string) => {
-    // to do: refresh router path thing
     await deleteHabit(id);
-
-    // if (success) {
-    //   // Remove the item from the state
-    //   setData(data.filter((item: ToDo) => item.id !== id));
-    // } else {
-    //   // Handle the error case
-    //   console.error("Failed to delete the item.");
-    // }
-
     window.location.reload();
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault;
+    if (currentHabit) {
+      setCurrentHabit({
+        ...currentHabit,
+
+        emoji: e.target.value,
+      });
+    }
+  };
+
+  const handleEmojiInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault;
+    if (currentHabit) {
+      setCurrentHabit({
+        ...currentHabit,
+
+        emoji: e.target.value,
+      });
+    }
+  };
+
+  const handleEdit = (habit: habit) => {
+    setShowModal(true);
+    setEditModal(true);
+    setEditModal(true);
+    setCurrentHabit(habit);
+  };
+
+  const handleEditSubmit = async (e: any) => {
+    e.preventDefault;
+    const updatedData = await editHabit(
+      currentHabit.habit,
+      currentHabit.id,
+      currentHabit.emoji
+    );
+
+    //console.log(updatedData);
+    if (updatedData) {
+      const getData = await getHabit(); // Refetch the updated list
+      setData(getData); // Update the state with the new list
+      console.log(data);
+    } else {
+      console.log("error");
+    }
+    setShowModal(false);
+    //window.location.reload();
+    //console.log(data);
   };
 
   return (
@@ -100,44 +128,62 @@ export default function HabitTracker() {
       </div>
 
       <Modal show={showModal} onClose={toggleModal}>
-        <form action={newHabit}>
-          <input
-            name="emoji"
-            className="border border-gray-300  p-2 rounded w-1/6"
-            placeholder="emoji"
-          />
-          <input
-            name="habit"
-            className="border border-gray-300  p-2 rounded w-5/6"
-            placeholder="Add new habit..."
-          />
-          <button
-            className="border border-gray-300 p-2 ml-2 rounded w-1/7"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Add habit
-          </button>
-        </form>
+        {editModal && (
+          <form action={handleEditSubmit}>
+            <input
+              name="emoji"
+              className="border border-gray-300  p-2 rounded w-1/6"
+              placeholder="emoji"
+              value={currentHabit ? currentHabit.emoji : ""}
+              onChange={handleEmojiInputChange}
+            />
+            <input
+              name="habit"
+              className="border border-gray-300  p-2 rounded w-5/6"
+              placeholder="Edit habit..."
+              value={currentHabit ? currentHabit.habit : ""}
+              onChange={handleInputChange}
+            />
+            <button
+              className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+              type="submit"
+            >
+              Save habit
+            </button>
+          </form>
+        )}
+        {!editHabit && (
+          <form action={newHabit}>
+            <input
+              name="emoji"
+              className="border border-gray-300  p-2 rounded w-1/6"
+              placeholder="emoji"
+            />
+            <input
+              name="habit"
+              className="border border-gray-300  p-2 rounded w-5/6"
+              placeholder="Add new habit..."
+            />
+            <button
+              className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Add habit
+            </button>
+          </form>
+        )}
       </Modal>
 
-      {data?.map((habits: habit, i: number) => (
-        <div className="pb-3 p-4" key={i + 1}>
-          <div
-            className="flex justify-between p-4 bg-green-200 dark:bg-green-700"
-            key={habits.id}
-          >
+      {data?.map((habits: habit) => (
+        <div className="pb-3 p-4" key={habits.id}>
+          <div className="flex justify-between p-4 bg-green-200 dark:bg-green-700">
             <div className="flex items-center">
               <div className="p-4">{habits.emoji}</div>
               <p className="text-xl font-bold ml-2" onClick={handleClick}>
                 {habits.habit}
               </p>
             </div>
-
-            {/* <input
-              type="checkbox"
-              className="form-checkbox h-4 w-4 text-indigo-600"
-            /> */}
             <div className="flex items-center">
               <Toggle />
               <button onClick={() => handleDropdownToggle(habits.id as string)}>
@@ -160,19 +206,11 @@ export default function HabitTracker() {
                 <DropdownMenu
                   reminders={true}
                   deleteItem={() => handleDelete(habits.id as string)}
+                  editItem={() => handleEdit(habits as any)}
                 />
               )}
             </div>
           </div>
-
-          {/* <div className="h-2 w-full bg-gray-200 rounded-full">
-            <div
-              className="h-full bg-green-500 rounded-full"
-              style={{
-                width: "75%",
-              }}
-            />
-          </div> */}
         </div>
       ))}
       <div className="flex">
