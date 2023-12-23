@@ -7,32 +7,13 @@ import {
   deleteToDo,
   editToDo,
 } from "@/actions/supabase";
-import EditButton from "./EditButton";
-import DeleteButton from "./DeleteButton";
 import { useEffect, useState } from "react";
 import { ToDo } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
 import "../styles/styles.css";
 import Modal from "./Modal";
-import { revalidatePath } from "next/cache";
-/**
- * TO DO
- * - Edit functionality
- * - Delete functionality
- * - Showing data from the list on the schedule component
- * - Reminder: add edit and delete icons back in with functionality
- * - Add inputs for date and time (this will be moved to the modal)
- */
 
 export default function NewToDo() {
-  // const getUserInfo = await getUser();
-  // const todosData = await getToDo();
-
-  // if (!getUserInfo) {
-  //   // Redirect or handle the case where the user is not authenticated
-  //   return <div>You need to be authenticated to view this page.</div>;
-  // }
-
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
@@ -71,21 +52,12 @@ export default function NewToDo() {
   };
 
   const handleDelete = async (id: string) => {
-    // to do: refresh router path thing
     await deleteToDo(id);
-
-    // if (success) {
-    //   // Remove the item from the state
-    //   setData(data.filter((item: ToDo) => item.id !== id));
-    // } else {
-    //   // Handle the error case
-    //   console.error("Failed to delete the item.");
-    // }
-
     window.location.reload();
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault;
     if (currentTodo) {
       setCurrentTodo({
         ...currentTodo,
@@ -101,6 +73,20 @@ export default function NewToDo() {
     setCurrentTodo(todo);
   };
 
+  const handleEditSubmit = async (e: any) => {
+    e.preventDefault;
+    const updatedData = await editToDo(currentTodo.title, currentTodo.id);
+
+    console.log(updatedData);
+    if (updatedData) {
+      const getData = await getToDo(); // Refetch the updated list
+      setData(getData); // Update the state with the new list
+      console.log(data);
+    } else {
+      console.log("error");
+    }
+    setShowModal(false);
+  };
   return (
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">
@@ -125,10 +111,9 @@ export default function NewToDo() {
         </button>
       </div>
 
-      {/* some form of logic to understand if add or edit button was clicked and then render correct form */}
       <Modal show={showModal} onClose={toggleModal}>
         {editModal && (
-          <form action={editToDo}>
+          <form action={handleEditSubmit}>
             <input
               name="title"
               className="border border-gray-300 p-2 rounded w-2/3"
@@ -139,7 +124,7 @@ export default function NewToDo() {
             <button
               className="border border-gray-300 p-2 ml-2 rounded w-1/7"
               type="submit"
-              onClick={handleSubmit}
+              // onSubmit={handleEditSubmit}
             >
               Save task
             </button>
@@ -201,28 +186,8 @@ export default function NewToDo() {
               )}
             </div>
           </ul>
-
-          {/* <div className="flex w-1/4">
-            <EditButton />
-            <DeleteButton />
-          </div> */}
         </div>
       ))}
     </>
   );
 }
-
-/* <form action={newToDo}>
-        <input
-          name="title"
-          className="border border-gray-300 p-2 rounded w-2/3"
-          placeholder="Add new task..."
-        />
-        <button
-          className="border border-gray-300 p-2 ml-2 rounded w-1/7"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Add task
-        </button>
-      </form> */
