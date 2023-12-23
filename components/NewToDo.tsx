@@ -1,6 +1,12 @@
 "use client";
 
-import { newToDo, getUser, getToDo, deleteToDo } from "@/actions/supabase";
+import {
+  newToDo,
+  getUser,
+  getToDo,
+  deleteToDo,
+  editToDo,
+} from "@/actions/supabase";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import { useEffect, useState } from "react";
@@ -33,6 +39,7 @@ export default function NewToDo() {
   const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
   }>({});
+  const [currentTodo, setCurrentTodo] = useState<any>(null);
 
   const handleClick = (e: any) => {
     e.preventDefault;
@@ -82,9 +89,11 @@ export default function NewToDo() {
     console.log(e.target.value);
   };
 
-  const handleEdit = () => {
+  const handleEdit = (todo: ToDo) => {
     setShowModal(true);
     setEditModal(true);
+    setEditModal(true);
+    setCurrentTodo(todo);
   };
 
   return (
@@ -113,7 +122,24 @@ export default function NewToDo() {
 
       {/* some form of logic to understand if add or edit button was clicked and then render correct form */}
       <Modal show={showModal} onClose={toggleModal}>
-        {editModal && "edit form here"}
+        {editModal && (
+          <form action={editToDo}>
+            <input
+              name="title"
+              className="border border-gray-300 p-2 rounded w-2/3"
+              placeholder="Edit task..."
+              value={currentTodo ? currentTodo : ""}
+              onChange={(e: any) => console.log(e.target.value)}
+            />
+            <button
+              className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Save task
+            </button>
+          </form>
+        )}
         {!editModal && (
           <form action={newToDo}>
             <input
@@ -125,7 +151,6 @@ export default function NewToDo() {
               className="border border-gray-300 p-2 ml-2 rounded w-1/7"
               type="submit"
               onClick={handleSubmit}
-              onChange={handleChange}
             >
               Add task
             </button>
@@ -166,7 +191,7 @@ export default function NewToDo() {
               {dropdownStates[todo.id] && (
                 <DropdownMenu
                   deleteItem={() => handleDelete(todo.id as string)}
-                  editItem={handleEdit}
+                  editItem={() => handleEdit(todo.title as any)}
                 />
               )}
             </div>

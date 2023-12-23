@@ -38,7 +38,7 @@ export async function deleteToDo(id: string) {
 }
 
 // to do
-export async function editToDo(id: string, value: any) {
+export async function editToDo(id: any, value: any) {
   // const title = formData.get("title");
   // await supabase.from("todos").update({ title }).eq("id", id).select();
   // revalidatePath("/notes");
