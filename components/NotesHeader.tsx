@@ -1,5 +1,6 @@
 import AuthButton from "./AuthButton";
 import ThemeToggle from "./ThemeProvider";
+
 export default function NotesHeader() {
   const date = new Date();
   const futureDate = date.getDate();
