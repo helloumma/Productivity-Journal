@@ -1,7 +1,7 @@
 type CircleDialProps = {
   percentage: any;
-  title: string;
-  emoji: any;
+  title?: string;
+  emoji?: any;
 };
 
 export default function CircleDial({
@@ -21,8 +21,8 @@ export default function CircleDial({
     <div className="flex flex-col items-center">
       <div className="flex items-center justify-center ml-8">
         <svg
-          width="120"
-          height="120"
+          width="100"
+          height="100"
           viewBox="0 0 120 120"
           className="text-gray-200"
         >
