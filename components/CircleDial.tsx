@@ -1,9 +1,14 @@
 type CircleDialProps = {
-  percentage: number;
+  percentage: any;
   title: string;
+  emoji: any;
 };
 
-export default function CircleDial({ percentage, title }: CircleDialProps) {
+export default function CircleDial({
+  percentage,
+  title,
+  emoji,
+}: CircleDialProps) {
   // Ensure the percentage is between 0 and 100
   const clampedPercentage = Math.min(100, Math.max(0, percentage));
 
@@ -44,6 +49,7 @@ export default function CircleDial({ percentage, title }: CircleDialProps) {
         </svg>
         <div className="absolute text-xl font-semibold">{`${clampedPercentage}%`}</div>
       </div>
+      <p>{emoji}</p>
       <p>{title}</p>
     </div>
   );

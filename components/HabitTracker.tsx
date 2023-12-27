@@ -196,46 +196,56 @@ export default function HabitTracker() {
       </Modal>
 
       {data?.map((habits: habit) => (
-        <div className="pb-3 p-4" key={habits.id}>
-          <div className="flex justify-between p-4 bg-green-200 dark:bg-green-700">
-            <div className="flex items-center">
-              <div className="p-4">{habits.emoji}</div>
-              <p className="text-xl font-bold ml-2" onClick={handleClick}>
-                {habits.habit}
-              </p>
-            </div>
-            <div className="flex items-center">
-              <Toggle />
-              <button onClick={() => handleDropdownToggle(habits.id as string)}>
-                <svg
-                  className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 4 16"
+        <>
+          <div className="pb-3 p-4" key={habits.id}>
+            <div className="flex justify-between p-4 bg-green-200 dark:bg-green-700">
+              <div className="flex items-center">
+                <div className="p-4">{habits.emoji}</div>
+                <p className="text-xl font-bold ml-2" onClick={handleClick}>
+                  {habits.habit}
+                </p>
+              </div>
+              <div className="flex items-center">
+                <Toggle />
+                <button
+                  onClick={() => handleDropdownToggle(habits.id as string)}
                 >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+                  <svg
+                    className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 4 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+                    />
+                  </svg>
+                </button>
+                {dropdownStates[habits.id] && (
+                  <DropdownMenu
+                    habits={true}
+                    deleteItem={() => handleDelete(habits.id as string)}
+                    editItem={() => handleEdit(habits as any)}
                   />
-                </svg>
-              </button>
-              {dropdownStates[habits.id] && (
-                <DropdownMenu
-                  habits={true}
-                  deleteItem={() => handleDelete(habits.id as string)}
-                  editItem={() => handleEdit(habits as any)}
-                />
-              )}
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </>
       ))}
-      <div className="flex">
-        <CircleDial percentage={75} title={"🎄 test"} />
-        <CircleDial percentage={50} title={"🫠 another test"} />
+      <div className="flex flex-wrap">
+        {data?.map((habits: habit) => (
+          <CircleDial
+            key={habits.id}
+            percentage={Math.floor(Math.random() * 100).toPrecision(1)}
+            emoji={habits.emoji}
+            title={habits.habit}
+          />
+        ))}
       </div>
     </>
   );

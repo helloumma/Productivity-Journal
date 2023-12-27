@@ -40,7 +40,7 @@ export default function Reminders() {
           deleteReminder(item.id);
         }
       });
-    }, 10000); // Check every 10 seconds
+    }, 60000); // Check every 10 seconds
 
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [newData]);
