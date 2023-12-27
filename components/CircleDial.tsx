@@ -49,8 +49,10 @@ export default function CircleDial({
         </svg>
         <div className="absolute text-xl font-semibold">{`${clampedPercentage}%`}</div>
       </div>
-      <p>{emoji}</p>
-      <p>{title}</p>
+      <div className="flex items-center">
+        <p className="mr-2">{emoji}</p>
+        <p>{title}</p>
+      </div>
     </div>
   );
 }
