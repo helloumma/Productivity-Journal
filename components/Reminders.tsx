@@ -87,7 +87,7 @@ export default function Reminders() {
             fill="currentColor"
             height="1.5em"
             width="1.5em"
-            className="mr-8"
+            className="mr-6"
           >
             <path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z" />
           </svg>
@@ -154,21 +154,20 @@ export default function Reminders() {
           </div>
         </form>
       </Modal>
-      <div className="p-4">
+      <div className="p-6">
         {newData?.map((reminders: reminders) => (
           <div
-            className="flex bg-gray-300 p-4 mb-4 justify-between items-center"
+            className="flex bg-gray-300 rounded border p-4 mb-6 justify-between items-center"
             key={reminders.id}
           >
-            <div>
-              <div onClick={handleClick}>
-                <h1 className="text-xl font-bold">{reminders?.reminder}</h1>
-                <div className="flex text-gray-400">
-                  <p className="text-sm gray-200">{reminders?.date}</p>
-                  <p className="text-sm ml-4">{reminders?.time}</p>
-                </div>
+            <div onClick={handleClick}>
+              <h1 className="text-xl font-bold">{reminders?.reminder}</h1>
+              <div className="flex text-gray-400">
+                <p className="text-sm gray-200">{reminders?.date}</p>
+                <p className="text-sm ml-4">{reminders?.time}</p>
               </div>
             </div>
+
             <div>
               <button onClick={() => handleDelete(reminders.id as any)}>
                 <svg

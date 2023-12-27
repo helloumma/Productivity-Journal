@@ -30,7 +30,6 @@ export default function Page() {
             </div>
           </div>
         </div>
-
         <div className="flex w-full mx-8 my-2">
           <div className="w-full mr-2 rounded border-slate-600 border">
             <HabitTracker />
@@ -39,7 +38,6 @@ export default function Page() {
             <Reminders />
           </div>
         </div>
-
         <div className="w-full p-4  mx-8 my-2 rounded border-slate-600 border">
           <MoodTracker />
         </div>
