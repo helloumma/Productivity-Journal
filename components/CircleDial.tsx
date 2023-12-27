@@ -19,10 +19,10 @@ export default function CircleDial({
   } ${circumference}`;
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center ml-8">
+      <div className="flex items-center justify-center">
         <svg
-          width="100"
-          height="100"
+          width="75"
+          height="75"
           viewBox="0 0 120 120"
           className="text-gray-200"
         >
@@ -47,10 +47,10 @@ export default function CircleDial({
             className="text-green-500"
           />
         </svg>
-        <div className="absolute text-xl font-semibold">{`${clampedPercentage}%`}</div>
+        <div className="absolute text-xl font-semibold">{emoji}</div>
       </div>
       <div className="flex items-center">
-        <p className="mr-2">{emoji}</p>
+        {/* <p className="mr-2">{emoji}</p> */}
         <p>{title}</p>
       </div>
     </div>

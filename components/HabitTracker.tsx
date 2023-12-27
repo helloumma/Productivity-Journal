@@ -135,7 +135,7 @@ export default function HabitTracker() {
             fill="currentColor"
             height="1.5em"
             width="1.5em"
-            className="mr-8"
+            className="mr-6"
           >
             <path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z" />
           </svg>
@@ -195,56 +195,61 @@ export default function HabitTracker() {
         )}
       </Modal>
 
-      {data?.map((habits: habit) => (
-        <>
-          <div className="flex items-center">
-            <div className="pb-3 p-4 w-3/4" key={habits.id}>
-              <div className="flex justify-between p-4 bg-green-200 mb-2 dark:bg-green-700">
-                <div className="flex items-center">
-                  <div className="p-4">{habits.emoji}</div>
-                  <p className="text-xl font-bold ml-2" onClick={handleClick}>
-                    {habits.habit}
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <Toggle />
-                  <button
-                    onClick={() => handleDropdownToggle(habits.id as string)}
-                  >
-                    <svg
-                      className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 4 16"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeWidth="2"
-                        d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+      <div className="pt-6">
+        {data?.map((habits: habit) => (
+          <>
+            <div className="flex items-center ">
+              <div className="pb-6 px-6 w-full" key={habits.id}>
+                <div className="flex justify-between  rounded bg-green-200 mb-2 dark:bg-green-700">
+                  <div className="flex items-center">
+                    <div className="p-3">
+                      <CircleDial
+                        key={habits.id}
+                        percentage={Math.floor(Math.random() * 100).toPrecision(
+                          1
+                        )}
+                        emoji={habits.emoji}
                       />
-                    </svg>
-                  </button>
-                  {dropdownStates[habits.id] && (
-                    <DropdownMenu
-                      habits={true}
-                      deleteItem={() => handleDelete(habits.id as string)}
-                      editItem={() => handleEdit(habits as any)}
-                    />
-                  )}
+                    </div>
+                    <p className="text-xl font-bold ml-2" onClick={handleClick}>
+                      {habits.habit}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <Toggle />
+                    <button
+                      onClick={() => handleDropdownToggle(habits.id as string)}
+                    >
+                      <svg
+                        className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 4 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeWidth="2"
+                          d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+                        />
+                      </svg>
+                    </button>
+                    {dropdownStates[habits.id] && (
+                      <DropdownMenu
+                        habits={true}
+                        deleteItem={() => handleDelete(habits.id as string)}
+                        editItem={() => handleEdit(habits as any)}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="w-1/4">
-              <CircleDial
-                key={habits.id}
-                percentage={Math.floor(Math.random() * 100).toPrecision(1)}
-              />
-            </div>
-          </div>
-        </>
-      ))}
+          </>
+        ))}
+      </div>
+
       {/* <div className="flex flex-wrap">
         {data?.map((habits: habit) => (
           <CircleDial
