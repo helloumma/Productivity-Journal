@@ -14,6 +14,7 @@ import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
 import Picker from "emoji-picker-react";
+
 export default function HabitTracker() {
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -167,19 +168,6 @@ export default function HabitTracker() {
           </form>
         ) : (
           <form action={newHabit}>
-            {/* <div className="picker-container">
-              <img
-                className="emoji-icon"
-                src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
-                onClick={() => setShowPicker((val) => !val)}
-              />
-              {showPicker && <Picker onEmojiClick={onEmojiClick} />}
-            </div> */}
-            {/* <input
-              name="emoji"
-              className="border border-gray-300  p-2 rounded w-1/6"
-              placeholder="emoji"
-            /> */}
             <input
               name="emoji"
               className="border border-gray-300  p-2 rounded w-1/6"
@@ -236,7 +224,7 @@ export default function HabitTracker() {
               </button>
               {dropdownStates[habits.id] && (
                 <DropdownMenu
-                  reminders={true}
+                  habits={true}
                   deleteItem={() => handleDelete(habits.id as string)}
                   editItem={() => handleEdit(habits as any)}
                 />
@@ -248,8 +236,6 @@ export default function HabitTracker() {
       <div className="flex">
         <CircleDial percentage={75} title={"🎄 test"} />
         <CircleDial percentage={50} title={"🫠 another test"} />
-        <CircleDial percentage={95} title={"🎄 test"} />
-        <CircleDial percentage={35} title={"🫠 another test"} />
       </div>
     </>
   );

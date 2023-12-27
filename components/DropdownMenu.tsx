@@ -1,8 +1,8 @@
-export default function DropdownMenu({ reminders, deleteItem, editItem }: any) {
+export default function DropdownMenu({ habits, deleteItem, editItem }: any) {
   return (
     <div
       className={
-        reminders
+        habits
           ? `dark:bg-black dark:text-white w-1/12 absolute -ml-10 right-21 z-10 mt-32  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`
           : `dark:bg-black dark:text-white w-1/12 absolute right-14 z-10 mt-0  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`
       }

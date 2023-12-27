@@ -21,10 +21,15 @@ export default function NewToDo() {
     [key: string]: boolean;
   }>({});
   const [currentTodo, setCurrentTodo] = useState<any>(null);
+  const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
-  const handleClick = (e: any) => {
-    e.preventDefault;
-    console.log("click");
+  const handleCheckboxClick = (todoId: string) => {
+    setCheckedItem((prevItems) => ({
+      ...prevItems,
+      [todoId]: !prevItems[todoId],
+    }));
   };
 
   useEffect(() => {
@@ -150,9 +155,12 @@ export default function NewToDo() {
         )}
       </Modal>
 
-      {data?.map((todo: ToDo, i: number) => (
-        <div className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4" key={i + 1}>
-          <ul key={todo.id} className="ml-4 flex justify-between">
+      {data?.map((todo: ToDo, i: any) => (
+        <div
+          className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4"
+          key={todo.id}
+        >
+          <ul className="ml-4 flex justify-between">
             <div className="flex">
               <input
                 type="checkbox"
@@ -160,8 +168,11 @@ export default function NewToDo() {
                 rounded-full bg-white checked:bg-blue-600 checked:border-transparent 
                 focus:outline-none mr-2 cursor-pointer"
                 style={{ borderRadius: "50%" }}
+                onClick={() => handleCheckboxClick(todo.id as string)}
               />
-              <li onClick={handleClick}>{todo.title}</li>
+              <li className={checkedItem[todo.id] ? "line-through" : ""}>
+                {todo.title}
+              </li>
             </div>
             <div>
               <button onClick={() => handleDropdownToggle(todo.id as string)}>
