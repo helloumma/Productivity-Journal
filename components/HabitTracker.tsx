@@ -167,25 +167,30 @@ export default function HabitTracker() {
           </form>
         ) : (
           <form action={newHabit}>
-            <div className="picker-container">
-              <input
-                name="emoji"
-                className="border border-gray-300  p-2 rounded w-1/6"
-                value={inputStr}
-                onChange={(e) => setInputStr(e.target.value)}
-              />
+            {/* <div className="picker-container">
               <img
                 className="emoji-icon"
                 src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
                 onClick={() => setShowPicker((val) => !val)}
               />
               {showPicker && <Picker onEmojiClick={onEmojiClick} />}
-            </div>
+            </div> */}
             {/* <input
               name="emoji"
               className="border border-gray-300  p-2 rounded w-1/6"
               placeholder="emoji"
             /> */}
+            <input
+              name="emoji"
+              className="border border-gray-300  p-2 rounded w-1/6"
+              value={inputStr}
+              onChange={(e) => setInputStr(e.target.value)}
+              hidden={true}
+            />
+            <button onClick={() => setShowPicker((val) => !val)}>
+              {inputStr ? inputStr : "Select emoji"}
+            </button>
+            {showPicker && <Picker onEmojiClick={onEmojiClick} />}
             <input
               name="habit"
               className="border border-gray-300  p-2 rounded w-5/6"
