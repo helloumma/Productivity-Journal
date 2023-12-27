@@ -42,7 +42,7 @@ export default async function Schedule() {
         </button>
   </form>*/}
 
-      <section className="grid grid-cols-1 gap-4 p-4">
+      <section className="grid grid-cols-1 gap-4 p-4 px-6">
         {scheduleData?.map((schedule) => (
           <div className="flex justify-between items-center bg-white p-4 dark:bg-gray-800 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
             <h3 className="font-semibold text-lg md:text-xl">

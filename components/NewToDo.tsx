@@ -111,7 +111,7 @@ export default function NewToDo() {
             fill="currentColor"
             height="1.5em"
             width="1.5em"
-            className="mr-8"
+            className="mr-6"
           >
             <path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z" />
           </svg>
@@ -154,53 +154,54 @@ export default function NewToDo() {
           </form>
         )}
       </Modal>
-
-      {data?.map((todo: ToDo, i: any) => (
-        <div
-          className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4"
-          key={todo.id}
-        >
-          <ul className="ml-4 flex justify-between">
-            <div className="flex">
-              <input
-                type="checkbox"
-                className="checkbox appearance-none h-6 w-6 border border-gray-300 
+      <div className="pt-2 px-4">
+        {data?.map((todo: ToDo) => (
+          <div
+            className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4 mb-4 rounded "
+            key={todo.id}
+          >
+            <ul className="flex justify-between items-center">
+              <div className="flex">
+                <input
+                  type="checkbox"
+                  className="checkbox appearance-none h-6 w-6 border border-gray-300 
                 rounded-full bg-white checked:bg-blue-600 checked:border-transparent 
                 focus:outline-none mr-2 cursor-pointer"
-                style={{ borderRadius: "50%" }}
-                onClick={() => handleCheckboxClick(todo.id as string)}
-              />
-              <li className={checkedItem[todo.id] ? "line-through" : ""}>
-                {todo.title}
-              </li>
-            </div>
-            <div>
-              <button onClick={() => handleDropdownToggle(todo.id as string)}>
-                <svg
-                  className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 4 16"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
-                  />
-                </svg>
-              </button>
-              {dropdownStates[todo.id] && (
-                <DropdownMenu
-                  deleteItem={() => handleDelete(todo.id as string)}
-                  editItem={() => handleEdit(todo as any)}
+                  style={{ borderRadius: "50%" }}
+                  onClick={() => handleCheckboxClick(todo.id as string)}
                 />
-              )}
-            </div>
-          </ul>
-        </div>
-      ))}
+                <li className={checkedItem[todo.id] ? "line-through" : ""}>
+                  {todo.title}
+                </li>
+              </div>
+              <div className="-mr-4">
+                <button onClick={() => handleDropdownToggle(todo.id as string)}>
+                  <svg
+                    className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 4 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
+                    />
+                  </svg>
+                </button>
+                {dropdownStates[todo.id] && (
+                  <DropdownMenu
+                    deleteItem={() => handleDelete(todo.id as string)}
+                    editItem={() => handleEdit(todo as any)}
+                  />
+                )}
+              </div>
+            </ul>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
