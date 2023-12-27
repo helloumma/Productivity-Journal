@@ -1,4 +1,4 @@
-.checkbox:checked {
+.todo:checked {
   background-color: #4f46e5; /* or any color of your choice */
   content: "✔";
   color: white;
@@ -7,7 +7,26 @@
   font-size: 0.75rem;
 }
 
+.checkbox:checked {
+  background-color: green; /* or any color of your choice */
+  content: "✔";
+  color: white;
+  position: relative;
+
+  font-size: 0.75rem;
+}
+
 .checkbox:checked::before {
+  content: "✔";
+  color: white;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 0.75rem;
+}
+
+.todo:checked::before {
   content: "✔";
   color: white;
   position: absolute;

@@ -129,7 +129,7 @@ export default function NewToDo() {
               onChange={handleInputChange}
             />
             <button
-              className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+              className="border bg-green-500 p-2 ml-2 rounded w-1/7"
               type="submit"
               // onSubmit={handleEditSubmit}
             >
@@ -145,7 +145,7 @@ export default function NewToDo() {
               placeholder="Add new task..."
             />
             <button
-              className="border border-gray-300 p-2 ml-2 rounded w-1/7"
+              className="border bg-green-500 p-2 ml-2 rounded w-1/7"
               type="submit"
               onClick={handleSubmit}
             >
@@ -164,7 +164,7 @@ export default function NewToDo() {
               <div className="flex">
                 <input
                   type="checkbox"
-                  className="checkbox appearance-none h-6 w-6 border border-gray-300 
+                  className=" todo appearance-none h-6 w-6 border border-gray-300 
                 rounded-full bg-white checked:bg-blue-600 checked:border-transparent 
                 focus:outline-none mr-2 cursor-pointer"
                   style={{ borderRadius: "50%" }}

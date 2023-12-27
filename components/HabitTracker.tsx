@@ -216,7 +216,14 @@ export default function HabitTracker() {
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <Toggle />
+                    {/* <Toggle /> */}
+                    <input
+                      type="checkbox"
+                      className="checkbox appearance-none h-8 w-8 border border-gray-300 
+                rounded-full bg-white checked:bg-green-600 checked:border-transparent 
+                focus:outline-none mr-2 cursor-pointer"
+                      style={{ borderRadius: "50%" }}
+                    />
                     <button
                       onClick={() => handleDropdownToggle(habits.id as string)}
                     >
