@@ -157,7 +157,7 @@ export default function Reminders() {
       <div className="p-4">
         {newData?.map((reminders: reminders) => (
           <div
-            className="flex bg-gray-300 dark:bg-gray-600 rounded  p-4 mb-6 justify-between items-center"
+            className="flex bg-gray-300 dark:bg-gray-600 rounded  p-4 mb-4 justify-between items-center"
             key={reminders.id}
           >
             <div onClick={handleClick}>

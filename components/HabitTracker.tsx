@@ -199,7 +199,7 @@ export default function HabitTracker() {
         {data?.map((habits: habit) => (
           <>
             <div className="flex items-center ">
-              <div className="pb-6 px-6 w-full" key={habits.id}>
+              <div className="pb-3 px-6 w-full" key={habits.id}>
                 <div className="flex justify-between  rounded bg-green-200 mb-2 dark:bg-green-700">
                   <div className="flex items-center">
                     <div className="p-3">
