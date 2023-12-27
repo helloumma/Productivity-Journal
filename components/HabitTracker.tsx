@@ -1,5 +1,5 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import {
   newHabit,
   getUser,
@@ -13,7 +13,7 @@ import Toggle from "./Toggle";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
-
+import Picker from "emoji-picker-react";
 export default function HabitTracker() {
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -22,10 +22,24 @@ export default function HabitTracker() {
     [key: string]: boolean;
   }>({});
   const [currentHabit, setCurrentHabit] = useState<any>(null);
+  const [showPicker, setShowPicker] = useState(false);
+  const [inputStr, setInputStr] = useState<string>("");
+  const [chosenEmoji, setChosenEmoji] = useState();
+
+  const onEmojiClick = (event: any, emojiObject: any) => {
+    setInputStr((prev) => prev + emojiObject.emoji);
+    setShowPicker(false);
+    setChosenEmoji(emojiObject.emoji);
+  };
+  console.log(chosenEmoji);
 
   const handleClick = (e: any) => {
     e.preventDefault;
     console.log("click");
+  };
+
+  const onEmojiClickNEW = (event: any, emojiObject: any) => {
+    setChosenEmoji(emojiObject);
   };
 
   useEffect(() => {
@@ -128,7 +142,7 @@ export default function HabitTracker() {
       </div>
 
       <Modal show={showModal} onClose={toggleModal}>
-        {editModal && (
+        {editModal ? (
           <form action={handleEditSubmit}>
             <input
               name="emoji"
@@ -151,14 +165,27 @@ export default function HabitTracker() {
               Save habit
             </button>
           </form>
-        )}
-        {!editHabit && (
+        ) : (
           <form action={newHabit}>
-            <input
+            <div className="picker-container">
+              <input
+                name="emoji"
+                className="border border-gray-300  p-2 rounded w-1/6"
+                value={inputStr}
+                onChange={(e) => setInputStr(e.target.value)}
+              />
+              <img
+                className="emoji-icon"
+                src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
+                onClick={() => setShowPicker((val) => !val)}
+              />
+              {showPicker && <Picker onEmojiClick={onEmojiClick} />}
+            </div>
+            {/* <input
               name="emoji"
               className="border border-gray-300  p-2 rounded w-1/6"
               placeholder="emoji"
-            />
+            /> */}
             <input
               name="habit"
               className="border border-gray-300  p-2 rounded w-5/6"

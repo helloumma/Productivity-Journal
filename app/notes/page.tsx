@@ -16,7 +16,7 @@ import NotesHeader from "@/components/NotesHeader";
 export default function Page() {
   return (
     <div className=" p-4">
-      <div className="flex flex-wrap shadow-custom">
+      <div className="flex flex-wrap">
         <div className="w-full p-4  border-slate-600 border">
           <NotesHeader />
         </div>
