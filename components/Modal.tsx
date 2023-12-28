@@ -10,13 +10,13 @@ export default function Modal({
     return null;
   }
 
-  const remindersWidth = "w-1/3";
+  const remindersWidth = "w-2/3";
   const todoWidth = "w-96";
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-10">
       <div
         className={`relative top-20 mx-auto p-5 border ${toDo && "w-96"} ${
-          reminders && "w-1/3"
+          reminders && "w-2/3"
         } shadow-lg rounded-md bg-white`}
       >
         <div className="float-right">
