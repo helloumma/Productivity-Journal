@@ -94,7 +94,12 @@ export default function Reminders() {
         </button>
       </div>
 
-      <Modal show={showModal} onClose={toggleModal}>
+      <Modal
+        show={showModal}
+        onClose={toggleModal}
+        reminders={true}
+        toDo={false}
+      >
         <form action={newReminder}>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid grid-rows-2 gap-4">
@@ -133,7 +138,7 @@ export default function Reminders() {
               </div>
             </div>
 
-            <div className="flex ">
+            <div className="flex">
               <textarea
                 name="reminder"
                 className="border border-gray-300  p-8 rounded w-full"

@@ -94,16 +94,20 @@ export default function NewToDo() {
     window.location.reload();
     console.log(data);
   };
+
+  const title = (
+    <div className="flex items-center">
+      <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
+        <path d="M3.5 2a.5.5 0 00-.5.5v12a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-12a.5.5 0 00-.5-.5H12a.5.5 0 010-1h.5A1.5 1.5 0 0114 2.5v12a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 14.5v-12A1.5 1.5 0 013.5 1H4a.5.5 0 010 1h-.5z" />
+        <path d="M10 .5a.5.5 0 00-.5-.5h-3a.5.5 0 00-.5.5.5.5 0 01-.5.5.5.5 0 00-.5.5V2a.5.5 0 00.5.5h5A.5.5 0 0011 2v-.5a.5.5 0 00-.5-.5.5.5 0 01-.5-.5z" />
+      </svg>
+      <h1 className="text-2xl font-bold p-2">To Do</h1>
+    </div>
+  );
   return (
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">
-        <div className="flex items-center">
-          <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-            <path d="M3.5 2a.5.5 0 00-.5.5v12a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-12a.5.5 0 00-.5-.5H12a.5.5 0 010-1h.5A1.5 1.5 0 0114 2.5v12a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 14.5v-12A1.5 1.5 0 013.5 1H4a.5.5 0 010 1h-.5z" />
-            <path d="M10 .5a.5.5 0 00-.5-.5h-3a.5.5 0 00-.5.5.5.5 0 01-.5.5.5.5 0 00-.5.5V2a.5.5 0 00.5.5h5A.5.5 0 0011 2v-.5a.5.5 0 00-.5-.5.5.5 0 01-.5-.5z" />
-          </svg>
-          <h1 className="text-2xl font-bold p-2 ">To Do</h1>
-        </div>
+        {title}
 
         <button onClick={() => setShowModal(true)}>
           <svg
@@ -118,7 +122,13 @@ export default function NewToDo() {
         </button>
       </div>
 
-      <Modal show={showModal} onClose={toggleModal}>
+      <Modal
+        show={showModal}
+        onClose={toggleModal}
+        title={title}
+        reminders={false}
+        toDo={true}
+      >
         {editModal && (
           <form action={handleEditSubmit}>
             <input
@@ -139,31 +149,47 @@ export default function NewToDo() {
         )}
         {!editModal && (
           <form action={newToDo}>
-            <input
-              name="title"
-              className="border border-gray-300 p-2 rounded w-2/3"
-              placeholder="Add new task..."
-            />
+            <div className="flex p-1 items-center">
+              <div className="space-y-1">
+                <label
+                  className="text-sm font-medium leading-none mr-3"
+                  htmlFor="title"
+                >
+                  Task
+                </label>
+              </div>
+              <input
+                name="title"
+                className="border border-gray-300 p-2 rounded w-full"
+                placeholder="Add new task..."
+              />
+            </div>
 
-            <input
-              name="time-todo"
-              className="border border-gray-300 p-2 rounded w-1/3"
-              placeholder="Select time"
-              type="time"
-            />
-            <button
-              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Add task
-            </button>
-            <button
-              onClick={toggleModal}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
-            >
-              Cancel
-            </button>
+            <div className="flex p-1 items-center">
+              <div className="space-y-1">
+                <label
+                  className="text-sm font-medium leading-none mr-3"
+                  htmlFor="time-todo"
+                >
+                  Time
+                </label>
+              </div>
+              <input
+                name="time-todo"
+                className="border border-gray-300 p-2 rounded w-full"
+                placeholder="Select time"
+                type="time"
+              />
+            </div>
+            <div className="py-4 ml-1">
+              <button
+                className="px-4  border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Add task
+              </button>
+            </div>
           </form>
         )}
       </Modal>
