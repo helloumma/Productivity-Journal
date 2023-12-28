@@ -15,6 +15,9 @@ import Modal from "./Modal";
 
 // TO DO: Add duration dropdown value in modal
 
+// for temp: all to do items are mapped within a one hour slot over to schedule
+// need some kind of error handling for time clashes on add/edit modals
+
 export default function NewToDo() {
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -185,6 +188,7 @@ export default function NewToDo() {
                 onChange={handleTimeChange}
               />
             </div>
+
             <div className="py-4 ml-1">
               <button
                 className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"
@@ -229,6 +233,7 @@ export default function NewToDo() {
                 type="time"
               />
             </div>
+
             <div className="py-4 ml-1">
               <button
                 className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"

@@ -5,18 +5,97 @@
  * - Figure out a way to use time blocks of 15 mins, 30 mins, one hour
  * -
  */
+"use client";
 
-import { newSchedule, getUser, getSchedule } from "@/actions/supabase";
+import { newSchedule, getUser, getSchedule, getToDo } from "@/actions/supabase";
 import AddButton from "./AddButton";
+import {
+  JSXElementConstructor,
+  Key,
+  PromiseLikeOfReactNode,
+  ReactElement,
+  ReactFragment,
+  useEffect,
+  useState,
+} from "react";
 
-export default async function Schedule() {
-  const getUserInfo = await getUser();
-  const scheduleData = await getSchedule();
+export default function Schedule() {
+  // const getUserInfo = await getUser();
+  // const scheduleData = await getSchedule();
+  const [data, setData] = useState<any>();
 
-  if (!getUserInfo) {
-    // Redirect or handle the case where the user is not authenticated
-    return <div>You need to be authenticated to view this page.</div>;
-  }
+  // if (!getUserInfo) {
+  //   // Redirect or handle the case where the user is not authenticated
+  //   return <div>You need to be authenticated to view this page.</div>;
+  // }
+  // const timeSlots = [];
+  // for (let hour = 9; hour <= 22; hour++) {
+  //   const formattedHour = hour < 10 ? `0${hour}:00` : `${hour}:00`;
+  //   timeSlots.push(formattedHour);
+  // }
+  useEffect(() => {
+    const fetchList = async () => {
+      const getData = await getToDo();
+      setData(getData);
+    };
+    fetchList();
+  }, []);
+
+  // const filterTimeStamps = data?.filter((a: any) => a).map((a: any) => a.time);
+
+  // const mapData = timeSlots.map((timeSlot) =>
+  //   filterTimeStamps?.filter((task) => task?.time === timeSlot)
+  // );
+
+  // console.log(mapData);
+
+  // console.log(filterTimeStamps);
+  // console.log(timeSlots);
+
+  // const createTimeSlots = () => {
+  //   const slots = [];
+  //   for (let hour = 9; hour <= 22; hour++) {
+  //     slots.push(`${hour}:00`);
+  //   }
+  //   return slots;
+  // };
+
+  // // Function to map tasks to their corresponding time slots
+  // const mapTasksToTimeSlots = () => {
+  //   const slots = createTimeSlots();
+  //   const slotMap = slots.map((slot) => {
+  //     // Find the task that matches the current slot, handle nulls
+  //     const task = data.find((d: any) => d.time === slot)?.task || "No task";
+  //     return { time: slot, task: task };
+  //   });
+  //   return slotMap;
+  // };
+
+  // const timeSlotTasks = mapTasksToTimeSlots();
+
+  const dataFake = [
+    { title: "one", time: "9:00" },
+    { title: "two", time: "19:00" },
+    { title: "three", time: "12:00" },
+    { title: "four", time: "11:00" },
+    { title: "five", time: "17:00" },
+    { title: "seven", time: null },
+  ];
+
+  // Creating an array to represent each hour from 9 AM to 10 PM
+  const hours = Array.from({ length: 14 }, (_, i) => 9 + i);
+
+  // Mapping each hour to its tasks
+  const schedule = hours.map((hour) => {
+    const hourString = `${hour}:00:00`;
+    return {
+      hour: hourString,
+      title: data?.filter((item: any) => item.time === hourString),
+    };
+  });
+
+  console.log(schedule);
+  console.log(data);
 
   return (
     <>
@@ -27,7 +106,54 @@ export default async function Schedule() {
         </svg>
         <h1 className="text-2xl font-bold p-2">Schedule</h1>
       </div>
+      {/* <div>
+        {timeSlots.map((timeSlot) => (
+          <div key={timeSlot}>
+            <h3>{timeSlot}</h3>
+            {data
+              ?.filter((a: any) => a)
+              .filter((task: { time: string }) => task.time === timeSlot)
+              .map(
+                (task: {
+                  task:
+                    | boolean
+                    | Key
+                    | ReactElement<any, string | JSXElementConstructor<any>>
+                    | ReactFragment
+                    | PromiseLikeOfReactNode
+                    | null
+                    | undefined;
+                }) => (
+                  <p>{task.task}</p>
+                )
+              )}
+          </div>
+        ))}
+      </div> */}
+      {/* <ul>
+        {timeSlotTasks.map((slot, index) => (
+          <li key={index}>
+            <strong>{slot.time}</strong>: {slot.task}
+          </li>
+        ))}
+      </ul> */}
 
+      <div>
+        {schedule.map((slot) => (
+          <div key={slot.hour}>
+            <h3>{slot.hour}</h3>
+            {slot.title?.length > 0 ? (
+              <ul>
+                {slot.title.map((task: any) => (
+                  <li key={task.title}>{task.title}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>No tasks</p>
+            )}
+          </div>
+        ))}
+      </div>
       {/*<form action={newSchedule}>
         <input
           name="item"
@@ -42,8 +168,8 @@ export default async function Schedule() {
         </button>
   </form>*/}
 
-      <section className="grid grid-cols-1 gap-4 p-4 px-6">
-        {scheduleData?.map((schedule) => (
+      {/* <section className="grid grid-cols-1 gap-4 p-4 px-6"> */}
+      {/* {scheduleData?.map((schedule) => (
           <div className="flex justify-between items-center bg-white p-4 dark:bg-gray-800 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
             <h3 className="font-semibold text-lg md:text-xl">
               9:00 - 10:00 AM
@@ -55,8 +181,8 @@ export default async function Schedule() {
               {schedule.item}
             </p>
           </div>
-        ))}
-        <div className="flex justify-between items-center bg-white p-4 dark:bg-gray-800 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+        ))} */}
+      {/* <div className="flex justify-between items-center bg-white p-4 dark:bg-gray-800 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
           <h3 className="font-semibold text-lg md:text-xl">9:00 - 10:00 AM</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Planning Meeting
@@ -131,8 +257,8 @@ export default async function Schedule() {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Personal Time
           </p>
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */}
     </>
   );
 }
