@@ -155,13 +155,13 @@ export default function NewToDo() {
               <div className="space-y-1">
                 <label
                   className="text-sm font-medium leading-none mr-3"
-                  htmlFor="time-todo"
+                  htmlFor="time"
                 >
                   Time
                 </label>
               </div>
               <input
-                name="time-todo"
+                name="time"
                 className="border border-gray-300 p-2 rounded w-full"
                 placeholder="Select time"
                 type="time"
@@ -199,13 +199,13 @@ export default function NewToDo() {
               <div className="space-y-1">
                 <label
                   className="text-sm font-medium leading-none mr-3"
-                  htmlFor="time-todo"
+                  htmlFor="time"
                 >
                   Time
                 </label>
               </div>
               <input
-                name="time-todo"
+                name="time"
                 className="border border-gray-300 p-2 rounded w-full"
                 placeholder="Select time"
                 type="time"

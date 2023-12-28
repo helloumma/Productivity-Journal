@@ -25,9 +25,10 @@ export async function getToDo() {
 
 export async function newToDo(formData: FormData) {
   const title = formData.get("title");
+  const time = formData.get("time");
   await supabase
     .from("todo")
-    .insert({ title, userId: (await user)?.id })
+    .insert({ title, userId: (await user)?.id, time })
     .select();
   revalidatePath("/notes");
 }
