@@ -8,7 +8,7 @@
 }
 
 .checkbox:checked {
-  background-color: green; /* or any color of your choice */
+  background-color: rgb(39, 183, 39); /* or any color of your choice */
   content: "✔";
   color: white;
   position: relative;

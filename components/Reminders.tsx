@@ -34,13 +34,13 @@ export default function Reminders() {
   useEffect(() => {
     // Set an interval to periodically check for items to delete
     const interval = setInterval(() => {
-      newData.forEach((item: { time: string | number | Date; id: string }) => {
-        console.log(item.time);
-        if (new Date(item.time) < new Date()) {
+      newData.forEach((item: { date: string | number | Date; id: string }) => {
+        console.log(item.date);
+        if (new Date(item.date) < new Date()) {
           deleteReminder(item.id);
         }
       });
-    }, 60000); // Check every 10 seconds
+    }, 10000); // Check every 10 seconds
 
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [newData]);

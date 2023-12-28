@@ -144,12 +144,25 @@ export default function NewToDo() {
               className="border border-gray-300 p-2 rounded w-2/3"
               placeholder="Add new task..."
             />
+
+            <input
+              name="time-todo"
+              className="border border-gray-300 p-2 rounded w-1/3"
+              placeholder="Select time"
+              type="time"
+            />
             <button
-              className="border bg-green-500 p-2 ml-2 rounded w-1/7"
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
               type="submit"
               onClick={handleSubmit}
             >
               Add task
+            </button>
+            <button
+              onClick={toggleModal}
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+            >
+              Cancel
             </button>
           </form>
         )}

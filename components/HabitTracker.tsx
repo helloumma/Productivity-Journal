@@ -13,8 +13,12 @@ import Toggle from "./Toggle";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
-import Picker from "emoji-picker-react";
-
+const Picker = dynamic(
+  () => {
+    return import("emoji-picker-react");
+  },
+  { ssr: false }
+);
 export default function HabitTracker() {
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
