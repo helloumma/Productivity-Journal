@@ -231,6 +231,7 @@ export default function NewToDo() {
                 className="border border-gray-300 p-2 rounded w-full"
                 placeholder="Select time"
                 type="time"
+                step="3600"
               />
             </div>
 
