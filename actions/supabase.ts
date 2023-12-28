@@ -38,10 +38,10 @@ export async function deleteToDo(id: string) {
   revalidatePath("/notes");
 }
 
-export async function editToDo(title: any, id: string) {
+export async function editToDo(title: any, id: string, time: any) {
   const { data, error } = await supabase
     .from("todo")
-    .update({ title: title })
+    .update({ title: title, time: time })
     .eq("id", id)
     .select();
   if (error) console.log(error);

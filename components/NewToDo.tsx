@@ -13,6 +13,8 @@ import DropdownMenu from "./DropdownMenu";
 import "../styles/styles.css";
 import Modal from "./Modal";
 
+// TO DO: Add duration dropdown value in modal
+
 export default function NewToDo() {
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -73,6 +75,16 @@ export default function NewToDo() {
     }
   };
 
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault;
+    if (currentTodo) {
+      setCurrentTodo({
+        ...currentTodo,
+        time: e.target.value,
+      });
+    }
+  };
+
   const handleEdit = (todo: ToDo) => {
     setShowModal(true);
     setEditModal(true);
@@ -82,7 +94,11 @@ export default function NewToDo() {
 
   const handleEditSubmit = async (e: any) => {
     e.preventDefault;
-    const updatedData = await editToDo(currentTodo.title, currentTodo.id);
+    const updatedData = await editToDo(
+      currentTodo.title,
+      currentTodo.id,
+      currentTodo.time
+    );
 
     console.log(updatedData);
     if (updatedData) {
@@ -165,6 +181,8 @@ export default function NewToDo() {
                 className="border border-gray-300 p-2 rounded w-full"
                 placeholder="Select time"
                 type="time"
+                value={currentTodo ? currentTodo.time : ""}
+                onChange={handleTimeChange}
               />
             </div>
             <div className="py-4 ml-1">
