@@ -138,18 +138,28 @@ export default function Schedule() {
         ))}
       </ul> */}
 
-      <div>
+      <div className="grid grid-cols-1 gap-4 p-4 px-6">
         {schedule.map((slot) => (
-          <div key={slot.hour}>
-            <h3>{slot.hour}</h3>
+          <div
+            key={slot.hour}
+            className="flex justify-between items-center bg-white p-4 dark:bg-gray-800 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+          >
+            <h3 className="font-semibold text-lg md:text-xl">{slot.hour}</h3>
             {slot.title?.length > 0 ? (
               <ul>
                 {slot.title.map((task: any) => (
-                  <li key={task.title}>{task.title}</li>
+                  <li
+                    key={task.title}
+                    className="text-sm text-gray-500 dark:text-gray-400"
+                  >
+                    {task.title}
+                  </li>
                 ))}
               </ul>
             ) : (
-              <p>No tasks</p>
+              <p className="text-sm text-green-500 dark:text-green-400">
+                Free time
+              </p>
             )}
           </div>
         ))}
