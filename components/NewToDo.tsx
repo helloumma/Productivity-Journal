@@ -24,6 +24,7 @@ export default function NewToDo() {
   const [checkedItem, setCheckedItem] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const handleCheckboxClick = (todoId: string) => {
     setCheckedItem((prevItems) => ({
@@ -49,6 +50,7 @@ export default function NewToDo() {
       ...prevStates,
       [todoId]: !prevStates[todoId],
     }));
+    setShowDropdown(true);
   };
 
   const toggleModal = () => {
@@ -74,7 +76,7 @@ export default function NewToDo() {
   const handleEdit = (todo: ToDo) => {
     setShowModal(true);
     setEditModal(true);
-    setEditModal(true);
+    setShowDropdown(false);
     setCurrentTodo(todo);
   };
 
@@ -91,7 +93,8 @@ export default function NewToDo() {
       console.log("error");
     }
     setShowModal(false);
-    window.location.reload();
+    setShowDropdown(false);
+    //window.location.reload();
     console.log(data);
   };
 
@@ -131,20 +134,47 @@ export default function NewToDo() {
       >
         {editModal && (
           <form action={handleEditSubmit}>
-            <input
-              name="title"
-              className="border border-gray-300 p-2 rounded w-2/3"
-              placeholder="Edit task..."
-              value={currentTodo ? currentTodo.title : ""}
-              onChange={handleInputChange}
-            />
-            <button
-              className="border bg-green-500 p-2 ml-2 rounded w-1/7"
-              type="submit"
-              // onSubmit={handleEditSubmit}
-            >
-              Save task
-            </button>
+            <div className="flex p-1 items-center">
+              <div className="space-y-1">
+                <label
+                  className="text-sm font-medium leading-none mr-3"
+                  htmlFor="title"
+                >
+                  Task
+                </label>
+              </div>
+              <input
+                name="title"
+                className="border border-gray-300 p-2 rounded w-full"
+                placeholder="Edit task..."
+                value={currentTodo ? currentTodo.title : ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="flex p-1 items-center">
+              <div className="space-y-1">
+                <label
+                  className="text-sm font-medium leading-none mr-3"
+                  htmlFor="time-todo"
+                >
+                  Time
+                </label>
+              </div>
+              <input
+                name="time-todo"
+                className="border border-gray-300 p-2 rounded w-full"
+                placeholder="Select time"
+                type="time"
+              />
+            </div>
+            <div className="py-4 ml-1">
+              <button
+                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"
+                type="submit"
+              >
+                Save task
+              </button>
+            </div>
           </form>
         )}
         {!editModal && (
@@ -183,7 +213,7 @@ export default function NewToDo() {
             </div>
             <div className="py-4 ml-1">
               <button
-                className="px-4  border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"
+                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"
                 type="submit"
                 onClick={handleSubmit}
               >
@@ -230,7 +260,8 @@ export default function NewToDo() {
                     />
                   </svg>
                 </button>
-                {dropdownStates[todo.id] && (
+                {/* to do: fix the bug on click for showing dropdown AFTER modal is closed */}
+                {dropdownStates[todo.id] && showDropdown && (
                   <DropdownMenu
                     deleteItem={() => handleDelete(todo.id as string)}
                     editItem={() => handleEdit(todo as any)}
