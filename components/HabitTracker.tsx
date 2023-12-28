@@ -38,6 +38,7 @@ export default function HabitTracker() {
   const [showPicker, setShowPicker] = useState(false);
   const [inputStr, setInputStr] = useState<string>("");
   const [chosenEmoji, setChosenEmoji] = useState();
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const onEmojiClick = (event: any, emojiObject: any) => {
     setInputStr((prev) => prev + emojiObject.emoji);
@@ -72,10 +73,13 @@ export default function HabitTracker() {
       ...prevStates,
       [todoId]: !prevStates[todoId],
     }));
+    setShowDropdown(true);
   };
 
-  const toggleModal = () => setShowModal(false);
-
+  const toggleModal = () => {
+    setShowModal(false);
+    setEditModal(false);
+  };
   const handleDelete = async (id: string) => {
     await deleteHabit(id);
     window.location.reload();
@@ -106,8 +110,8 @@ export default function HabitTracker() {
   const handleEdit = (habit: habit) => {
     setShowModal(true);
     setEditModal(true);
-    setEditModal(true);
     setCurrentHabit(habit);
+    setShowDropdown(false);
   };
 
   const handleEditSubmit = async (e: any) => {
@@ -127,6 +131,7 @@ export default function HabitTracker() {
       console.log("error");
     }
     setShowModal(false);
+    setShowDropdown(false);
     //window.location.reload();
     //console.log(data);
   };
@@ -267,7 +272,7 @@ export default function HabitTracker() {
                         />
                       </svg>
                     </button>
-                    {dropdownStates[habits.id] && (
+                    {dropdownStates[habits.id] && showDropdown && (
                       <DropdownMenu
                         habits={true}
                         deleteItem={() => handleDelete(habits.id as string)}
