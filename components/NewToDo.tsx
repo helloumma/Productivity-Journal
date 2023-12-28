@@ -191,7 +191,7 @@ export default function NewToDo() {
 
             <div className="py-4 ml-1">
               <button
-                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"
+                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
                 type="submit"
               >
                 Save task
@@ -237,7 +237,7 @@ export default function NewToDo() {
 
             <div className="py-4 ml-1">
               <button
-                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200"
+                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
                 type="submit"
                 onClick={handleSubmit}
               >
