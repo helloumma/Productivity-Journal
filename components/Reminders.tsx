@@ -3,6 +3,7 @@
 // to do: add an onClick to each item - open up a modal and show the data that was mapped over
 
 import { deleteReminder, getReminder, newReminder } from "@/actions/supabase";
+import SendEmail from "@/actions/Email";
 import { ReactNode, useEffect, useState } from "react";
 import { reminders } from "@/lib/reminders/types";
 import Modal from "./Modal";
@@ -40,7 +41,7 @@ export default function Reminders() {
           deleteReminder(item.id);
         }
       });
-    }, 10000); // Check every 10 seconds
+    }, 60000); // Check every 10 seconds
 
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [newData]);
@@ -65,6 +66,18 @@ export default function Reminders() {
 
     window.location.reload();
   };
+
+  const date = newData?.map((a: any) => a.date);
+  const now: any = new Date().getDate;
+  const timeDiff = date - now;
+  if (timeDiff > 0) {
+    setTimeout(() => {
+      SendEmail();
+    }, timeDiff);
+  }
+  console.log(date);
+  console.log(now);
+  console.log(timeDiff);
 
   const title = (
     <div className="flex items-center">

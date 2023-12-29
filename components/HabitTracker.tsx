@@ -23,8 +23,6 @@ const Picker = dynamic(
 /**
  * TO DO
  * - Need to think about to get around editing emoji for each habit in the edit modal
- * - When modal opens, set showModal to false (like in to do component)
- * - Bug: opening edit modal and then opening new modal pre-populates data from first item of list
  */
 
 export default function HabitTracker() {
