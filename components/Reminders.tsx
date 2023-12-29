@@ -67,17 +67,17 @@ export default function Reminders() {
     window.location.reload();
   };
 
-  const date = newData?.map((a: any) => a.date);
-  const now: any = new Date().getDate;
-  const timeDiff = date - now;
-  if (timeDiff > 0) {
-    setTimeout(() => {
-      SendEmail();
-    }, timeDiff);
-  }
-  console.log(date);
-  console.log(now);
-  console.log(timeDiff);
+  // const date = newData?.map((a: any) => a.date);
+  // const now: any = new Date().getDate;
+  // const timeDiff = date[0] - now;
+  // if (timeDiff > 0) {
+  //   setTimeout(() => {
+  //     SendEmail();
+  //   }, timeDiff);
+  // }
+  // console.log(date);
+  // console.log(now);
+  // console.log(timeDiff);
 
   const title = (
     <div className="flex items-center">
