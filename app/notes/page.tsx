@@ -1,31 +1,47 @@
+import HabitTracker from "@/components/HabitTracker";
 import NewToDo from "@/components/NewToDo";
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import Reminders from "@/components/Reminders";
+import Schedule from "@/components/Schedule";
+import MoodTracker from "@/components/MoodTracker";
+import { getToDo } from "@/actions/supabase";
+import NotesHeader from "@/components/NotesHeader";
 
-export default async function Page() {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  console.log(user?.id);
+/**
+ * TO DO
+ * - Move all data handling to be HERE and then send things like new Habit, getReminders from this component
+ */
 
-  if (!user) {
-    // Redirect or handle the case where the user is not authenticated
-    return <div>You need to be authenticated to view this page.</div>;
-  }
+//     box-shadow: 13px 12px 2px 1px rgba(0, 0, 255, .2);
 
-  // Fetch todos associated with the authenticated user
-  const { data: todos } = await supabase
-    .from("todo")
-    .select()
-    .eq("userId", user?.id);
-
+export default function Page() {
   return (
-    <>
-      {/*@ts-expect-error */}
-      <NewToDo />
-      <pre>{JSON.stringify(todos, null, 2)}</pre>
-    </>
+    <div className="p-4">
+      <div className="flex flex-wrap">
+        <div className="w-full p-4 mx-8 my-2 rounded border-slate-600 border">
+          <NotesHeader />
+        </div>
+        <div className="flex  mx-8 my-2 w-full">
+          <div className="w-full rounded border-slate-600 border flex">
+            <div className="w-1/2 border-r">
+              <Schedule />
+            </div>
+            <div className="w-1/2">
+              <NewToDo />
+            </div>
+          </div>
+        </div>
+        <div className="flex w-full mx-8 my-2">
+          <div className="w-full mr-2 rounded border-slate-600 border">
+            <HabitTracker />
+          </div>
+          <div className="w-full ml-2 rounded border-slate-600 border">
+            <Reminders />
+          </div>
+        </div>
+        <div className="w-full p-4  mx-8 my-2 rounded border-slate-600 border">
+          <MoodTracker />
+        </div>
+      </div>
+    </div>
   );
 }
