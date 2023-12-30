@@ -1,6 +1,8 @@
 import AuthButton from "./AuthButton";
 import ThemeToggle from "./ThemeProvider";
 
+// To do: add onClick on graph icon to show modal of mood tracker analytics
+
 export default function NotesHeader() {
   const date = new Date();
   const futureDate = date.getDate();
@@ -13,6 +15,12 @@ export default function NotesHeader() {
         <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
           <svg viewBox="0 0 24 24" fill="currentColor" height="1em" width="1em">
             <path d="M5 21h14a2 2 0 002-2V8a1 1 0 00-.29-.71l-4-4A1 1 0 0016 3H5a2 2 0 00-2 2v14a2 2 0 002 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5H5z" />
+          </svg>
+        </button>
+        <button className="py-2 ml-4 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+          <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
+            <path d="M4.5 12a.5.5 0 01-.5-.5v-2a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-1zm3 0a.5.5 0 01-.5-.5v-4a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v4a.5.5 0 01-.5.5h-1zm3 0a.5.5 0 01-.5-.5v-6a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-1z" />
+            <path d="M4 0a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V2a2 2 0 00-2-2H4zm0 1h8a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z" />
           </svg>
         </button>
       </div>
