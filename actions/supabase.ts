@@ -67,11 +67,19 @@ export async function newReminder(formData: FormData) {
     .from("reminders")
     .insert({ reminder, time, date, userId: (await user)?.id });
 
-  if (!Response.error) {
-    const sendTime: any = new Date(`${date} ${time}`);
+  // if (!response.error) {
+  //   const sendTime: any = new Date(`${date} ${time}`);
 
-    defer(SendEmail, sendTime);
-  }
+  //   SendEmail();
+  // }
+  const sendTime = new Date(`${date} ${time}`);
+  defer(SendEmail, sendTime as any);
+
+  console.log(sendTime);
+  console.log(new Date());
+  const currTime = new Date();
+  currTime.setSeconds(0);
+  console.log(sendTime === currTime);
   revalidatePath("/notes");
 }
 
