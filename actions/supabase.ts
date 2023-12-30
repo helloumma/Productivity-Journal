@@ -1,8 +1,10 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { defer } from "@defer/client";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import SendEmail from "../defer/Email";
 
 const cookieStore = cookies();
 const supabase = createClient(cookieStore);
@@ -64,6 +66,12 @@ export async function newReminder(formData: FormData) {
   await supabase
     .from("reminders")
     .insert({ reminder, time, date, userId: (await user)?.id });
+
+  if (!Response.error) {
+    const sendTime: any = new Date(`${date} ${time}`);
+
+    defer(SendEmail, sendTime);
+  }
   revalidatePath("/notes");
 }
 
