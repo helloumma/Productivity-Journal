@@ -25,27 +25,22 @@
 
 ### 💭Future Improvements
 
-- Validation on all fields in forms
-- Type checking for all four components
-- To Do component:
-  - Program a modal to add "to dos" to the list (with the ability to add a date/time)
-- Schedule component:
-  - Show the item added from "to do" in the correct time slot range
+- Validation on all fields in forms [31st Dec]
+- Type checking for all components [1st Jan]
+- Unit tests [1st Jan]
+- Delete other unncessary files that came with bootstrapped supabase/next.js app [31st Dec]
+- Centralise all data to be coming from the index page/think about state management [31st Dec]
+- Make all state go from the top, so setting data and showing/hiding the modal (all the same in all components) [31st Dec]
+
+---
+
 - Habit tracker component:
-  - Program functionality on the checkbox to change the range of the green bar (over period of time of a week, month, year etc.)
+  - Program functionality on the checkbox to change the range of the green bar (over period of time of a week, month, year etc.) [to be done after "flip between days" implemented]
 - Reminders component:
-  - Program email functionality
+  - Program email functionality [ongoing to find solution]
 - Mood tracker component:
-  - Some form of showing analysis of click on different emojis
-  - Potentially to be removed from whole thing
-- Handle how user is redirected if not logged in
-- What happens to base page? (currently using /notes)
-- Unit tests
-- Delete other unncessary files that came with bootstrapped supabase/next.js app
+  - Some form of showing analysis of click on different emojis [to be done after "flip between days" implemented]
 - Header/nav bar component
-  - log in/out button
-  - flip between days in the calendar - have a date picker the user can go to
-  - save icon button to save all the data from different components
-- Centralise all data to be coming from the index page/think about state management
-- Make all state go from the top, so setting data and showing/hiding the modal (all the same in all components)
-- Must change the onSubmit - window location isn't a good fix (do more research on validatePath when it comes to server side)
+  - flip between days in the calendar - have a date picker the user can go to [NEXT]
+  - save icon button to save all the data from different components [NEXT]
+- Must change the onSubmit - window location isn't a good fix (do more research on validatePath when it comes to server side) [nice to have]
