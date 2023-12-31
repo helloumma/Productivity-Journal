@@ -1,23 +1,12 @@
 "use client";
 
-// to do: add an onClick to each item - open up a modal and show the data that was mapped over
-
-import { deleteReminder, getReminder, newReminder } from "@/actions/supabase";
 import SendEmail from "@/actions/Email";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { reminders } from "@/lib/reminders/types";
 import Modal from "./Modal";
 import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
 
-/**
- * TO DO
- * - Render each reminder as card/rectangle and have three dot icon on top right
- * - Use this icon to edit or remove the render item in the map
- * Functionality to un-render reminders that have timed out (or something similar feature wise)
- */
-
-export default function Reminders() {
-  const [newData, setNewData] = useState<any>();
+export default function Reminders({ getData, handleDelete, handleAdd }: any) {
   const [showModal, setShowModal] = useState(false);
 
   const handleClick = (e: any) => {
@@ -26,59 +15,24 @@ export default function Reminders() {
   };
 
   useEffect(() => {
-    const fetchNewReminders = async () => {
-      const data = await getReminder();
-      setNewData(data);
-    };
-    fetchNewReminders();
-  }, []);
-
-  useEffect(() => {
     // Set an interval to periodically check for items to delete
     const interval = setInterval(() => {
-      newData.forEach((item: { date: string | number | Date; id: string }) => {
-        console.log(item.date);
+      getData.forEach((item: { date: string | number | Date; id: string }) => {
+        // console.log(item.date);
         if (new Date(item.date) < new Date()) {
-          deleteReminder(item.id);
+          handleDelete(item.id);
         }
       });
     }, 60000); // Check every 10 seconds
 
     return () => clearInterval(interval); // Cleanup on component unmount
-  }, [newData]);
+  }, [getData]);
 
-  const handleSubmit = () => {
-    window.location.reload();
-  };
+  // const handleSubmit = () => {
+  //   window.location.reload();
+  // };
 
   const toggleModal = () => setShowModal(false);
-
-  const handleDelete = async (id: string) => {
-    // to do: refresh router path thing
-    await deleteReminder(id);
-
-    // if (success) {
-    //   // Remove the item from the state
-    //   setData(data.filter((item: ToDo) => item.id !== id));
-    // } else {
-    //   // Handle the error case
-    //   console.error("Failed to delete the item.");
-    // }
-
-    window.location.reload();
-  };
-
-  // const date = newData?.map((a: any) => a.date);
-  // const now: any = new Date().getDate;
-  // const timeDiff = date[0] - now;
-  // if (timeDiff > 0) {
-  //   setTimeout(() => {
-  //     SendEmail();
-  //   }, timeDiff);
-  // }
-  // console.log(date);
-  // console.log(now);
-  // console.log(timeDiff);
 
   const title = (
     <div className="flex items-center">
@@ -91,7 +45,6 @@ export default function Reminders() {
     <>
       <div className="pl-6 flex items-center justify-between border-b-4 border-gray-500 border-double">
         {title}
-
         <button onClick={() => setShowModal(true)}>
           <AddIcon />
         </button>
@@ -104,7 +57,7 @@ export default function Reminders() {
         toDo={false}
         title={title}
       >
-        <form action={newReminder}>
+        <form action={handleAdd}>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid grid-rows-2 gap-4">
               <div className="flex p-1 items-center">
@@ -156,7 +109,7 @@ export default function Reminders() {
             <button
               className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7  hover:bg-gray-200"
               type="submit"
-              onClick={handleSubmit}
+              // onClick={handleSubmit}
             >
               Add reminder
             </button>
@@ -164,7 +117,7 @@ export default function Reminders() {
         </form>
       </Modal>
       <div className="p-4">
-        {newData?.map((reminders: reminders) => (
+        {getData?.map((reminders: reminders) => (
           <div
             className="flex bg-gray-300 dark:bg-gray-600 rounded  p-4 mb-4 justify-between items-center"
             key={reminders.id}
