@@ -8,6 +8,11 @@ import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
 
 export default function Reminders({ getData, handleDelete, handleAdd }: any) {
   const [showModal, setShowModal] = useState(false);
+  const [isTouched, setIsTouched] = useState({
+    date: false,
+    time: false,
+    reminder: false,
+  });
 
   const handleClick = (e: any) => {
     e.preventDefault;
@@ -40,7 +45,9 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
       <h1 className="text-2xl font-bold p-2">Reminders</h1>
     </div>
   );
-
+  const handleBlur = (field: string) => {
+    setIsTouched((prev) => ({ ...prev, [field]: true }));
+  };
   return (
     <>
       <div className="pl-6 flex items-center justify-between border-b-4 border-gray-500 border-double">
@@ -74,8 +81,17 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
                   className="border border-gray-300 p-2 rounded w-full"
                   placeholder="Select date"
                   type="date"
+                  onBlur={() => handleBlur("date")}
+                  onChange={() =>
+                    setIsTouched((prev) => ({ ...prev, date: false }))
+                  }
                 />
               </div>
+              {!isTouched.date && (
+                <p className="text-red-500 text-sm mt-1">
+                  This field is required.
+                </p>
+              )}
               <div className="flex p-1 items-center">
                 <div className="space-y-1 mr-4">
                   <label
@@ -91,8 +107,17 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
                   className="border border-gray-300 p-2 rounded w-full"
                   placeholder="Select time"
                   type="time"
+                  onBlur={() => handleBlur("time")}
+                  onChange={() =>
+                    setIsTouched((prev) => ({ ...prev, time: false }))
+                  }
                 />
               </div>
+              {!isTouched.time && (
+                <p className="text-red-500 text-sm mt-1">
+                  This field is required.
+                </p>
+              )}
             </div>
 
             <div className="flex">
@@ -102,9 +127,16 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
                 placeholder="Add new reminder..."
                 //onChange={onChange}
                 //rows={2}
+                onBlur={() => handleBlur("reminder")}
+                onChange={() =>
+                  setIsTouched((prev) => ({ ...prev, reminder: false }))
+                }
               />
             </div>
           </div>
+          {!isTouched.reminder && (
+            <p className="text-red-500 text-sm mt-1">This field is required.</p>
+          )}
           <div className="flex mt-2 justify-center">
             <button
               className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7  hover:bg-gray-200"

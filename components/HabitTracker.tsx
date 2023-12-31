@@ -35,6 +35,10 @@ export default function HabitTracker({
   const [inputStr, setInputStr] = useState<string>("");
   const [chosenEmoji, setChosenEmoji] = useState();
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [isTouched, setIsTouched] = useState({
+    emoji: false,
+    habit: false,
+  });
 
   const onEmojiClick = (event: any, emojiObject: any) => {
     setInputStr((prev) => prev + emojiObject.emoji);
@@ -116,7 +120,9 @@ export default function HabitTracker({
       <h1 className="text-2xl font-bold p-2">Habit Tracker</h1>
     </div>
   );
-
+  const handleBlur = (field: string) => {
+    setIsTouched((prev) => ({ ...prev, [field]: true }));
+  };
   return (
     <>
       <div className="pl-6 flex items-center justify-between border-b-4 border-gray-500 border-double">
@@ -142,14 +148,26 @@ export default function HabitTracker({
               placeholder="emoji"
               value={currentHabit ? currentHabit.emoji : ""}
               onChange={handleEmojiInputChange}
+              onBlur={() => handleBlur("emoji")}
             />
+            {!isTouched.emoji && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required.
+              </p>
+            )}
             <input
               name="habit"
               className="border border-gray-300  p-2 rounded w-5/6"
               placeholder="Edit habit..."
               value={currentHabit ? currentHabit.habit : ""}
               onChange={handleInputChange}
+              onBlur={() => handleBlur("habit")}
             />
+            {!isTouched.habit && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required.
+              </p>
+            )}
             <button
               className="border border-gray-300 p-2 ml-2 rounded w-1/7  mt-4  hover:bg-gray-200"
               type="submit"
@@ -177,7 +195,16 @@ export default function HabitTracker({
               name="habit"
               className="border border-gray-300  p-2 rounded w-5/6 ml-4"
               placeholder="Add new habit..."
+              onBlur={() => handleBlur("habit")}
+              onChange={() =>
+                setIsTouched((prev) => ({ ...prev, title: false }))
+              }
             />
+            {!isTouched.habit && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required.
+              </p>
+            )}
             <button
               className="border border-gray-300 p-2 ml-2 rounded w-1/7 mt-4 hover:bg-gray-200"
               type="submit"
