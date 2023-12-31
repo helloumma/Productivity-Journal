@@ -3,7 +3,7 @@ import NewToDo from "@/components/NewToDo";
 import Reminders from "@/components/Reminders";
 import Schedule from "@/components/Schedule";
 import MoodTracker from "@/components/MoodTracker";
-import { getToDo, getUser } from "@/actions/supabase";
+import { deleteToDo, editToDo, getToDo, newToDo } from "@/actions/supabase";
 import NotesHeader from "@/components/NotesHeader";
 
 /**
@@ -11,9 +11,20 @@ import NotesHeader from "@/components/NotesHeader";
  * - Move all data handling to be HERE and then send things like new Habit, getReminders from this component
  */
 
+// all toggle of modals and dropdown menu should be moved to separate times
+// then imported down ???
+// all code is the same in all four components
+
 export default async function Page() {
-  const getData = await getToDo();
-  console.log("notes", getData);
+  const getToDoData = await getToDo();
+  const handleToDoDelete = async (id: string) => {
+    "use server";
+    await deleteToDo(id);
+  };
+  const handleToDoEdit = async (title: any, id: any, time: any) => {
+    "use server";
+    await editToDo(title, id, time);
+  };
 
   return (
     <div className="p-4">
@@ -27,7 +38,12 @@ export default async function Page() {
               <Schedule />
             </div>
             <div className="w-1/2">
-              <NewToDo />
+              <NewToDo
+                getData={getToDoData}
+                handleDelete={handleToDoDelete}
+                handleAdd={newToDo}
+                handleEditsSubmit={handleToDoEdit}
+              />
             </div>
           </div>
         </div>

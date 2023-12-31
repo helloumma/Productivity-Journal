@@ -1,25 +1,20 @@
 "use client";
 
-import {
-  newToDo,
-  getUser,
-  getToDo,
-  deleteToDo,
-  editToDo,
-} from "@/actions/supabase";
 import { useEffect, useState } from "react";
 import { ToDo } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
 import "../styles/styles.css";
 import Modal from "./Modal";
 import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
-// TO DO: Add duration dropdown value in modal
 
-// for temp: all to do items are mapped within a one hour slot over to schedule
-// need some kind of error handling for time clashes on add/edit modals
+// BUG TO BE FIXED: Modal should close when user adds a new item and list should be updated
 
-export default function NewToDo() {
-  const [data, setData] = useState<any>();
+export default function NewToDo({
+  getData,
+  handleDelete,
+  handleAdd,
+  handleEditsSubmit,
+}: any) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [dropdownStates, setDropdownStates] = useState<{
@@ -38,18 +33,6 @@ export default function NewToDo() {
     }));
   };
 
-  useEffect(() => {
-    const fetchList = async () => {
-      const getData = await getToDo();
-      setData(getData);
-    };
-    fetchList();
-  }, []);
-
-  const handleSubmit = () => {
-    window.location.reload();
-  };
-
   const handleDropdownToggle = (todoId: string) => {
     setDropdownStates((prevStates) => ({
       ...prevStates,
@@ -61,11 +44,6 @@ export default function NewToDo() {
   const toggleModal = () => {
     setShowModal(false);
     setEditModal(false);
-  };
-
-  const handleDelete = async (id: string) => {
-    await deleteToDo(id);
-    window.location.reload();
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,16 +75,14 @@ export default function NewToDo() {
 
   const handleEditSubmit = async (e: any) => {
     e.preventDefault;
-    const updatedData = await editToDo(
+    const updatedData = handleEditsSubmit(
       currentTodo.title,
       currentTodo.id,
       currentTodo.time
     );
 
     if (updatedData) {
-      const getData = await getToDo(); // Refetch the updated list
-      setData(getData); // Update the state with the new list
-      console.log(data);
+      getData;
     } else {
       console.log("error");
     }
@@ -187,7 +163,7 @@ export default function NewToDo() {
           </form>
         )}
         {!editModal && (
-          <form action={newToDo}>
+          <form action={handleAdd}>
             <div className="flex p-1 items-center">
               <div className="space-y-1">
                 <label
@@ -226,7 +202,7 @@ export default function NewToDo() {
               <button
                 className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
                 type="submit"
-                onClick={handleSubmit}
+                // onClick={() => setShowModal(false)}
               >
                 Add task
               </button>
@@ -235,7 +211,7 @@ export default function NewToDo() {
         )}
       </Modal>
       <div className="pt-2 px-4">
-        {data?.map((todo: ToDo) => (
+        {getData?.map((todo: ToDo) => (
           <div
             className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4 mb-4 rounded "
             key={todo.id}
@@ -258,7 +234,6 @@ export default function NewToDo() {
                 <button onClick={() => handleDropdownToggle(todo.id as string)}>
                   <ToggleDropDownIcon />
                 </button>
-                {/* to do: fix the bug on click for showing dropdown AFTER modal is closed */}
                 {dropdownStates[todo.id] && showDropdown && (
                   <DropdownMenu
                     deleteItem={() => handleDelete(todo.id as string)}
