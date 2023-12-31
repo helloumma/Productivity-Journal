@@ -11,9 +11,10 @@ import NotesHeader from "@/components/NotesHeader";
  * - Move all data handling to be HERE and then send things like new Habit, getReminders from this component
  */
 
-//     box-shadow: 13px 12px 2px 1px rgba(0, 0, 255, .2);
+export default async function Page() {
+  const getData = await getToDo();
+  console.log("notes", getData);
 
-export default function Page() {
   return (
     <div className="p-4">
       <div className="flex flex-wrap">

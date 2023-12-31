@@ -44,7 +44,6 @@ export default function HabitTracker() {
     setShowPicker(false);
     setChosenEmoji(emojiObject.emoji);
   };
-  console.log(chosenEmoji);
 
   const handleClick = (e: any) => {
     e.preventDefault;
@@ -125,7 +124,6 @@ export default function HabitTracker() {
     if (updatedData) {
       const getData = await getHabit(); // Refetch the updated list
       setData(getData); // Update the state with the new list
-      console.log(data);
     } else {
       console.log("error");
     }
@@ -216,50 +214,48 @@ export default function HabitTracker() {
 
       <div className="pt-4">
         {data?.map((habits: habit) => (
-          <>
-            <div className="flex items-center ">
-              <div className="pb-3 px-6 w-full" key={habits.id}>
-                <div className="flex justify-between  rounded bg-green-200 mb-2 dark:bg-green-700">
-                  <div className="flex items-center">
-                    <div className="p-3">
-                      <CircleDial
-                        key={habits.id}
-                        percentage={Math.floor(Math.random() * 100).toPrecision(
-                          1
-                        )}
-                        emoji={habits.emoji}
-                      />
-                    </div>
-                    <p className="text-xl font-bold ml-2" onClick={handleClick}>
-                      {habits.habit}
-                    </p>
+          <div className="flex items-center" key={habits.id}>
+            <div className="pb-3 px-6 w-full">
+              <div className="flex justify-between  rounded bg-green-200 mb-2 dark:bg-green-700">
+                <div className="flex items-center">
+                  <div className="p-3">
+                    <CircleDial
+                      key={habits.id}
+                      percentage={Math.floor(Math.random() * 100).toPrecision(
+                        1
+                      )}
+                      emoji={habits.emoji}
+                    />
                   </div>
-                  <div className="flex items-center">
-                    {/* <Toggle /> */}
-                    <input
-                      type="checkbox"
-                      className="checkbox appearance-none h-8 w-8 border border-gray-300 
+                  <p className="text-xl font-bold ml-2" onClick={handleClick}>
+                    {habits.habit}
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  {/* <Toggle /> */}
+                  <input
+                    type="checkbox"
+                    className="checkbox appearance-none h-8 w-8 border border-gray-300 
                 rounded-full bg-white checked:bg-green-600 checked:border-transparent 
                 focus:outline-none mr-2 cursor-pointer"
-                      style={{ borderRadius: "50%" }}
+                    style={{ borderRadius: "50%" }}
+                  />
+                  <button
+                    onClick={() => handleDropdownToggle(habits.id as string)}
+                  >
+                    <ToggleDropDownIcon />
+                  </button>
+                  {dropdownStates[habits.id] && showDropdown && (
+                    <DropdownMenu
+                      habits={true}
+                      deleteItem={() => handleDelete(habits.id as string)}
+                      editItem={() => handleEdit(habits as any)}
                     />
-                    <button
-                      onClick={() => handleDropdownToggle(habits.id as string)}
-                    >
-                      <ToggleDropDownIcon />
-                    </button>
-                    {dropdownStates[habits.id] && showDropdown && (
-                      <DropdownMenu
-                        habits={true}
-                        deleteItem={() => handleDelete(habits.id as string)}
-                        editItem={() => handleEdit(habits as any)}
-                      />
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
 

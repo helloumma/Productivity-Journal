@@ -95,9 +95,6 @@ export default function Schedule() {
     };
   });
 
-  console.log(schedule);
-  console.log(data);
-
   return (
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double">

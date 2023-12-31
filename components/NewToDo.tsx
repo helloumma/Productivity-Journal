@@ -103,7 +103,6 @@ export default function NewToDo() {
       currentTodo.time
     );
 
-    console.log(updatedData);
     if (updatedData) {
       const getData = await getToDo(); // Refetch the updated list
       setData(getData); // Update the state with the new list
@@ -114,7 +113,6 @@ export default function NewToDo() {
     setShowModal(false);
     setShowDropdown(false);
     //window.location.reload();
-    console.log(data);
   };
 
   const title = (
