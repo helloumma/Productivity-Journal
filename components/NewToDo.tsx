@@ -140,8 +140,14 @@ export default function NewToDo({
                 placeholder="Edit task..."
                 value={currentTodo ? currentTodo.title : ""}
                 onChange={handleInputChange}
+                onBlur={() => handleBlur("title")}
               />
             </div>
+            {!isTouched.title && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required.
+              </p>
+            )}
             <div className="flex p-1 items-center">
               <div className="space-y-1">
                 <label
@@ -158,9 +164,14 @@ export default function NewToDo({
                 type="time"
                 value={currentTodo ? currentTodo.time : ""}
                 onChange={handleTimeChange}
+                onBlur={() => handleBlur("time")}
               />
             </div>
-
+            {!isTouched.time && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required.
+              </p>
+            )}
             <div className="py-4 ml-1">
               <button
                 className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
@@ -191,14 +202,16 @@ export default function NewToDo({
                 }
                 placeholder="Add new task..."
                 onBlur={() => handleBlur("title")}
+                onChange={() =>
+                  setIsTouched((prev) => ({ ...prev, title: false }))
+                }
               />
             </div>
-            {isTouched.title && (
+            {!isTouched.title && (
               <p className="text-red-500 text-sm mt-1">
                 This field is required.
               </p>
             )}
-
             <div className="flex p-1 items-center">
               <div className="space-y-1">
                 <label
@@ -214,10 +227,13 @@ export default function NewToDo({
                 placeholder="Select time"
                 type="time"
                 step="3600"
+                onChange={() =>
+                  setIsTouched((prev) => ({ ...prev, time: false }))
+                }
                 onBlur={() => handleBlur("time")}
               />
             </div>
-            {isTouched.time && (
+            {!isTouched.time && (
               <p className="text-red-500 text-sm mt-1">
                 This field is required.
               </p>
