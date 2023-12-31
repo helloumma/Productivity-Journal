@@ -25,6 +25,7 @@ export default function NewToDo({
     {}
   );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [isTouched, setIsTouched] = useState({ title: false, time: false });
 
   const handleCheckboxClick = (todoId: string) => {
     setCheckedItem((prevItems) => ({
@@ -54,6 +55,8 @@ export default function NewToDo({
         title: e.target.value,
       });
     }
+
+    setIsTouched((prev) => ({ ...prev, title: false }));
   };
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +67,8 @@ export default function NewToDo({
         time: e.target.value,
       });
     }
+
+    setIsTouched((prev) => ({ ...prev, time: false }));
   };
 
   const handleEdit = (todo: ToDo) => {
@@ -97,6 +102,10 @@ export default function NewToDo({
       <h1 className="text-2xl font-bold p-2">To Do</h1>
     </div>
   );
+
+  const handleBlur = (field: string) => {
+    setIsTouched((prev) => ({ ...prev, [field]: true }));
+  };
   return (
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">
@@ -175,10 +184,20 @@ export default function NewToDo({
               </div>
               <input
                 name="title"
-                className="border border-gray-300 p-2 rounded w-full"
+                className={
+                  isTouched
+                    ? "border border-red-300 p-2 rounded w-full"
+                    : "border border-gray-300 p-2 rounded w-full"
+                }
                 placeholder="Add new task..."
+                onBlur={() => handleBlur("title")}
               />
             </div>
+            {isTouched.title && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required.
+              </p>
+            )}
 
             <div className="flex p-1 items-center">
               <div className="space-y-1">
@@ -195,9 +214,14 @@ export default function NewToDo({
                 placeholder="Select time"
                 type="time"
                 step="3600"
+                onBlur={() => handleBlur("time")}
               />
             </div>
-
+            {isTouched.time && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required.
+              </p>
+            )}
             <div className="py-4 ml-1">
               <button
                 className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"

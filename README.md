@@ -28,8 +28,6 @@
 - Validation on all fields in forms [31st Dec]
 - Type checking for all components [1st Jan]
 - Unit tests [1st Jan]
-- Delete other unncessary files that came with bootstrapped supabase/next.js app [31st Dec]
-- Centralise all data to be coming from the index page/think about state management [31st Dec]
 - Make all state go from the top, so setting data and showing/hiding the modal (all the same in all components) [31st Dec]
 - Dark/light mode [1st Jan]
 

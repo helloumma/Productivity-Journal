@@ -15,15 +15,6 @@ export default function Schedule() {
     fetchList();
   }, []);
 
-  const dataFake = [
-    { title: "one", time: "9:00" },
-    { title: "two", time: "19:00" },
-    { title: "three", time: "12:00" },
-    { title: "four", time: "11:00" },
-    { title: "five", time: "17:00" },
-    { title: "seven", time: null },
-  ];
-
   // Creating an array to represent each hour from 9 AM to 10 PM
   const hours = Array.from({ length: 14 }, (_, i) => 9 + i);
 
