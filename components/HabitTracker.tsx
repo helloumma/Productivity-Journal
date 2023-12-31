@@ -1,9 +1,8 @@
 "use client";
 import dynamic from "next/dynamic";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { habit } from "@/lib/habitTracker/types";
-import Toggle from "./Toggle";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
@@ -47,18 +46,6 @@ export default function HabitTracker({
     e.preventDefault;
     console.log("click");
   };
-
-  const onEmojiClickNEW = (event: any, emojiObject: any) => {
-    setChosenEmoji(emojiObject);
-  };
-
-  // useEffect(() => {
-  //   const fetchHabits = async () => {
-  //     const getData = await getHabit();
-  //     setData(getData);
-  //   };
-  //   fetchHabits();
-  // }, []);
 
   const handleSubmit = () => {
     window.location.reload();
@@ -114,17 +101,13 @@ export default function HabitTracker({
       currentHabit.emoji
     );
 
-    //console.log(updatedData);
     if (updatedData) {
-      // const getData = await getHabit(); // Refetch the updated list
-      getData; // Update the state with the new list
+      getData;
     } else {
       console.log("error");
     }
     setShowModal(false);
     setShowDropdown(false);
-    //window.location.reload();
-    //console.log(data);
   };
 
   const title = (
@@ -252,17 +235,6 @@ export default function HabitTracker({
           </div>
         ))}
       </div>
-
-      {/* <div className="flex flex-wrap">
-        {data?.map((habits: habit) => (
-          <CircleDial
-            key={habits.id}
-            percentage={Math.floor(Math.random() * 100).toPrecision(1)}
-            emoji={habits.emoji}
-            title={habits.habit}
-          />
-        ))}
-      </div> */}
     </>
   );
 }
