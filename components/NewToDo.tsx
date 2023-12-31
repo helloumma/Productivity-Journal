@@ -12,7 +12,7 @@ import { ToDo } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
 import "../styles/styles.css";
 import Modal from "./Modal";
-
+import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 // TO DO: Add duration dropdown value in modal
 
 // for temp: all to do items are mapped within a one hour slot over to schedule
@@ -119,10 +119,7 @@ export default function NewToDo() {
 
   const title = (
     <div className="flex items-center">
-      <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-        <path d="M3.5 2a.5.5 0 00-.5.5v12a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-12a.5.5 0 00-.5-.5H12a.5.5 0 010-1h.5A1.5 1.5 0 0114 2.5v12a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 14.5v-12A1.5 1.5 0 013.5 1H4a.5.5 0 010 1h-.5z" />
-        <path d="M10 .5a.5.5 0 00-.5-.5h-3a.5.5 0 00-.5.5.5.5 0 01-.5.5.5.5 0 00-.5.5V2a.5.5 0 00.5.5h5A.5.5 0 0011 2v-.5a.5.5 0 00-.5-.5.5.5 0 01-.5-.5z" />
-      </svg>
+      <ToDoIcon />
       <h1 className="text-2xl font-bold p-2">To Do</h1>
     </div>
   );
@@ -132,15 +129,7 @@ export default function NewToDo() {
         {title}
 
         <button onClick={() => setShowModal(true)}>
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            height="1.5em"
-            width="1.5em"
-            className="mr-6"
-          >
-            <path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z" />
-          </svg>
+          <AddIcon />
         </button>
       </div>
 
@@ -269,20 +258,7 @@ export default function NewToDo() {
               </div>
               <div className="-mr-4">
                 <button onClick={() => handleDropdownToggle(todo.id as string)}>
-                  <svg
-                    className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 4 16"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
-                    />
-                  </svg>
+                  <ToggleDropDownIcon />
                 </button>
                 {/* to do: fix the bug on click for showing dropdown AFTER modal is closed */}
                 {dropdownStates[todo.id] && showDropdown && (

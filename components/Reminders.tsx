@@ -7,6 +7,7 @@ import SendEmail from "@/actions/Email";
 import { ReactNode, useEffect, useState } from "react";
 import { reminders } from "@/lib/reminders/types";
 import Modal from "./Modal";
+import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
 
 /**
  * TO DO
@@ -81,9 +82,7 @@ export default function Reminders() {
 
   const title = (
     <div className="flex items-center">
-      <svg viewBox="0 0 448 512" fill="currentColor" height="1em" width="1em">
-        <path d="M256 32v17.88C328.5 61.39 384 124.2 384 200v33.4c0 45.4 15.5 89.5 43.8 125l14.9 18.6c5.8 7.2 6.9 17.1 2.9 25.4-4 8.3-12.4 13.6-21.6 13.6H24c-9.23 0-17.635-5.3-21.631-13.6A24.019 24.019 0 015.26 377l14.91-18.6C48.54 322.9 64 278.8 64 233.4V200c0-75.8 55.5-138.61 128-150.12V32c0-17.67 14.3-32 32-32s32 14.33 32 32zm-40 64c-57.4 0-104 46.6-104 104v33.4c0 47.9-13.88 94.6-39.69 134.6H375.7c-25.8-40-39.7-86.7-39.7-134.6V200c0-57.4-46.6-104-104-104h-16zm72 352c0 16.1-6.7 33.3-18.7 45.3S240.1 512 224 512c-17 0-33.3-6.7-45.3-18.7S160 464.1 160 448h128z" />
-      </svg>
+      <RemindersIcon />
       <h1 className="text-2xl font-bold p-2">Reminders</h1>
     </div>
   );
@@ -94,15 +93,7 @@ export default function Reminders() {
         {title}
 
         <button onClick={() => setShowModal(true)}>
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            height="1.5em"
-            width="1.5em"
-            className="mr-6"
-          >
-            <path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z" />
-          </svg>
+          <AddIcon />
         </button>
       </div>
 
@@ -188,17 +179,7 @@ export default function Reminders() {
 
             <div className="-mr-1">
               <button onClick={() => handleDelete(reminders.id as any)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-trash "
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                </svg>
+                <DeleteReminderIcon />
               </button>
             </div>
           </div>
