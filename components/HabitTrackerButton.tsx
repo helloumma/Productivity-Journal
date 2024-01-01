@@ -21,7 +21,7 @@ export default function HabitTrackerButton() {
         mood tracker modal
       </Modal>
       <button
-        className="py-2 ml-4 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+        className="dark:bg-gray-500 py-2 ml-4 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
         onClick={() => setShowModal(true)}
       >
         <GraphIcon />

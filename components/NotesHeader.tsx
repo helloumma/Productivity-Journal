@@ -1,9 +1,7 @@
 import AuthButton from "./AuthButton";
 import ThemeToggle from "./ThemeProvider";
-import Image from "next/image";
 import { SaveIcon, LeftIcon, RightIcon } from "./Assets";
 import GraphIcon from "./HabitTrackerButton";
-// To do: add onClick on graph icon to show modal of mood tracker analytics
 
 export default function NotesHeader() {
   const date = new Date();
@@ -14,7 +12,7 @@ export default function NotesHeader() {
   return (
     <div className="flex justify-between items-center">
       <div>
-        <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+        <button className="py-2 px-4 rounded-md no-underline dark:bg-gray-500 bg-btn-background hover:bg-btn-background-hover">
           <SaveIcon />
         </button>
 
