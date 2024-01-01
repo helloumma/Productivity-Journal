@@ -1,11 +1,11 @@
 "use client";
-
-import { getToDo } from "@/actions/supabase";
 import { useEffect, useState } from "react";
+import { getToDo } from "@/actions/supabase";
 import { ScheduleIcon } from "./Assets";
 
 export default function Schedule() {
   const [data, setData] = useState<any>();
+  ("");
 
   useEffect(() => {
     const fetchList = async () => {
@@ -16,14 +16,17 @@ export default function Schedule() {
   }, []);
 
   // Creating an array to represent each hour from 9 AM to 10 PM
-  const hours = Array.from({ length: 14 }, (_, i) => 9 + i);
+  const hours = Array.from({ length: 14 }, (_, i) => {
+    const hour = 9 + i;
+    return hour === 9 ? `0${hour}:00` : `${hour}:00`;
+  });
 
   // Mapping each hour to its tasks
   const schedule = hours.map((hour) => {
-    const hourString = `${hour}:00:00`;
     return {
-      hour: hourString,
-      title: data?.filter((item: any) => item.time === hourString),
+      displayHour: hour, // Display string with :00
+      hour: hour, // The full hour string for filtering tasks
+      title: data?.filter((item: any) => item.time.startsWith(hour)),
     };
   });
 
@@ -40,7 +43,9 @@ export default function Schedule() {
             key={slot.hour}
             className="flex justify-between items-center bg-white p-4 dark:bg-gray-800 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
           >
-            <h3 className="font-semibold text-lg md:text-xl">{slot.hour}</h3>
+            <h3 className="font-semibold text-lg md:text-xl">
+              {slot.displayHour}
+            </h3>
             {slot.title?.length > 0 ? (
               <ul>
                 {slot.title.map((task: any) => (
