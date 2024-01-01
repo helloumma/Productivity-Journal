@@ -8,6 +8,7 @@ import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
 import { HabitTrackerIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 import AddForm from "./AddForm";
+import EditForm from "./EditForm";
 const Picker = dynamic(
   () => {
     return import("emoji-picker-react");
@@ -142,40 +143,16 @@ export default function HabitTracker({
         title={title}
       >
         {editModal ? (
-          <form action={handleEditSubmit}>
-            <input
-              name="emoji"
-              className="border border-gray-300  p-2 rounded w-1/6"
-              placeholder="emoji"
-              value={currentHabit ? currentHabit.emoji : ""}
-              onChange={handleEmojiInputChange}
-              onBlur={() => handleBlur("emoji")}
-            />
-            {!isTouched.emoji && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <input
-              name="habit"
-              className="border border-gray-300  p-2 rounded w-5/6"
-              placeholder="Edit habit..."
-              value={currentHabit ? currentHabit.habit : ""}
-              onChange={handleInputChange}
-              onBlur={() => handleBlur("habit")}
-            />
-            {!isTouched.habit && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <button
-              className="border border-gray-300 p-2 ml-2 rounded w-1/7  mt-4  hover:bg-gray-200"
-              type="submit"
-            >
-              Save habit
-            </button>
-          </form>
+          <EditForm
+            habitTracker={true}
+            formAction={handleEditSubmit}
+            errorMessage={isTouched}
+            currentHabit={currentHabit}
+            handleEmojiInputChange={handleEmojiInputChange}
+            handleEmojiOnBlurChange={() => handleBlur("emoji")}
+            handleHabitInputChange={handleInputChange}
+            handleHabitOnBlurChange={() => handleBlur("habit")}
+          />
         ) : (
           <AddForm
             habitTracker={true}

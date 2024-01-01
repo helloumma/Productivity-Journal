@@ -46,6 +46,11 @@ export default function EditForm({
   handleBlurToDoEdit,
   handleTimeChangeToDo,
   handleBlurToDoTimeEdit,
+  currentHabit,
+  handleEmojiInputChange,
+  handleEmojiOnBlurChange,
+  handleHabitInputChange,
+  handleHabitOnBlurChange,
 }: any) {
   return (
     <>
@@ -104,7 +109,38 @@ export default function EditForm({
           </div>
         </form>
       )}
-      {habitTracker && "habit tracker edit form"}
+      {habitTracker && (
+        <form action={formAction}>
+          <input
+            name="emoji"
+            className="border border-gray-300  p-2 rounded w-1/6"
+            placeholder="emoji"
+            value={currentHabit ? currentHabit.emoji : ""}
+            onChange={handleEmojiInputChange}
+            onBlur={handleEmojiOnBlurChange}
+          />
+          {!errorMessage.emoji && (
+            <p className="text-red-500 text-sm mt-1">This field is required.</p>
+          )}
+          <input
+            name="habit"
+            className="border border-gray-300  p-2 rounded w-5/6"
+            placeholder="Edit habit..."
+            value={currentHabit ? currentHabit.habit : ""}
+            onChange={handleHabitInputChange}
+            onBlur={handleHabitOnBlurChange}
+          />
+          {!errorMessage.habit && (
+            <p className="text-red-500 text-sm mt-1">This field is required.</p>
+          )}
+          <button
+            className="border border-gray-300 p-2 ml-2 rounded w-1/7  mt-4  hover:bg-gray-200"
+            type="submit"
+          >
+            Save habit
+          </button>
+        </form>
+      )}
     </>
   );
 }
