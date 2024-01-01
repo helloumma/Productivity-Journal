@@ -15,21 +15,19 @@ export default function NotesHeader() {
         <button className="py-2 px-4 rounded-md no-underline dark:bg-gray-500 bg-btn-background hover:bg-btn-background-hover">
           <SaveIcon />
         </button>
-
         <GraphIcon />
       </div>
       <div className="flex items-center">
         <LeftIcon />
         <input
           name="header-date"
-          className=" p-2 rounded w-1/10 mx-8 bg-transparent"
+          className="dark:text-white p-2 rounded w-1/10 mx-8 bg-transparent dark:[color-scheme:dark]"
           placeholder="Select date"
           type="date"
           defaultValue={defaultValue}
         />
         <RightIcon />
       </div>
-
       <div className="flex items-baseline">
         <div>
           <ThemeToggle />
