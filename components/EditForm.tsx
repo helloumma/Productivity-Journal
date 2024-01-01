@@ -1,41 +1,4 @@
-// Habit tracker
-{
-  /* <form action={handleEditSubmit}>
-            <input
-              name="emoji"
-              className="border border-gray-300  p-2 rounded w-1/6"
-              placeholder="emoji"
-              value={currentHabit ? currentHabit.emoji : ""}
-              onChange={handleEmojiInputChange}
-              onBlur={() => handleBlur("emoji")}
-            />
-            {!isTouched.emoji && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <input
-              name="habit"
-              className="border border-gray-300  p-2 rounded w-5/6"
-              placeholder="Edit habit..."
-              value={currentHabit ? currentHabit.habit : ""}
-              onChange={handleInputChange}
-              onBlur={() => handleBlur("habit")}
-            />
-            {!isTouched.habit && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <button
-              className="border border-gray-300 p-2 ml-2 rounded w-1/7  mt-4  hover:bg-gray-200"
-              type="submit"
-            >
-              Save habit
-            </button>
-          </form> */
-}
-
+// to do: refactor further
 export default function EditForm({
   formAction,
   errorMessage,
