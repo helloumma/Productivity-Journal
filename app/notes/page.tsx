@@ -67,7 +67,7 @@ export default async function Page() {
         </div>
         <div className="flex  mx-8 my-2 w-full">
           <div className="w-full rounded border-slate-600 border flex">
-            <div className="w-1/2 border-r">
+            <div className="w-1/2 border-r border-slate-600">
               <Schedule />
             </div>
             <div className="w-1/2">
