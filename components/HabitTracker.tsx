@@ -7,6 +7,7 @@ import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
 import { HabitTrackerIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
+import AddForm from "./AddForm";
 const Picker = dynamic(
   () => {
     return import("emoji-picker-react");
@@ -176,43 +177,21 @@ export default function HabitTracker({
             </button>
           </form>
         ) : (
-          <form action={handleAdd}>
-            <input
-              name="emoji"
-              className="border border-gray-300  p-2 rounded w-1/6"
-              value={inputStr}
-              onChange={(e) => setInputStr(e.target.value)}
-              hidden={true}
-            />
-            <button
-              onClick={() => setShowPicker((val) => !val)}
-              className="text-2xl"
-            >
-              {inputStr ? inputStr : "☺"}
-            </button>
-            {showPicker && <Picker onEmojiClick={onEmojiClick} />}
-            <input
-              name="habit"
-              className="border border-gray-300  p-2 rounded w-5/6 ml-4"
-              placeholder="Add new habit..."
-              onBlur={() => handleBlur("habit")}
-              onChange={() =>
-                setIsTouched((prev) => ({ ...prev, title: false }))
-              }
-            />
-            {!isTouched.habit && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <button
-              className="border border-gray-300 p-2 ml-2 rounded w-1/7 mt-4 hover:bg-gray-200"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Add habit
-            </button>
-          </form>
+          <AddForm
+            habitTracker={true}
+            formAction={handleAdd}
+            emojiVal={inputStr}
+            onChangeEmoji={(e: any) => setInputStr(e.target.value)}
+            onClickPicker={() => setShowPicker((val) => !val)}
+            showPicker={showPicker}
+            viewPickerRender={<Picker onEmojiClick={onEmojiClick} />}
+            onBlurHabit={() => handleBlur("habit")}
+            onChangeHabit={() =>
+              setIsTouched((prev) => ({ ...prev, title: false }))
+            }
+            onClickAddHabit={handleSubmit}
+            errorMessage={isTouched}
+          />
         )}
       </Modal>
 

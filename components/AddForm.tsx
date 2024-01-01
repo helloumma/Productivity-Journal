@@ -211,6 +211,14 @@ export default function AddForm({
   onChangeReminderDate,
   onChangeReminderTime,
   errorMessage,
+  emojiVal,
+  onChangeEmoji,
+  onClickPicker,
+  showPicker,
+  viewPickerRender,
+  onBlurHabit,
+  onChangeHabit,
+  onClickAddHabit,
 }: any) {
   return (
     <>
@@ -293,7 +301,38 @@ export default function AddForm({
           </div>
         </form>
       )}
-      {habitTracker && "habit tracker form"}
+      {habitTracker && (
+        <form action={formAction}>
+          <input
+            name="emoji"
+            className="border border-gray-300  p-2 rounded w-1/6"
+            value={emojiVal}
+            onChange={onChangeEmoji}
+            hidden={true}
+          />
+          <button onClick={onClickPicker} className="text-2xl">
+            {emojiVal ? emojiVal : "☺"}
+          </button>
+          {showPicker && viewPickerRender}
+          <input
+            name="habit"
+            className="border border-gray-300  p-2 rounded w-5/6 ml-4"
+            placeholder="Add new habit..."
+            onBlur={onBlurHabit}
+            onChange={onChangeHabit}
+          />
+          {!errorMessage.habit && (
+            <p className="text-red-500 text-sm mt-1">This field is required.</p>
+          )}
+          <button
+            className="border border-gray-300 p-2 ml-2 rounded w-1/7 mt-4 hover:bg-gray-200"
+            type="submit"
+            onClick={onClickAddHabit}
+          >
+            Add habit
+          </button>
+        </form>
+      )}
       {toDo && "to do form"}
     </>
   );
