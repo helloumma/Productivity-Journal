@@ -28,7 +28,7 @@
 - Type checking for all components [1st Jan]
 - Unit tests [1st Jan]
 - Make all state go from the top, so setting data and showing/hiding the modal (all the same in all components) [31st Dec]
-- Dark/light mode [1st Jan]
+- Clean up modal code, so it isn't repeated on every component
 
 ---
 

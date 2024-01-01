@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { reminders } from "@/lib/reminders/types";
 import Modal from "./Modal";
 import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
+import AddFrom from "./AddForm";
 
 export default function Reminders({ getData, handleDelete, handleAdd }: any) {
   const [showModal, setShowModal] = useState(false);
@@ -48,6 +49,22 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
   const handleBlur = (field: string) => {
     setIsTouched((prev) => ({ ...prev, [field]: true }));
   };
+
+  const onChangeDate = () => {
+    setIsTouched((prev) => ({
+      ...prev,
+      date: false,
+    }));
+  };
+
+  const onChangeTime = () => {
+    setIsTouched((prev) => ({ ...prev, time: false }));
+  };
+
+  const onChangeInfo = () => {
+    setIsTouched((prev) => ({ ...prev, reminder: false }));
+  };
+
   return (
     <>
       <div className="pl-6 flex items-center justify-between border-b-4 border-gray-500 border-double">
@@ -64,89 +81,17 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
         toDo={false}
         title={title}
       >
-        <form action={handleAdd}>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid grid-rows-2 gap-4">
-              <div className="flex p-1 items-center">
-                <div className="space-y-1 mr-4">
-                  <label
-                    className="text-sm font-medium leading-none"
-                    htmlFor="date"
-                  >
-                    Date
-                  </label>
-                </div>
-                <input
-                  name="date"
-                  className="border border-gray-300 p-2 rounded w-full"
-                  placeholder="Select date"
-                  type="date"
-                  onBlur={() => handleBlur("date")}
-                  onChange={() =>
-                    setIsTouched((prev) => ({ ...prev, date: false }))
-                  }
-                />
-              </div>
-              {!isTouched.date && (
-                <p className="text-red-500 text-sm mt-1">
-                  This field is required.
-                </p>
-              )}
-              <div className="flex p-1 items-center">
-                <div className="space-y-1 mr-4">
-                  <label
-                    className="text-sm font-medium leading-none"
-                    htmlFor="date"
-                  >
-                    Time
-                  </label>
-                </div>
-
-                <input
-                  name="time"
-                  className="border border-gray-300 p-2 rounded w-full"
-                  placeholder="Select time"
-                  type="time"
-                  onBlur={() => handleBlur("time")}
-                  onChange={() =>
-                    setIsTouched((prev) => ({ ...prev, time: false }))
-                  }
-                />
-              </div>
-              {!isTouched.time && (
-                <p className="text-red-500 text-sm mt-1">
-                  This field is required.
-                </p>
-              )}
-            </div>
-
-            <div className="flex">
-              <textarea
-                name="reminder"
-                className="border border-gray-300  p-8 rounded w-full"
-                placeholder="Add new reminder..."
-                //onChange={onChange}
-                //rows={2}
-                onBlur={() => handleBlur("reminder")}
-                onChange={() =>
-                  setIsTouched((prev) => ({ ...prev, reminder: false }))
-                }
-              />
-            </div>
-          </div>
-          {!isTouched.reminder && (
-            <p className="text-red-500 text-sm mt-1">This field is required.</p>
-          )}
-          <div className="flex mt-2 justify-center">
-            <button
-              className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7  hover:bg-gray-200"
-              type="submit"
-              // onClick={handleSubmit}
-            >
-              Add reminder
-            </button>
-          </div>
-        </form>
+        <AddFrom
+          reminders={true}
+          formAction={handleAdd}
+          onBlurReminderDate={() => handleBlur("date")}
+          onChangeReminderDate={onChangeDate}
+          errorMessage={isTouched}
+          onBlurReminderTime={() => handleBlur("time")}
+          onChangeReminderTime={onChangeTime}
+          onBlurReminderInfo={() => handleBlur("reminder")}
+          onChangeReminderInfo={onChangeInfo}
+        />
       </Modal>
       <div className="p-4">
         {getData?.map((reminders: reminders) => (
