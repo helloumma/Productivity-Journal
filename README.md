@@ -25,7 +25,6 @@
 
 ### 💭Future Improvements
 
-- Validation on all fields in forms [31st Dec]
 - Type checking for all components [1st Jan]
 - Unit tests [1st Jan]
 - Make all state go from the top, so setting data and showing/hiding the modal (all the same in all components) [31st Dec]

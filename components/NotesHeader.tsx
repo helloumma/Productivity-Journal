@@ -1,7 +1,8 @@
 import AuthButton from "./AuthButton";
 import ThemeToggle from "./ThemeProvider";
 import Image from "next/image";
-import { SaveIcon, GraphIcon, LeftIcon, RightIcon } from "./Assets";
+import { SaveIcon, LeftIcon, RightIcon } from "./Assets";
+import GraphIcon from "./HabitTrackerButton";
 // To do: add onClick on graph icon to show modal of mood tracker analytics
 
 export default function NotesHeader() {
@@ -16,9 +17,8 @@ export default function NotesHeader() {
         <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
           <SaveIcon />
         </button>
-        <button className="py-2 ml-4 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-          <GraphIcon />
-        </button>
+
+        <GraphIcon />
       </div>
       <div className="flex items-center">
         <LeftIcon />

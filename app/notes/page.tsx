@@ -25,6 +25,7 @@ import NotesHeader from "@/components/NotesHeader";
  * - BUG: Check add function in "Reminders"
  * - BUG: Edit on Habit Tracker currently not working
  * - BUG: Hydration issue with Dial in Habit Tracker
+ * - BUG: Validation messages show on initial render of each modal
  */
 
 // all toggle of modals and dropdown menu should be moved to separate times
