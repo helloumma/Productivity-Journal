@@ -6,6 +6,8 @@ import DropdownMenu from "./DropdownMenu";
 import "../styles/styles.css";
 import Modal from "./Modal";
 import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
+import AddForm from "./AddForm";
+import EditForm from "./EditForm";
 
 // BUG TO BE FIXED: Modal should close when user adds a new item and list should be updated
 
@@ -124,130 +126,31 @@ export default function NewToDo({
         toDo={true}
       >
         {editModal && (
-          <form action={handleEditSubmit}>
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="title"
-                >
-                  Task
-                </label>
-              </div>
-              <input
-                name="title"
-                className="border border-gray-300 p-2 rounded w-full"
-                placeholder="Edit task..."
-                value={currentTodo ? currentTodo.title : ""}
-                onChange={handleInputChange}
-                onBlur={() => handleBlur("title")}
-              />
-            </div>
-            {!isTouched.title && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="time"
-                >
-                  Time
-                </label>
-              </div>
-              <input
-                name="time"
-                className="border border-gray-300 p-2 rounded w-full"
-                placeholder="Select time"
-                type="time"
-                value={currentTodo ? currentTodo.time : ""}
-                onChange={handleTimeChange}
-                onBlur={() => handleBlur("time")}
-              />
-            </div>
-            {!isTouched.time && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <div className="py-4 ml-1">
-              <button
-                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
-                type="submit"
-              >
-                Save task
-              </button>
-            </div>
-          </form>
+          <EditForm
+            toDo={true}
+            currentToDo={currentTodo}
+            handleInputChangeToDo={handleInputChange}
+            handleBlurToDoEdit={() => handleBlur("title")}
+            handleTimeChange={handleTimeChange}
+            handleBlurToDoTimeEdit={() => handleBlur("time")}
+            errorMessage={isTouched}
+            formAction={handleEditSubmit}
+          />
         )}
         {!editModal && (
-          <form action={handleAdd}>
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="title"
-                >
-                  Task
-                </label>
-              </div>
-              <input
-                name="title"
-                className={
-                  isTouched
-                    ? "border border-red-300 p-2 rounded w-full"
-                    : "border border-gray-300 p-2 rounded w-full"
-                }
-                placeholder="Add new task..."
-                onBlur={() => handleBlur("title")}
-                onChange={() =>
-                  setIsTouched((prev) => ({ ...prev, title: false }))
-                }
-              />
-            </div>
-            {!isTouched.title && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="time"
-                >
-                  Time
-                </label>
-              </div>
-              <input
-                name="time"
-                className="border border-gray-300 p-2 rounded w-full"
-                placeholder="Select time"
-                type="time"
-                step="3600"
-                onChange={() =>
-                  setIsTouched((prev) => ({ ...prev, time: false }))
-                }
-                onBlur={() => handleBlur("time")}
-              />
-            </div>
-            {!isTouched.time && (
-              <p className="text-red-500 text-sm mt-1">
-                This field is required.
-              </p>
-            )}
-            <div className="py-4 ml-1">
-              <button
-                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
-                type="submit"
-                // onClick={() => setShowModal(false)}
-              >
-                Add task
-              </button>
-            </div>
-          </form>
+          <AddForm
+            toDo={true}
+            errorMessage={isTouched}
+            formAction={handleAdd}
+            onBlurToDoTitle={() => handleBlur("title")}
+            onChangeToDoTitle={() =>
+              setIsTouched((prev) => ({ ...prev, title: false }))
+            }
+            onChangeToDoTime={() =>
+              setIsTouched((prev) => ({ ...prev, time: false }))
+            }
+            onBlurToDoTime={() => handleBlur("time")}
+          />
         )}
       </Modal>
       <div className="pt-2 px-4">
