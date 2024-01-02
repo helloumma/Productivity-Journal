@@ -2,13 +2,14 @@
 import dynamic from "next/dynamic";
 
 import { useState } from "react";
-import { habit } from "@/lib/habitTracker/types";
+import { Habit, data } from "@/lib/habitTracker/types";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
 import { HabitTrackerIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
+import { IEmojiPickerProps } from "emoji-picker-react";
 const Picker = dynamic(
   () => {
     return import("emoji-picker-react");
@@ -26,7 +27,7 @@ export default function HabitTracker({
   handleDelete,
   handleEditsSubmit,
   handleAdd,
-}: any) {
+}: Habit) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [dropdownStates, setDropdownStates] = useState<{
@@ -35,22 +36,19 @@ export default function HabitTracker({
   const [currentHabit, setCurrentHabit] = useState<any>(null);
   const [showPicker, setShowPicker] = useState(false);
   const [inputStr, setInputStr] = useState<string>("");
-  const [chosenEmoji, setChosenEmoji] = useState();
+  const [chosenEmoji, setChosenEmoji] = useState<IEmojiPickerProps | string>(
+    ""
+  );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isTouched, setIsTouched] = useState({
     emoji: false,
     habit: false,
   });
 
-  const onEmojiClick = (event: any, emojiObject: any) => {
+  const onEmojiClick = (emojiObject: { emoji: data["emoji"] }) => {
     setInputStr((prev) => prev + emojiObject.emoji);
     setShowPicker(false);
     setChosenEmoji(emojiObject.emoji);
-  };
-
-  const handleClick = (e: any) => {
-    e.preventDefault;
-    console.log("click");
   };
 
   const handleSubmit = () => {
@@ -92,14 +90,14 @@ export default function HabitTracker({
     }
   };
 
-  const handleEdit = (habit: habit) => {
+  const handleEdit = (habit: data) => {
     setShowModal(true);
     setEditModal(true);
     setCurrentHabit(habit);
     setShowDropdown(false);
   };
 
-  const handleEditSubmit = async (e: any) => {
+  const handleEditSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault;
     const updatedData = handleEditsSubmit(
       currentHabit.habit,
@@ -158,10 +156,12 @@ export default function HabitTracker({
             habitTracker={true}
             formAction={handleAdd}
             emojiVal={inputStr}
-            onChangeEmoji={(e: any) => setInputStr(e.target.value)}
+            onChangeEmoji={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInputStr(e.target.value)
+            }
             onClickPicker={() => setShowPicker((val) => !val)}
             showPicker={showPicker}
-            viewPickerRender={<Picker onEmojiClick={onEmojiClick} />}
+            viewPickerRender={<Picker onEmojiClick={onEmojiClick as any} />}
             onBlurHabit={() => handleBlur("habit")}
             onChangeHabit={() =>
               setIsTouched((prev) => ({ ...prev, title: false }))
@@ -173,7 +173,7 @@ export default function HabitTracker({
       </Modal>
 
       <div className="pt-4">
-        {getData?.map((habits: habit) => (
+        {getData?.map((habits: data) => (
           <div className="flex items-center" key={habits.id}>
             <div className="pb-3 px-6 w-full">
               <div className="flex justify-between  rounded bg-green-200 mb-2 dark:bg-green-700">
@@ -187,9 +187,7 @@ export default function HabitTracker({
                       emoji={habits.emoji}
                     />
                   </div>
-                  <p className="text-xl font-bold ml-2" onClick={handleClick}>
-                    {habits.habit}
-                  </p>
+                  <p className="text-xl font-bold ml-2">{habits.habit}</p>
                 </div>
                 <div className="flex items-center">
                   {/* <Toggle /> */}
@@ -209,7 +207,7 @@ export default function HabitTracker({
                     <DropdownMenu
                       habits={true}
                       deleteItem={() => handleDelete(habits.id as string)}
-                      editItem={() => handleEdit(habits as any)}
+                      editItem={() => handleEdit(habits as Habit["getData"])}
                     />
                   )}
                 </div>

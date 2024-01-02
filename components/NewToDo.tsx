@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ToDo, data } from "@/lib/toDo/types";
+import { ToDo, ToDoEdit, data } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
 import AddForm from "./AddForm";
@@ -80,7 +80,7 @@ export default function NewToDo({
     setCurrentTodo(todo);
   };
 
-  const handleEditSubmit = async (e: any) => {
+  const handleEditSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault;
     const updatedData = handleEditsSubmit(
       currentTodo.title,
@@ -112,7 +112,6 @@ export default function NewToDo({
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">
         {title}
-
         <button onClick={() => setShowModal(true)}>
           <AddIcon />
         </button>
@@ -180,7 +179,7 @@ export default function NewToDo({
                 {dropdownStates[todo.id] && showDropdown && (
                   <DropdownMenu
                     deleteItem={() => handleDelete(todo.id as string)}
-                    editItem={() => handleEdit(todo as any)}
+                    editItem={() => handleEdit(todo as ToDo["getData"])}
                   />
                 )}
               </div>

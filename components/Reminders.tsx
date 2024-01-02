@@ -2,12 +2,16 @@
 
 import SendEmail from "@/actions/Email";
 import { useEffect, useState } from "react";
-import { reminders } from "@/lib/reminders/types";
+import { data, Reminders } from "@/lib/reminders/types";
 import Modal from "./Modal";
 import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
 import AddFrom from "./AddForm";
 
-export default function Reminders({ getData, handleDelete, handleAdd }: any) {
+export default function Reminders({
+  getData,
+  handleDelete,
+  handleAdd,
+}: Reminders) {
   const [showModal, setShowModal] = useState(false);
   const [isTouched, setIsTouched] = useState({
     date: false,
@@ -15,15 +19,10 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
     reminder: false,
   });
 
-  const handleClick = (e: any) => {
-    e.preventDefault;
-    console.log("click");
-  };
-
   useEffect(() => {
     // Set an interval to periodically check for items to delete
     const interval = setInterval(() => {
-      getData.forEach((item: { date: string | number | Date; id: string }) => {
+      getData.forEach((item: data) => {
         // console.log(item.date);
         if (new Date(item.date) < new Date()) {
           handleDelete(item.id);
@@ -94,21 +93,21 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
         />
       </Modal>
       <div className="p-4">
-        {getData?.map((reminders: reminders) => (
+        {getData?.map((reminders: data) => (
           <div
             className="flex bg-gray-300 dark:bg-gray-600 rounded  p-4 mb-4 justify-between items-center"
             key={reminders.id}
           >
-            <div onClick={handleClick}>
+            <div>
               <h1 className="text-xl font-bold">{reminders?.reminder}</h1>
               <div className="flex text-gray-400">
-                <p className="text-sm gray-200">{reminders?.date}</p>
+                <p className="text-sm gray-200">{reminders?.date as string}</p>
                 <p className="text-sm ml-4">{reminders?.time}</p>
               </div>
             </div>
 
             <div className="-mr-1">
-              <button onClick={() => handleDelete(reminders.id as any)}>
+              <button onClick={() => handleDelete(reminders.id as number)}>
                 <DeleteReminderIcon />
               </button>
             </div>
