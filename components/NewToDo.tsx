@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ToDo } from "@/lib/toDo/types";
+import { useState } from "react";
+import { ToDo, data } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
-import "../styles/styles.css";
 import Modal from "./Modal";
-import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
+import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
+import "../styles/styles.css";
 
 // BUG TO BE FIXED: Modal should close when user adds a new item and list should be updated
 
@@ -16,7 +16,7 @@ export default function NewToDo({
   handleDelete,
   handleAdd,
   handleEditsSubmit,
-}: any) {
+}: ToDo) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [dropdownStates, setDropdownStates] = useState<{
@@ -154,9 +154,9 @@ export default function NewToDo({
         )}
       </Modal>
       <div className="pt-2 px-4">
-        {getData?.map((todo: ToDo) => (
+        {getData?.map((todo: data) => (
           <div
-            className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4 mb-4 rounded "
+            className="bg-indigo-100 dark:bg-indigo-800 m-2 p-4 mb-4 rounded "
             key={todo.id}
           >
             <ul className="flex justify-between items-center">
