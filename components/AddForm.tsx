@@ -1,5 +1,8 @@
 // to do: refactor further
 
+import { AddForm } from "@/lib/shared/addForm/types";
+import { FocusEventHandler } from "react";
+
 export default function AddForm({
   formAction,
   onBlurReminderDate,
@@ -24,11 +27,11 @@ export default function AddForm({
   onChangeToDoTitle,
   onChangeToDoTime,
   onBlurToDoTime,
-}: any) {
+}: AddForm) {
   return (
     <>
       {reminders && (
-        <form action={formAction}>
+        <form action={formAction as string}>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid grid-rows-2 gap-4">
               <div className="flex p-1 items-center">
@@ -49,7 +52,7 @@ export default function AddForm({
                   onChange={onChangeReminderDate}
                 />
               </div>
-              {!errorMessage.date && (
+              {!errorMessage?.date && (
                 <p className="text-red-500 text-sm mt-1">
                   This field is required.
                 </p>
@@ -73,7 +76,7 @@ export default function AddForm({
                   onChange={onChangeReminderTime}
                 />
               </div>
-              {!errorMessage.time && (
+              {!errorMessage?.time && (
                 <p className="text-red-500 text-sm mt-1">
                   This field is required.
                 </p>
@@ -87,12 +90,16 @@ export default function AddForm({
                 placeholder="Add new reminder..."
                 //onChange={onChange}
                 //rows={2}
-                onBlur={onBlurReminderInfo}
+                onBlur={
+                  onBlurReminderInfo as
+                    | FocusEventHandler<HTMLTextAreaElement>
+                    | undefined
+                }
                 onChange={onChangeReminderInfo}
               />
             </div>
           </div>
-          {!errorMessage.reminder && (
+          {!errorMessage?.reminder && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <div className="flex mt-2 justify-center">
@@ -107,7 +114,7 @@ export default function AddForm({
         </form>
       )}
       {habitTracker && (
-        <form action={formAction}>
+        <form action={formAction as string}>
           <input
             name="emoji"
             className="border border-gray-300  p-2 rounded w-1/6"
@@ -126,7 +133,7 @@ export default function AddForm({
             onBlur={onBlurHabit}
             onChange={onChangeHabit}
           />
-          {!errorMessage.habit && (
+          {!errorMessage?.habit && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <button
@@ -139,7 +146,7 @@ export default function AddForm({
         </form>
       )}
       {toDo && (
-        <form action={formAction}>
+        <form action={formAction as string}>
           <div className="flex p-1 items-center">
             <div className="space-y-1">
               <label
@@ -161,7 +168,7 @@ export default function AddForm({
               onChange={onChangeToDoTitle}
             />
           </div>
-          {!errorMessage.title && (
+          {!errorMessage?.title && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <div className="flex p-1 items-center">
@@ -183,7 +190,7 @@ export default function AddForm({
               onBlur={onBlurToDoTime}
             />
           </div>
-          {!errorMessage.time && (
+          {!errorMessage?.time && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <div className="py-4 ml-1">

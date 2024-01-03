@@ -1,6 +1,11 @@
+import { DropdownMenu } from "@/lib/shared/dropdownMenu/types";
 import { EditIcon, DeleteIcon } from "./Assets";
 
-export default function DropdownMenu({ habits, deleteItem, editItem }: any) {
+export default function DropdownMenu({
+  habits,
+  deleteItem,
+  editItem,
+}: DropdownMenu) {
   return (
     <div
       className={

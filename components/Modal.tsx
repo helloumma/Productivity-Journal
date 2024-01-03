@@ -1,3 +1,5 @@
+import { Modal } from "@/lib/shared/modal/types";
+
 export default function Modal({
   show,
   onClose,
@@ -5,7 +7,7 @@ export default function Modal({
   title,
   reminders,
   toDo,
-}: any) {
+}: Modal) {
   if (!show) {
     return null;
   }

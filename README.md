@@ -25,7 +25,6 @@
 
 ### 💭Future Improvements
 
-- Type checking for all components [1st Jan]
 - Unit tests [1st Jan]
 
 ---

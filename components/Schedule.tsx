@@ -2,11 +2,10 @@
 import { useEffect, useState } from "react";
 import { getToDo } from "@/actions/supabase";
 import { ScheduleIcon } from "./Assets";
+import { data } from "@/lib/schedule/types";
 
 export default function Schedule() {
-  const [data, setData] = useState<any>();
-  ("");
-
+  const [data, setData] = useState<unknown | Array<data>>();
   useEffect(() => {
     const fetchList = async () => {
       const getData = await getToDo();
@@ -26,7 +25,9 @@ export default function Schedule() {
     return {
       displayHour: hour, // Display string with :00
       hour: hour, // The full hour string for filtering tasks
-      title: data?.filter((item: any) => item.time.startsWith(hour)),
+      title: data?.filter((item: { time: string }) =>
+        item.time.startsWith(hour)
+      ),
     };
   });
 
@@ -48,7 +49,7 @@ export default function Schedule() {
             </h3>
             {slot.title?.length > 0 ? (
               <ul>
-                {slot.title.map((task: any) => (
+                {slot.title.map((task: { title: string }) => (
                   <li
                     key={task.title}
                     className="text-sm text-gray-500 dark:text-gray-400"

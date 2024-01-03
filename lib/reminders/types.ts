@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 export type data = {
   id: number;
   reminder: string;
-  date: ReactNode | Date;
+  date: string | Date;
   time: ReactNode;
 };
 

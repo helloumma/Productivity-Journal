@@ -7,6 +7,8 @@ import Modal from "./Modal";
 import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
 import AddFrom from "./AddForm";
 
+// temp: have a pop up modal for each reminder at the given time and date set
+
 export default function Reminders({
   getData,
   handleDelete,

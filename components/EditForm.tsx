@@ -1,3 +1,5 @@
+import { EditForm } from "@/lib/shared/editForm/types";
+
 // to do: refactor further
 export default function EditForm({
   formAction,
@@ -14,11 +16,11 @@ export default function EditForm({
   handleEmojiOnBlurChange,
   handleHabitInputChange,
   handleHabitOnBlurChange,
-}: any) {
+}: EditForm) {
   return (
     <>
       {toDo && (
-        <form action={formAction}>
+        <form action={formAction as string}>
           <div className="flex p-1 items-center">
             <div className="space-y-1">
               <label
@@ -37,7 +39,7 @@ export default function EditForm({
               onBlur={handleBlurToDoEdit}
             />
           </div>
-          {!errorMessage.title && (
+          {!errorMessage?.title && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <div className="flex p-1 items-center">
@@ -59,7 +61,7 @@ export default function EditForm({
               onBlur={handleBlurToDoTimeEdit}
             />
           </div>
-          {!errorMessage.time && (
+          {!errorMessage?.time && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <div className="py-4 ml-1">
@@ -73,7 +75,7 @@ export default function EditForm({
         </form>
       )}
       {habitTracker && (
-        <form action={formAction}>
+        <form action={formAction as string}>
           <input
             name="emoji"
             className="border border-gray-300  p-2 rounded w-1/6"
@@ -82,7 +84,7 @@ export default function EditForm({
             onChange={handleEmojiInputChange}
             onBlur={handleEmojiOnBlurChange}
           />
-          {!errorMessage.emoji && (
+          {!errorMessage?.emoji && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <input
@@ -93,7 +95,7 @@ export default function EditForm({
             onChange={handleHabitInputChange}
             onBlur={handleHabitOnBlurChange}
           />
-          {!errorMessage.habit && (
+          {!errorMessage?.habit && (
             <p className="text-red-500 text-sm mt-1">This field is required.</p>
           )}
           <button
