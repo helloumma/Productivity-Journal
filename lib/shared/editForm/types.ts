@@ -1,7 +1,7 @@
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEvent, ChangeEventHandler, FocusEventHandler } from "react";
 
 export type EditForm = {
-  formAction?: string | FormData;
+  formAction?: string | any;
   errorMessage?: {
     date?: boolean;
     time?: boolean;
@@ -13,8 +13,8 @@ export type EditForm = {
   habitTracker?: boolean;
   toDo?: boolean;
   currentToDo?: {
-    title: string;
-    time: string;
+    title?: string;
+    time?: string;
   };
   currentHabit?: {
     emoji?: string;
@@ -28,4 +28,5 @@ export type EditForm = {
   handleEmojiOnBlurChange?: FocusEventHandler<HTMLInputElement>;
   handleHabitInputChange?: ChangeEventHandler<HTMLInputElement>;
   handleHabitOnBlurChange?: FocusEventHandler<HTMLInputElement>;
+  handleTimeChange?: ChangeEventHandler<HTMLInputElement>;
 };

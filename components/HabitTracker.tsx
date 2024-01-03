@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Habit, data } from "@/lib/habitTracker/types";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
