@@ -5,7 +5,7 @@ import { ScheduleIcon } from "./Assets";
 import { data } from "@/lib/schedule/types";
 
 export default function Schedule() {
-  const [data, setData] = useState<unknown | Array<data>>();
+  const [data, setData] = useState<unknown | Array<data> | any>();
   useEffect(() => {
     const fetchList = async () => {
       const getData = await getToDo();

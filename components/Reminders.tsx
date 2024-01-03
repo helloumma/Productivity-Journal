@@ -15,11 +15,14 @@ export default function Reminders({
   handleAdd,
 }: Reminders) {
   const [showModal, setShowModal] = useState(false);
+  const [showReminderModal, setShowReminderModal] = useState(false);
   const [isTouched, setIsTouched] = useState({
     date: false,
     time: false,
     reminder: false,
   });
+
+  // to do: needs to be refactored to take in date and time and compare it to current date and time
 
   useEffect(() => {
     // Set an interval to periodically check for items to delete
@@ -30,14 +33,14 @@ export default function Reminders({
           handleDelete(item.id);
         }
       });
-    }, 60000); // Check every 10 seconds
+    }, 10000); // Check every 10 seconds
 
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [getData]);
 
-  // const handleSubmit = () => {
-  //   window.location.reload();
-  // };
+  const handleSubmit = () => {
+    window.location.reload();
+  };
 
   const toggleModal = () => setShowModal(false);
 
@@ -65,6 +68,9 @@ export default function Reminders({
   const onChangeInfo = () => {
     setIsTouched((prev) => ({ ...prev, reminder: false }));
   };
+  const currDate = new Date();
+  const currTime = currDate.getTime;
+  console.log(currDate.toLocaleTimeString());
 
   return (
     <>
@@ -82,17 +88,21 @@ export default function Reminders({
         toDo={false}
         title={title}
       >
-        <AddFrom
-          reminders={true}
-          formAction={handleAdd}
-          onBlurReminderDate={() => handleBlur("date")}
-          onChangeReminderDate={onChangeDate}
-          errorMessage={isTouched}
-          onBlurReminderTime={() => handleBlur("time")}
-          onChangeReminderTime={onChangeTime}
-          onBlurReminderInfo={() => handleBlur("reminder")}
-          onChangeReminderInfo={onChangeInfo}
-        />
+        {showReminderModal ? (
+          "reminders modal for time of reminder"
+        ) : (
+          <AddFrom
+            reminders={true}
+            formAction={handleAdd}
+            onBlurReminderDate={() => handleBlur("date")}
+            onChangeReminderDate={onChangeDate}
+            errorMessage={isTouched}
+            onBlurReminderTime={() => handleBlur("time")}
+            onChangeReminderTime={onChangeTime}
+            onBlurReminderInfo={() => handleBlur("reminder")}
+            onChangeReminderInfo={onChangeInfo}
+          />
+        )}
       </Modal>
       <div className="p-4">
         {getData?.map((reminders: data) => (
@@ -113,6 +123,13 @@ export default function Reminders({
                 <DeleteReminderIcon />
               </button>
             </div>
+            {"reminders date" && (reminders?.time as string)}
+            {"current date" &&
+              new Date().toLocaleTimeString(undefined, { timeStyle: "short" })}
+            {reminders?.time ==
+            new Date().toLocaleTimeString(undefined, { timeStyle: "short" })
+              ? (setShowReminderModal(true) as any)
+              : "none"}
           </div>
         ))}
       </div>

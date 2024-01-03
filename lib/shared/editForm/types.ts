@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler } from "react";
 
 export type EditForm = {
   formAction?: string | any;
