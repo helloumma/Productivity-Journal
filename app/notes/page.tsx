@@ -26,11 +26,11 @@ import NotesHeader from "@/components/NotesHeader";
  * - BUG: Edit on Habit Tracker currently not working
  * - BUG: Hydration issue with Dial in Habit Tracker
  * - BUG: Validation messages show on initial render of each modal
+ * - BUG: Modal doesn't close on reminders after add
+ * - BUG: Reminders are deleted based on date rather than the date AND time set
+ * - BUG: Reminders notification modal should show based on the time of the day given the date
+ * - BUG: ALL type fixes on all pages
  */
-
-// all toggle of modals and dropdown menu should be moved to separate times
-// then imported down ???
-// all code is the same in all four components
 
 export default async function Page() {
   const getToDoData = await getToDo();
@@ -72,7 +72,7 @@ export default async function Page() {
             </div>
             <div className="w-1/2">
               <NewToDo
-                getData={getToDoData}
+                getData={getToDoData as data}
                 handleDelete={handleToDoDelete}
                 handleAdd={newToDo}
                 handleEditsSubmit={handleToDoEdit}

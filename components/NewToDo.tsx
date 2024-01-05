@@ -6,10 +6,16 @@ import DropdownMenu from "./DropdownMenu";
 import Modal from "./Modal";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
+// @ts-expect-error
+import { useFormState } from "react-dom";
 import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 import "../styles/styles.css";
 
 // BUG TO BE FIXED: Modal should close when user adds a new item and list should be updated
+
+const initialState = {
+  message: null,
+};
 
 export default function NewToDo({
   getData,
@@ -28,6 +34,7 @@ export default function NewToDo({
   );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isTouched, setIsTouched] = useState({ title: false, time: false });
+  const [state, formActionToDo] = useFormState(handleAdd, initialState);
 
   const handleCheckboxClick = (todoId: string) => {
     setCheckedItem((prevItems) => ({
@@ -140,7 +147,7 @@ export default function NewToDo({
           <AddForm
             toDo={true}
             errorMessage={isTouched}
-            formAction={handleAdd}
+            formAction={formActionToDo}
             onBlurToDoTitle={() => handleBlur("title")}
             onChangeToDoTitle={() =>
               setIsTouched((prev) => ({ ...prev, title: false }))

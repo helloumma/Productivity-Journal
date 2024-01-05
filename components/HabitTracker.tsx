@@ -10,6 +10,8 @@ import { HabitTrackerIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import { IEmojiPickerProps } from "emoji-picker-react";
+// @ts-expect-error
+import { useFormState } from "react-dom";
 const Picker = dynamic(
   () => {
     return import("emoji-picker-react");
@@ -20,7 +22,12 @@ const Picker = dynamic(
 /**
  * TO DO
  * - Need to think about to get around editing emoji for each habit in the edit modal
+ * - FIX: Emoji showing up as undefined (go back and look at commit on 'test reusable component')
  */
+
+const initialState = {
+  message: null,
+};
 
 export default function HabitTracker({
   getData,
@@ -40,6 +47,8 @@ export default function HabitTracker({
     ""
   );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [state, formActionHabitTracker] = useFormState(handleAdd, initialState);
+
   const [isTouched, setIsTouched] = useState({
     emoji: false,
     habit: false,
@@ -143,7 +152,7 @@ export default function HabitTracker({
         {editModal ? (
           <EditForm
             habitTracker={true}
-            formAction={handleEditSubmit}
+            formAction={formActionHabitTracker}
             errorMessage={isTouched}
             currentHabit={currentHabit}
             handleEmojiInputChange={handleEmojiInputChange}

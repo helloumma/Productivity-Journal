@@ -6,9 +6,13 @@ import { data, Reminders } from "@/lib/reminders/types";
 import Modal from "./Modal";
 import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
 import AddFrom from "./AddForm";
+// @ts-expect-error
+import { useFormState } from "react-dom";
 
 // temp: have a pop up modal for each reminder at the given time and date set
-
+const initialState = {
+  message: null,
+};
 export default function Reminders({
   getData,
   handleDelete,
@@ -22,21 +26,23 @@ export default function Reminders({
     reminder: false,
   });
 
+  // TO DO - some form of state check and then hand it down to toggleModal
+  const [state, formActionReminder] = useFormState(handleAdd, initialState);
   // to do: needs to be refactored to take in date and time and compare it to current date and time
 
-  useEffect(() => {
-    // Set an interval to periodically check for items to delete
-    const interval = setInterval(() => {
-      getData.forEach((item: data) => {
-        // console.log(item.date);
-        if (new Date(item.date) < new Date()) {
-          handleDelete(item.id);
-        }
-      });
-    }, 10000); // Check every 10 seconds
+  // useEffect(() => {
+  //   // Set an interval to periodically check for items to delete
+  //   const interval = setInterval(() => {
+  //     getData.forEach((item: data) => {
+  //       // console.log(item.date);
+  //       if (new Date(item.date) < new Date()) {
+  //         handleDelete(item.id);
+  //       }
+  //     });
+  //   }, 10000); // Check every 10 seconds
 
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [getData]);
+  //   return () => clearInterval(interval); // Cleanup on component unmount
+  // }, [getData]);
 
   const handleSubmit = () => {
     window.location.reload();
@@ -70,7 +76,21 @@ export default function Reminders({
   };
   const currDate = new Date();
   const currTime = currDate.getTime;
-  console.log(currDate.toLocaleTimeString());
+  // console.log(currDate.toLocaleTimeString());
+
+  //console.log(state?.message);
+
+  // if (state?.message) {
+  //   setShowModal(false);
+  // }
+
+  // state?.message ? setShowModal(false) : null;
+
+  // useEffect(() => {
+  //   if (state?.message) {
+  //     setShowModal(false);
+  //   }
+  // }, [formActionReminder]);
 
   return (
     <>
@@ -93,7 +113,7 @@ export default function Reminders({
         ) : (
           <AddFrom
             reminders={true}
-            formAction={handleAdd}
+            formAction={formActionReminder}
             onBlurReminderDate={() => handleBlur("date")}
             onChangeReminderDate={onChangeDate}
             errorMessage={isTouched}
@@ -101,6 +121,8 @@ export default function Reminders({
             onChangeReminderTime={onChangeTime}
             onBlurReminderInfo={() => handleBlur("reminder")}
             onChangeReminderInfo={onChangeInfo}
+            handleSubmitReminder={toggleModal}
+            test={() => setShowModal(false)}
           />
         )}
       </Modal>
@@ -123,13 +145,13 @@ export default function Reminders({
                 <DeleteReminderIcon />
               </button>
             </div>
-            {"reminders date" && (reminders?.time as string)}
+            {/* {"reminders date" && (reminders?.time as string)}
             {"current date" &&
               new Date().toLocaleTimeString(undefined, { timeStyle: "short" })}
             {reminders?.time ==
             new Date().toLocaleTimeString(undefined, { timeStyle: "short" })
               ? (setShowReminderModal(true) as any)
-              : "none"}
+              : "none"} */}
           </div>
         ))}
       </div>

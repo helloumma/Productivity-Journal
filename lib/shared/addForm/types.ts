@@ -8,6 +8,7 @@ import {
 } from "react";
 
 export type AddForm = {
+  test?: any;
   formAction?: string | FormData;
   onBlurReminderDate?: FocusEventHandler<HTMLInputElement>;
   onBlurReminderTime?: FocusEventHandler<HTMLInputElement>;
@@ -43,4 +44,5 @@ export type AddForm = {
   onChangeToDoTitle?: ChangeEventHandler<HTMLInputElement>;
   onChangeToDoTime?: ChangeEventHandler<HTMLInputElement>;
   onBlurToDoTime?: FocusEventHandler<HTMLInputElement>;
+  handleSubmitReminder?: any;
 };

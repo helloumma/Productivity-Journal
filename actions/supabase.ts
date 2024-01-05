@@ -25,14 +25,24 @@ export async function getToDo() {
   return todos;
 }
 
-export async function newToDo(formData: FormData) {
+export async function newToDo(
+  formData: FormData,
+  prevState: {
+    message: string;
+  }
+) {
   const title = formData.get("title");
   const time = formData.get("time");
-  await supabase
-    .from("todo")
-    .insert({ title, userId: (await user)?.id, time })
-    .select();
-  revalidatePath("/notes");
+  try {
+    await supabase
+      .from("todo")
+      .insert({ title, userId: (await user)?.id, time });
+
+    revalidatePath("/notes");
+    return { message: true };
+  } catch (err) {
+    return { message: err };
+  }
 }
 
 export async function deleteToDo(id: string) {
@@ -59,28 +69,38 @@ export async function getReminder() {
   return reminder;
 }
 
-export async function newReminder(formData: FormData) {
+export async function newReminder(
+  formData: FormData,
+  prevState: {
+    message: string;
+  }
+) {
   const reminder = formData.get("reminder");
   const time = formData.get("time");
   const date = formData.get("date");
-  await supabase
-    .from("reminders")
-    .insert({ reminder, time, date, userId: (await user)?.id });
+  try {
+    await supabase
+      .from("reminders")
+      .insert({ reminder, time, date, userId: (await user)?.id });
+    revalidatePath("/notes");
+    return { message: true };
+  } catch (err) {
+    return { message: err };
+  }
 
   // if (!response.error) {
   //   const sendTime: any = new Date(`${date} ${time}`);
 
   //   SendEmail();
   // }
-  const sendTime = new Date(`${date} ${time}`);
-  defer(SendEmail, sendTime as any);
+  // const sendTime = new Date(`${date} ${time}`);
+  // defer(SendEmail, sendTime as any);
 
-  console.log(sendTime);
-  console.log(new Date());
-  const currTime = new Date();
-  currTime.setSeconds(0);
-  console.log(sendTime === currTime);
-  revalidatePath("/notes");
+  // console.log(sendTime);
+  // console.log(new Date());
+  // const currTime = new Date();
+  // currTime.setSeconds(0);
+  // console.log(sendTime === currTime);
 }
 
 export async function deleteReminder(id: string) {
@@ -101,8 +121,8 @@ export async function newHabit(formData: FormData) {
   const emoji = formData.get("emoji");
   await supabase
     .from("habitTracker")
-    .insert({ habit, emoji, userId: (await user)?.id })
-    .select();
+    .insert({ habit, emoji, userId: (await user)?.id });
+
   revalidatePath("/notes");
 }
 
