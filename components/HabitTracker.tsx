@@ -210,15 +210,19 @@ export default function HabitTracker({
                   <button
                     onClick={() => handleDropdownToggle(habits.id as string)}
                   >
-                    <ToggleDropDownIcon />
-                  </button>
-                  {dropdownStates[habits.id] && showDropdown && (
                     <DropdownMenu
                       habits={true}
                       deleteItem={() => handleDelete(habits.id as string)}
                       editItem={() => handleEdit(habits as Habit["getData"])}
                     />
-                  )}
+                  </button>
+                  {/* {dropdownStates[habits.id] && showDropdown && (
+                    <DropdownMenu
+                      habits={true}
+                      deleteItem={() => handleDelete(habits.id as string)}
+                      editItem={() => handleEdit(habits as Habit["getData"])}
+                    />
+                  )} */}
                 </div>
               </div>
             </div>
