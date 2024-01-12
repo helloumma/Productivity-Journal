@@ -72,7 +72,7 @@ export default async function Page() {
             </div>
             <div className="w-1/2">
               <NewToDo
-                getData={getToDoData as data}
+                getData={getToDoData}
                 handleDelete={handleToDoDelete}
                 handleAdd={newToDo}
                 handleEditsSubmit={handleToDoEdit}

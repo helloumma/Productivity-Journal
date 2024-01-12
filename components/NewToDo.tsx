@@ -22,7 +22,7 @@ export default function NewToDo({
   handleDelete,
   handleAdd,
   handleEditsSubmit,
-}: ToDo) {
+}: any) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [dropdownStates, setDropdownStates] = useState<{
@@ -34,7 +34,7 @@ export default function NewToDo({
   );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isTouched, setIsTouched] = useState({ title: false, time: false });
-  const [state, formActionToDo] = useFormState(handleAdd, initialState);
+  const [state, formActionToDo] = useFormState(handleAdd, { status: null });
 
   const handleCheckboxClick = (todoId: string) => {
     setCheckedItem((prevItems) => ({
@@ -104,7 +104,7 @@ export default function NewToDo({
     setShowDropdown(false);
     //window.location.reload();
   };
-
+  console.log(state.status);
   const title = (
     <div className="flex items-center">
       <ToDoIcon />
@@ -131,6 +131,10 @@ export default function NewToDo({
         reminders={false}
         toDo={true}
       >
+        <form action={formActionToDo}>
+          <input name="titleToDo" />
+          <button type="submit">testing</button>
+        </form>
         {editModal && (
           <EditForm
             toDo={true}

@@ -146,7 +146,7 @@ export default function AddForm({
         </form>
       )}
       {toDo && (
-        <form action={formAction as string}>
+        <form action={formAction}>
           <div className="flex p-1 items-center">
             <div className="space-y-1">
               <label
@@ -157,7 +157,7 @@ export default function AddForm({
               </label>
             </div>
             <input
-              name="title"
+              name="titleToDo"
               className={
                 errorMessage
                   ? "border border-red-300 p-2 rounded w-full"

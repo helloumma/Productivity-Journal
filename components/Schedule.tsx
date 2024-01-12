@@ -26,7 +26,7 @@ export default function Schedule() {
       displayHour: hour, // Display string with :00
       hour: hour, // The full hour string for filtering tasks
       title: data?.filter((item: { time: string }) =>
-        item.time.startsWith(hour)
+        item.time?.startsWith(hour)
       ),
     };
   });

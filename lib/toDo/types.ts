@@ -4,9 +4,9 @@ export type data = {
 };
 
 export interface ToDo {
-  getData: Array<data>;
+  getData: any;
   handleDelete: Function;
-  handleAdd: FormData;
+  handleAdd: any;
   handleEditsSubmit: Function;
 }
 

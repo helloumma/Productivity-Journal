@@ -36,3 +36,11 @@
   - save icon button to save all the data from different components [NEXT]
 - Must change the onSubmit - window location isn't a good fix (do more research on validatePath when it comes to server side) [nice to have]
 - Use shadcn/ui for the styling [last last lasssst thing on the list]
+
+/\*
+NEW TO DO
+
+- Install react-hook-forms
+- Switch to shadcn/ui
+- Rebuild most things
+  \*/

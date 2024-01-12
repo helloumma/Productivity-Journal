@@ -25,24 +25,15 @@ export async function getToDo() {
   return todos;
 }
 
-export async function newToDo(
-  formData: FormData,
-  prevState: {
-    message: string;
-  }
-) {
-  const title = formData.get("title");
+export async function newToDo(formData: FormData, state: any) {
+  const title = formData.get("titleToDo");
   const time = formData.get("time");
-  try {
-    await supabase
-      .from("todo")
-      .insert({ title, userId: (await user)?.id, time });
 
-    revalidatePath("/notes");
-    return { message: true };
-  } catch (err) {
-    return { message: err };
-  }
+  await supabase.from("todo").insert({ title, userId: (await user)?.id, time });
+
+  revalidatePath("/notes");
+  console.log(formData);
+  return { message: true };
 }
 
 export async function deleteToDo(id: string) {
@@ -124,6 +115,7 @@ export async function newHabit(formData: FormData) {
     .insert({ habit, emoji, userId: (await user)?.id });
 
   revalidatePath("/notes");
+  console.log(formData);
 }
 
 export async function deleteHabit(id: string) {

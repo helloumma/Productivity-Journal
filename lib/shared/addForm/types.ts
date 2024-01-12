@@ -9,7 +9,7 @@ import {
 
 export type AddForm = {
   test?: any;
-  formAction?: string | FormData;
+  formAction?: any;
   onBlurReminderDate?: FocusEventHandler<HTMLInputElement>;
   onBlurReminderTime?: FocusEventHandler<HTMLInputElement>;
   onBlurReminderInfo?:
