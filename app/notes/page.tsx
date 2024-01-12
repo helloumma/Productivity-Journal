@@ -17,6 +17,11 @@ import {
   editHabit,
 } from "@/actions/supabase";
 import NotesHeader from "@/components/NotesHeader";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 /**
  * TO DO
@@ -67,17 +72,20 @@ export default async function Page() {
         </div>
         <div className="flex  mx-8 my-2 w-full">
           <div className="w-full rounded border-slate-600 border flex">
-            <div className="w-1/2 border-r border-slate-600">
-              <Schedule />
-            </div>
-            <div className="w-1/2">
-              <NewToDo
-                getData={getToDoData}
-                handleDelete={handleToDoDelete}
-                handleAdd={newToDo}
-                handleEditsSubmit={handleToDoEdit}
-              />
-            </div>
+            <ResizablePanelGroup direction="horizontal">
+              <ResizablePanel>
+                <Schedule />
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel>
+                <NewToDo
+                  getData={getToDoData}
+                  handleDelete={handleToDoDelete}
+                  handleAdd={newToDo}
+                  handleEditsSubmit={handleToDoEdit}
+                />
+              </ResizablePanel>
+            </ResizablePanelGroup>
           </div>
         </div>
         <div className="flex w-full mx-8 my-2">
