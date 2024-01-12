@@ -185,14 +185,17 @@ export default function NewToDo({
               </div>
               <div className="-mr-4">
                 <button onClick={() => handleDropdownToggle(todo.id as string)}>
-                  <ToggleDropDownIcon />
-                </button>
-                {dropdownStates[todo.id] && showDropdown && (
                   <DropdownMenu
                     deleteItem={() => handleDelete(todo.id as string)}
                     editItem={() => handleEdit(todo as ToDo["getData"])}
                   />
-                )}
+                </button>
+                {/* {dropdownStates[todo.id] && (
+                  <DropdownMenu
+                    deleteItem={() => handleDelete(todo.id as string)}
+                    editItem={() => handleEdit(todo as ToDo["getData"])}
+                  />
+                )} */}
               </div>
             </ul>
           </div>
