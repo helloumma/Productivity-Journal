@@ -15,7 +15,7 @@ export default function NotesHeader() {
         <button className="py-2 px-4 rounded-md no-underline dark:bg-gray-500 bg-btn-background hover:bg-btn-background-hover text-xs">
           {/* <SaveIcon /> */} save
         </button>
-        <GraphIcon />
+        {/* <GraphIcon /> */}
       </div>
       <div className="flex items-center">
         <LeftIcon />

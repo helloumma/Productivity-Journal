@@ -105,9 +105,9 @@ export default async function Page() {
             />
           </div>
         </div>
-        <div className="w-full p-4  mx-8 my-2 rounded border-slate-600 border">
+        {/* <div className="w-full p-4  mx-8 my-2 rounded border-slate-600 border">
           <MoodTracker />
-        </div>
+        </div> */}
       </div>
     </div>
   );
