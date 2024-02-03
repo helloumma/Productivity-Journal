@@ -2,51 +2,39 @@
 
 import SendEmail from "@/actions/Email";
 import { useEffect, useState } from "react";
-import { data, Reminders } from "@/lib/reminders/types";
 import Modal from "./Modal";
 import { RemindersIcon, AddIcon, DeleteReminderIcon } from "./Assets";
-import AddFrom from "./AddForm";
-// @ts-expect-error
-import { useFormState } from "react-dom";
 
-// temp: have a pop up modal for each reminder at the given time and date set
-const initialState = {
-  message: null,
-};
-export default function Reminders({
-  getData,
-  handleDelete,
-  handleAdd,
-}: Reminders) {
+export default function Reminders({ getData, handleDelete, handleAdd }: any) {
   const [showModal, setShowModal] = useState(false);
-  const [showReminderModal, setShowReminderModal] = useState(false);
   const [isTouched, setIsTouched] = useState({
     date: false,
     time: false,
     reminder: false,
   });
 
-  // TO DO - some form of state check and then hand it down to toggleModal
-  const [state, formActionReminder] = useFormState(handleAdd, initialState);
-  // to do: needs to be refactored to take in date and time and compare it to current date and time
-
-  // useEffect(() => {
-  //   // Set an interval to periodically check for items to delete
-  //   const interval = setInterval(() => {
-  //     getData.forEach((item: data) => {
-  //       // console.log(item.date);
-  //       if (new Date(item.date) < new Date()) {
-  //         handleDelete(item.id);
-  //       }
-  //     });
-  //   }, 10000); // Check every 10 seconds
-
-  //   return () => clearInterval(interval); // Cleanup on component unmount
-  // }, [getData]);
-
-  const handleSubmit = () => {
-    window.location.reload();
+  const handleClick = (e: any) => {
+    e.preventDefault;
+    console.log("click");
   };
+
+  useEffect(() => {
+    // Set an interval to periodically check for items to delete
+    const interval = setInterval(() => {
+      getData.forEach((item: { date: string | number | Date; id: string }) => {
+        // console.log(item.date);
+        if (new Date(item.date) < new Date()) {
+          handleDelete(item.id);
+        }
+      });
+    }, 60000); // Check every 10 seconds
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, [getData]);
+
+  // const handleSubmit = () => {
+  //   window.location.reload();
+  // };
 
   const toggleModal = () => setShowModal(false);
 
@@ -59,39 +47,6 @@ export default function Reminders({
   const handleBlur = (field: string) => {
     setIsTouched((prev) => ({ ...prev, [field]: true }));
   };
-
-  const onChangeDate = () => {
-    setIsTouched((prev) => ({
-      ...prev,
-      date: false,
-    }));
-  };
-
-  const onChangeTime = () => {
-    setIsTouched((prev) => ({ ...prev, time: false }));
-  };
-
-  const onChangeInfo = () => {
-    setIsTouched((prev) => ({ ...prev, reminder: false }));
-  };
-  const currDate = new Date();
-  const currTime = currDate.getTime;
-  // console.log(currDate.toLocaleTimeString());
-
-  //console.log(state?.message);
-
-  // if (state?.message) {
-  //   setShowModal(false);
-  // }
-
-  // state?.message ? setShowModal(false) : null;
-
-  // useEffect(() => {
-  //   if (state?.message) {
-  //     setShowModal(false);
-  //   }
-  // }, [formActionReminder]);
-
   return (
     <>
       <div className="pl-6 flex items-center justify-between border-b-4 border-gray-500 border-double">
@@ -108,50 +63,109 @@ export default function Reminders({
         toDo={false}
         title={title}
       >
-        {showReminderModal ? (
-          "reminders modal for time of reminder"
-        ) : (
-          <AddFrom
-            reminders={true}
-            formAction={formActionReminder}
-            onBlurReminderDate={() => handleBlur("date")}
-            onChangeReminderDate={onChangeDate}
-            errorMessage={isTouched}
-            onBlurReminderTime={() => handleBlur("time")}
-            onChangeReminderTime={onChangeTime}
-            onBlurReminderInfo={() => handleBlur("reminder")}
-            onChangeReminderInfo={onChangeInfo}
-            handleSubmitReminder={toggleModal}
-            test={() => setShowModal(false)}
-          />
-        )}
+        <form action={handleAdd}>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-rows-2 gap-4">
+              <div className="flex p-1 items-center">
+                <div className="space-y-1 mr-4">
+                  <label
+                    className="text-sm font-medium leading-none"
+                    htmlFor="date"
+                  >
+                    Date
+                  </label>
+                </div>
+                <input
+                  name="date"
+                  className="border border-gray-300 p-2 rounded w-full"
+                  placeholder="Select date"
+                  type="date"
+                  onBlur={() => handleBlur("date")}
+                  onChange={() =>
+                    setIsTouched((prev) => ({ ...prev, date: false }))
+                  }
+                />
+              </div>
+              {!isTouched.date && (
+                <p className="text-red-500 text-sm mt-1">
+                  This field is required.
+                </p>
+              )}
+              <div className="flex p-1 items-center">
+                <div className="space-y-1 mr-4">
+                  <label
+                    className="text-sm font-medium leading-none"
+                    htmlFor="date"
+                  >
+                    Time
+                  </label>
+                </div>
+
+                <input
+                  name="time"
+                  className="border border-gray-300 p-2 rounded w-full"
+                  placeholder="Select time"
+                  type="time"
+                  onBlur={() => handleBlur("time")}
+                  onChange={() =>
+                    setIsTouched((prev) => ({ ...prev, time: false }))
+                  }
+                />
+              </div>
+              {!isTouched.time && (
+                <p className="text-red-500 text-sm mt-1">
+                  This field is required.
+                </p>
+              )}
+            </div>
+
+            <div className="flex">
+              <textarea
+                name="reminder"
+                className="border border-gray-300  p-8 rounded w-full"
+                placeholder="Add new reminder..."
+                //onChange={onChange}
+                //rows={2}
+                onBlur={() => handleBlur("reminder")}
+                onChange={() =>
+                  setIsTouched((prev) => ({ ...prev, reminder: false }))
+                }
+              />
+            </div>
+          </div>
+          {!isTouched.reminder && (
+            <p className="text-red-500 text-sm mt-1">This field is required.</p>
+          )}
+          <div className="flex mt-2 justify-center">
+            <button
+              className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7  hover:bg-gray-200"
+              type="submit"
+              // onClick={handleSubmit}
+            >
+              Add reminder
+            </button>
+          </div>
+        </form>
       </Modal>
       <div className="p-4">
-        {getData?.map((reminders: data) => (
+        {getData?.map((reminders: any) => (
           <div
             className="flex bg-gray-300 dark:bg-gray-600 rounded  p-4 mb-4 justify-between items-center"
             key={reminders.id}
           >
-            <div>
+            <div onClick={handleClick}>
               <h1 className="text-xl font-bold">{reminders?.reminder}</h1>
               <div className="flex text-gray-400">
-                <p className="text-sm gray-200">{reminders?.date as string}</p>
+                <p className="text-sm gray-200">{reminders?.date}</p>
                 <p className="text-sm ml-4">{reminders?.time}</p>
               </div>
             </div>
 
             <div className="-mr-1">
-              <button onClick={() => handleDelete(reminders.id as number)}>
+              <button onClick={() => handleDelete(reminders.id as any)}>
                 <DeleteReminderIcon />
               </button>
             </div>
-            {/* {"reminders date" && (reminders?.time as string)}
-            {"current date" &&
-              new Date().toLocaleTimeString(undefined, { timeStyle: "short" })}
-            {reminders?.time ==
-            new Date().toLocaleTimeString(undefined, { timeStyle: "short" })
-              ? (setShowReminderModal(true) as any)
-              : "none"} */}
           </div>
         ))}
       </div>
