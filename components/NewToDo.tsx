@@ -1,21 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { ToDo, ToDoEdit, data } from "@/lib/toDo/types";
+import { useEffect, useState } from "react";
+import { ToDo } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
+import "../styles/styles.css";
 import Modal from "./Modal";
+import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
-// @ts-expect-error
-import { useFormState } from "react-dom";
-import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
-import "../styles/styles.css";
 
 // BUG TO BE FIXED: Modal should close when user adds a new item and list should be updated
-
-const initialState = {
-  message: null,
-};
 
 export default function NewToDo({
   getData,
@@ -34,7 +28,6 @@ export default function NewToDo({
   );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isTouched, setIsTouched] = useState({ title: false, time: false });
-  const [state, formActionToDo] = useFormState(handleAdd, { status: null });
 
   const handleCheckboxClick = (todoId: string) => {
     setCheckedItem((prevItems) => ({
@@ -87,7 +80,7 @@ export default function NewToDo({
     setCurrentTodo(todo);
   };
 
-  const handleEditSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEditSubmit = async (e: any) => {
     e.preventDefault;
     const updatedData = handleEditsSubmit(
       currentTodo.title,
@@ -104,7 +97,7 @@ export default function NewToDo({
     setShowDropdown(false);
     //window.location.reload();
   };
-  console.log(state.status);
+
   const title = (
     <div className="flex items-center">
       <ToDoIcon />
@@ -119,6 +112,7 @@ export default function NewToDo({
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">
         {title}
+
         <button onClick={() => setShowModal(true)}>
           <AddIcon />
         </button>
@@ -131,10 +125,6 @@ export default function NewToDo({
         reminders={false}
         toDo={true}
       >
-        <form action={formActionToDo}>
-          <input name="titleToDo" />
-          <button type="submit">testing</button>
-        </form>
         {editModal && (
           <EditForm
             toDo={true}
@@ -151,7 +141,7 @@ export default function NewToDo({
           <AddForm
             toDo={true}
             errorMessage={isTouched}
-            formAction={formActionToDo}
+            formAction={handleAdd}
             onBlurToDoTitle={() => handleBlur("title")}
             onChangeToDoTitle={() =>
               setIsTouched((prev) => ({ ...prev, title: false }))
@@ -164,9 +154,9 @@ export default function NewToDo({
         )}
       </Modal>
       <div className="pt-2 px-4">
-        {getData?.map((todo: data) => (
+        {getData?.map((todo: any) => (
           <div
-            className="bg-indigo-100 dark:bg-indigo-800 m-2 p-4 mb-4 rounded "
+            className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4 mb-4 rounded "
             key={todo.id}
           >
             <ul className="flex justify-between items-center">
@@ -190,7 +180,7 @@ export default function NewToDo({
                 {dropdownStates[todo.id] && showDropdown && (
                   <DropdownMenu
                     deleteItem={() => handleDelete(todo.id as string)}
-                    editItem={() => handleEdit(todo as ToDo["getData"])}
+                    editItem={() => handleEdit(todo as any)}
                   />
                 )}
               </div>
