@@ -16,7 +16,7 @@ export default function HabitTrackerButton() {
         onClose={toggleModal}
         reminders={true}
         toDo={false}
-        title={title}
+        title={title as any}
       >
         mood tracker modal
       </Modal>
