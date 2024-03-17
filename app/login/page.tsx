@@ -2,6 +2,8 @@ import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+// import { Database } from '@/lib/db_types'
 
 export default function Login({
   searchParams,
@@ -15,8 +17,10 @@ export default function Login({
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-
+    //const supabase = createClient(cookieStore);
+    const supabase = createServerActionClient<any>({
+      cookies: () => cookieStore,
+    });
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -50,7 +54,7 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/");
+    return redirect("/notes");
   };
 
   return (

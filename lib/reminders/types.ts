@@ -1,8 +1,14 @@
 import { ReactNode } from "react";
 
-export type reminders = {
+export type data = {
   id: number;
   reminder: string;
-  date: ReactNode;
+  date: string | Date;
   time: ReactNode;
 };
+
+export interface Reminders {
+  getData: Array<data>;
+  handleDelete: Function;
+  handleAdd: FormData;
+}

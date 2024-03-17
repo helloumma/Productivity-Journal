@@ -1,25 +1,20 @@
 "use client";
 
-import {
-  newToDo,
-  getUser,
-  getToDo,
-  deleteToDo,
-  editToDo,
-} from "@/actions/supabase";
 import { useEffect, useState } from "react";
 import { ToDo } from "@/lib/toDo/types";
 import DropdownMenu from "./DropdownMenu";
 import "../styles/styles.css";
 import Modal from "./Modal";
+import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
+import AddForm from "./AddForm";
+import EditForm from "./EditForm";
 
-// TO DO: Add duration dropdown value in modal
-
-// for temp: all to do items are mapped within a one hour slot over to schedule
-// need some kind of error handling for time clashes on add/edit modals
-
-export default function NewToDo() {
-  const [data, setData] = useState<any>();
+export default function NewToDo({
+  getData,
+  handleDelete,
+  handleAdd,
+  handleEditsSubmit,
+}: any) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [dropdownStates, setDropdownStates] = useState<{
@@ -30,24 +25,13 @@ export default function NewToDo() {
     {}
   );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [isTouched, setIsTouched] = useState({ title: false, time: false });
 
   const handleCheckboxClick = (todoId: string) => {
     setCheckedItem((prevItems) => ({
       ...prevItems,
       [todoId]: !prevItems[todoId],
     }));
-  };
-
-  useEffect(() => {
-    const fetchList = async () => {
-      const getData = await getToDo();
-      setData(getData);
-    };
-    fetchList();
-  }, []);
-
-  const handleSubmit = () => {
-    window.location.reload();
   };
 
   const handleDropdownToggle = (todoId: string) => {
@@ -63,11 +47,6 @@ export default function NewToDo() {
     setEditModal(false);
   };
 
-  const handleDelete = async (id: string) => {
-    await deleteToDo(id);
-    window.location.reload();
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault;
     if (currentTodo) {
@@ -76,6 +55,8 @@ export default function NewToDo() {
         title: e.target.value,
       });
     }
+
+    setIsTouched((prev) => ({ ...prev, title: false }));
   };
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +67,8 @@ export default function NewToDo() {
         time: e.target.value,
       });
     }
+
+    setIsTouched((prev) => ({ ...prev, time: false }));
   };
 
   const handleEdit = (todo: ToDo) => {
@@ -97,50 +80,43 @@ export default function NewToDo() {
 
   const handleEditSubmit = async (e: any) => {
     e.preventDefault;
-    const updatedData = await editToDo(
+    const updatedData = handleEditsSubmit(
       currentTodo.title,
       currentTodo.id,
       currentTodo.time
     );
 
-    console.log(updatedData);
     if (updatedData) {
-      const getData = await getToDo(); // Refetch the updated list
-      setData(getData); // Update the state with the new list
-      console.log(data);
+      getData;
     } else {
       console.log("error");
     }
     setShowModal(false);
     setShowDropdown(false);
-    //window.location.reload();
-    console.log(data);
+    window.location.reload();
   };
 
   const title = (
     <div className="flex items-center">
-      <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">
-        <path d="M3.5 2a.5.5 0 00-.5.5v12a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-12a.5.5 0 00-.5-.5H12a.5.5 0 010-1h.5A1.5 1.5 0 0114 2.5v12a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 14.5v-12A1.5 1.5 0 013.5 1H4a.5.5 0 010 1h-.5z" />
-        <path d="M10 .5a.5.5 0 00-.5-.5h-3a.5.5 0 00-.5.5.5.5 0 01-.5.5.5.5 0 00-.5.5V2a.5.5 0 00.5.5h5A.5.5 0 0011 2v-.5a.5.5 0 00-.5-.5.5.5 0 01-.5-.5z" />
-      </svg>
+      <ToDoIcon />
       <h1 className="text-2xl font-bold p-2">To Do</h1>
     </div>
   );
+
+  const handleBlur = (field: string) => {
+    setIsTouched((prev) => ({ ...prev, [field]: true }));
+  };
+  const handleSubmit = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">
         {title}
 
         <button onClick={() => setShowModal(true)}>
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            height="1.5em"
-            width="1.5em"
-            className="mr-6"
-          >
-            <path d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z" />
-          </svg>
+          <AddIcon />
         </button>
       </div>
 
@@ -152,103 +128,37 @@ export default function NewToDo() {
         toDo={true}
       >
         {editModal && (
-          <form action={handleEditSubmit}>
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="title"
-                >
-                  Task
-                </label>
-              </div>
-              <input
-                name="title"
-                className="border border-gray-300 p-2 rounded w-full"
-                placeholder="Edit task..."
-                value={currentTodo ? currentTodo.title : ""}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="time"
-                >
-                  Time
-                </label>
-              </div>
-              <input
-                name="time"
-                className="border border-gray-300 p-2 rounded w-full"
-                placeholder="Select time"
-                type="time"
-                value={currentTodo ? currentTodo.time : ""}
-                onChange={handleTimeChange}
-              />
-            </div>
-
-            <div className="py-4 ml-1">
-              <button
-                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
-                type="submit"
-              >
-                Save task
-              </button>
-            </div>
-          </form>
+          <EditForm
+            toDo={true}
+            currentToDo={currentTodo}
+            handleInputChangeToDo={handleInputChange}
+            handleBlurToDoEdit={() => handleBlur("title")}
+            handleTimeChange={handleTimeChange}
+            handleBlurToDoTimeEdit={() => handleBlur("time")}
+            errorMessage={isTouched}
+            formAction={handleEditSubmit}
+          />
         )}
         {!editModal && (
-          <form action={newToDo}>
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="title"
-                >
-                  Task
-                </label>
-              </div>
-              <input
-                name="title"
-                className="border border-gray-300 p-2 rounded w-full"
-                placeholder="Add new task..."
-              />
-            </div>
-
-            <div className="flex p-1 items-center">
-              <div className="space-y-1">
-                <label
-                  className="text-sm font-medium leading-none mr-3"
-                  htmlFor="time"
-                >
-                  Time
-                </label>
-              </div>
-              <input
-                name="time"
-                className="border border-gray-300 p-2 rounded w-full"
-                placeholder="Select time"
-                type="time"
-                step="3600"
-              />
-            </div>
-
-            <div className="py-4 ml-1">
-              <button
-                className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
-                type="submit"
-                onClick={handleSubmit}
-              >
-                Add task
-              </button>
-            </div>
-          </form>
+          <AddForm
+            toDo={true}
+            errorMessage={isTouched}
+            formAction={handleAdd}
+            onBlurToDoTitle={() => handleBlur("title")}
+            onChangeToDoTitle={() =>
+              setIsTouched((prev) => ({ ...prev, title: false }))
+            }
+            onChangeToDoTime={() =>
+              setIsTouched((prev) => ({ ...prev, time: false }))
+            }
+            onBlurToDoTime={() => handleBlur("time")}
+            showModal={() => setShowModal(false)}
+            handleToDoSubmit={handleSubmit}
+          />
         )}
       </Modal>
       <div className="pt-2 px-4">
-        {data?.map((todo: ToDo) => (
+        {getData?.map((todo: any) => (
           <div
             className=" bg-indigo-100 dark:bg-indigo-800 m-2 p-4 mb-4 rounded "
             key={todo.id}
@@ -269,22 +179,8 @@ export default function NewToDo() {
               </div>
               <div className="-mr-4">
                 <button onClick={() => handleDropdownToggle(todo.id as string)}>
-                  <svg
-                    className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 4 16"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      d="M1.5 2h.01M1.5 8h.01m-.01 6h.01"
-                    />
-                  </svg>
+                  <ToggleDropDownIcon />
                 </button>
-                {/* to do: fix the bug on click for showing dropdown AFTER modal is closed */}
                 {dropdownStates[todo.id] && showDropdown && (
                   <DropdownMenu
                     deleteItem={() => handleDelete(todo.id as string)}

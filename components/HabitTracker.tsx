@@ -8,7 +8,6 @@ import {
   editHabit,
 } from "@/actions/supabase";
 import { useEffect, useState } from "react";
-import { habit } from "@/lib/habitTracker/types";
 import Toggle from "./Toggle";
 import CircleDial from "./CircleDial";
 import DropdownMenu from "./DropdownMenu";
@@ -20,12 +19,12 @@ const Picker = dynamic(
   { ssr: false }
 );
 
-/**
- * TO DO
- * - Need to think about to get around editing emoji for each habit in the edit modal
- */
-
-export default function HabitTracker() {
+export default function HabitTracker({
+  getData,
+  handleEditsSubmit,
+  handleAdd,
+  handleDelete,
+}: any) {
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
@@ -43,24 +42,11 @@ export default function HabitTracker() {
     setShowPicker(false);
     setChosenEmoji(emojiObject.emoji);
   };
-  console.log(chosenEmoji);
 
   const handleClick = (e: any) => {
     e.preventDefault;
     console.log("click");
   };
-
-  const onEmojiClickNEW = (event: any, emojiObject: any) => {
-    setChosenEmoji(emojiObject);
-  };
-
-  useEffect(() => {
-    const fetchHabits = async () => {
-      const getData = await getHabit();
-      setData(getData);
-    };
-    fetchHabits();
-  }, []);
 
   const handleSubmit = () => {
     window.location.reload();
@@ -77,10 +63,6 @@ export default function HabitTracker() {
   const toggleModal = () => {
     setShowModal(false);
     setEditModal(false);
-  };
-  const handleDelete = async (id: string) => {
-    await deleteHabit(id);
-    window.location.reload();
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +87,7 @@ export default function HabitTracker() {
     }
   };
 
-  const handleEdit = (habit: habit) => {
+  const handleEdit = (habit: any) => {
     setShowModal(true);
     setEditModal(true);
     setCurrentHabit(habit);
@@ -120,7 +102,6 @@ export default function HabitTracker() {
       currentHabit.emoji
     );
 
-    //console.log(updatedData);
     if (updatedData) {
       const getData = await getHabit(); // Refetch the updated list
       setData(getData); // Update the state with the new list
@@ -224,9 +205,9 @@ export default function HabitTracker() {
       </Modal>
 
       <div className="pt-4">
-        {data?.map((habits: habit) => (
+        {getData?.map((habits: any) => (
           <>
-            <div className="flex items-center ">
+            <div className="flex items-center">
               <div className="pb-3 px-6 w-full" key={habits.id}>
                 <div className="flex justify-between  rounded bg-green-200 mb-2 dark:bg-green-700">
                   <div className="flex items-center">
@@ -239,7 +220,11 @@ export default function HabitTracker() {
                         emoji={habits.emoji}
                       />
                     </div>
-                    <p className="text-xl font-bold ml-2" onClick={handleClick}>
+                    <p
+                      className="text-xl font-bold ml-2"
+                      onClick={handleClick}
+                      key={habits.id}
+                    >
                       {habits.habit}
                     </p>
                   </div>
@@ -284,17 +269,6 @@ export default function HabitTracker() {
           </>
         ))}
       </div>
-
-      {/* <div className="flex flex-wrap">
-        {data?.map((habits: habit) => (
-          <CircleDial
-            key={habits.id}
-            percentage={Math.floor(Math.random() * 100).toPrecision(1)}
-            emoji={habits.emoji}
-            title={habits.habit}
-          />
-        ))}
-      </div> */}
     </>
   );
 }

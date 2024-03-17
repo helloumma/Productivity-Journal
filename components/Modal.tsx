@@ -1,3 +1,5 @@
+import { Modal } from "@/lib/shared/modal/types";
+
 export default function Modal({
   show,
   onClose,
@@ -5,7 +7,7 @@ export default function Modal({
   title,
   reminders,
   toDo,
-}: any) {
+}: Modal) {
   if (!show) {
     return null;
   }
@@ -31,15 +33,6 @@ export default function Modal({
         <div className="p-6">
           <h1 className="text-2xl font-bold">{title}</h1>
           {children}
-
-          {/* <div className="text-right mt-4">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
-            >
-              Cancel
-            </button>
-          </div> */}
         </div>
       </div>
     </div>

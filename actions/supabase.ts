@@ -5,12 +5,16 @@ import { defer } from "@defer/client";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import SendEmail from "../defer/Email";
+import router from "next/navigation";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const cookieStore = cookies();
 const supabase = createClient(cookieStore);
 const user = getUser();
 
 export async function getUser() {
+  const supabase = createClient(cookieStore);
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -18,6 +22,7 @@ export async function getUser() {
 }
 
 export async function getToDo() {
+
   const { data: todos } = await supabase
     .from("todo")
     .select()
@@ -25,22 +30,24 @@ export async function getToDo() {
   return todos;
 }
 
-export async function newToDo(formData: FormData) {
-  const title = formData.get("title");
+export async function newToDo(formData: FormData, state: any) {
+  const title = formData.get("titleToDo");
   const time = formData.get("time");
-  await supabase
-    .from("todo")
-    .insert({ title, userId: (await user)?.id, time })
-    .select();
+
+  await supabase.from("todo").insert({ title, userId: (await user)?.id, time });
+
   revalidatePath("/notes");
+  return { message: true };
 }
 
 export async function deleteToDo(id: string) {
+
   await supabase.from("todo").delete().eq("id", id);
   revalidatePath("/notes");
 }
 
 export async function editToDo(title: any, id: string, time: any) {
+
   const { data, error } = await supabase
     .from("todo")
     .update({ title: title, time: time })
@@ -52,6 +59,7 @@ export async function editToDo(title: any, id: string, time: any) {
 }
 
 export async function getReminder() {
+
   const { data: reminder } = await supabase
     .from("reminders")
     .select()
@@ -59,28 +67,48 @@ export async function getReminder() {
   return reminder;
 }
 
-export async function newReminder(formData: FormData) {
+export async function newReminder(
+  formData: FormData,
+  prevState: {
+    message: string;
+  }
+) {
   const reminder = formData.get("reminder");
   const time = formData.get("time");
   const date = formData.get("date");
-  await supabase
-    .from("reminders")
-    .insert({ reminder, time, date, userId: (await user)?.id });
-
-  if (!Response.error) {
-    const sendTime: any = new Date(`${date} ${time}`);
-
-    defer(SendEmail, sendTime);
+  try {
+    await supabase
+      .from("reminders")
+      .insert({ reminder, time, date, userId: (await user)?.id });
+    revalidatePath("/notes");
+    return { message: true };
+  } catch (err) {
+    return { message: err };
   }
-  revalidatePath("/notes");
+
+  // if (!response.error) {
+  //   const sendTime: any = new Date(`${date} ${time}`);
+
+  //   SendEmail();
+  // }
+  // const sendTime = new Date(`${date} ${time}`);
+  // defer(SendEmail, sendTime as any);
+
+  // console.log(sendTime);
+  // console.log(new Date());
+  // const currTime = new Date();
+  // currTime.setSeconds(0);
+  // console.log(sendTime === currTime);
 }
 
 export async function deleteReminder(id: string) {
+ 
   await supabase.from("reminders").delete().eq("id", id);
   revalidatePath("/notes");
 }
 
 export async function getHabit() {
+
   const { data: habit } = await supabase
     .from("habitTracker")
     .select()
@@ -89,13 +117,15 @@ export async function getHabit() {
 }
 
 export async function newHabit(formData: FormData) {
+
   const habit = formData.get("habit");
   const emoji = formData.get("emoji");
   await supabase
     .from("habitTracker")
-    .insert({ habit, emoji, userId: (await user)?.id })
-    .select();
+    .insert({ habit, emoji, userId: (await user)?.id });
+
   revalidatePath("/notes");
+  console.log(formData);
 }
 
 export async function deleteHabit(id: string) {
@@ -104,6 +134,7 @@ export async function deleteHabit(id: string) {
 }
 
 export async function editHabit(habit: any, id: string, emoji: any) {
+
   const { data, error } = await supabase
     .from("habitTracker")
     .update({ habit: habit, emoji: emoji })
@@ -116,6 +147,7 @@ export async function editHabit(habit: any, id: string, emoji: any) {
 }
 
 export async function getSchedule() {
+
   const { data: schedule } = await supabase
     .from("schedule")
     .select()
