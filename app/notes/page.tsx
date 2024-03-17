@@ -38,31 +38,31 @@ import {
  */
 
 export default async function Page() {
-  // const getToDoData = await getToDo();
-  // const getReminderData = await getReminder();
-  // const getHabitsData = await getHabit();
+  const getToDoData = await getToDo();
+  const getReminderData = await getReminder();
+  const getHabitsData = await getHabit();
 
-  // const handleToDoDelete = async (id: string) => {
-  //   "use server";
-  //   await deleteToDo(id);
-  // };
-  // const handleReminderDelete = async (id: string) => {
-  //   "use server";
-  //   await deleteReminder(id);
-  // };
-  // const handleHabitDelete = async (id: string) => {
-  //   "use server";
-  //   await deleteHabit(id);
-  // };
+  const handleToDoDelete = async (id: string) => {
+    "use server";
+    await deleteToDo(id);
+  };
+  const handleReminderDelete = async (id: string) => {
+    "use server";
+    await deleteReminder(id);
+  };
+  const handleHabitDelete = async (id: string) => {
+    "use server";
+    await deleteHabit(id);
+  };
 
-  // const handleToDoEdit = async (title: any, id: any, time: any) => {
-  //   "use server";
-  //   await editToDo(title, id, time);
-  // };
-  // const handleHabitEdit = async (habit: any, id: any, emoji: any) => {
-  //   "use server";
-  //   await editHabit(habit, id, emoji);
-  // };
+  const handleToDoEdit = async (title: any, id: any, time: any) => {
+    "use server";
+    await editToDo(title, id, time);
+  };
+  const handleHabitEdit = async (habit: any, id: any, emoji: any) => {
+    "use server";
+    await editHabit(habit, id, emoji);
+  };
 
   return (
     <div className="p-4">
@@ -79,10 +79,10 @@ export default async function Page() {
               <ResizableHandle withHandle />
               <ResizablePanel>
                 <NewToDo
-                // getData={getToDoData}
-                // handleDelete={handleToDoDelete}
-                // handleAdd={newToDo}
-                // handleEditsSubmit={handleToDoEdit}
+                  getData={getToDoData}
+                  handleDelete={handleToDoDelete}
+                  handleAdd={newToDo}
+                  handleEditsSubmit={handleToDoEdit}
                 />
               </ResizablePanel>
             </ResizablePanelGroup>
@@ -91,17 +91,17 @@ export default async function Page() {
         <div className="flex w-full mx-8 my-2">
           <div className="w-full mr-2 rounded border-slate-600 border">
             <HabitTracker
-            // getData={getHabitsData}
-            // handleDelete={handleHabitDelete}
-            // handleAdd={newHabit}
-            // handleEditsSubmit={handleHabitEdit}
+              getData={getHabitsData}
+              handleDelete={handleHabitDelete}
+              handleAdd={newHabit}
+              handleEditsSubmit={handleHabitEdit}
             />
           </div>
           <div className="w-full ml-2 rounded border-slate-600 border">
             <Reminders
-            // getData={getReminderData}
-            // handleDelete={handleReminderDelete}
-            // handleAdd={newReminder}
+              getData={getReminderData}
+              handleDelete={handleReminderDelete}
+              handleAdd={newReminder}
             />
           </div>
         </div>
