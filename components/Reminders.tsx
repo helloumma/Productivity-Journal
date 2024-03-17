@@ -47,6 +47,9 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
   const handleBlur = (field: string) => {
     setIsTouched((prev) => ({ ...prev, [field]: true }));
   };
+  const handleSubmit = () => {
+    window.location.reload();
+  };
   return (
     <>
       <div className="pl-6 flex items-center justify-between border-b-4 border-gray-500 border-double">
@@ -140,7 +143,7 @@ export default function Reminders({ getData, handleDelete, handleAdd }: any) {
             <button
               className="border border-gray-300 p-2 ml-2 rounded flex align-center w-1/7  hover:bg-gray-200"
               type="submit"
-              // onClick={handleSubmit}
+              onClick={handleSubmit}
             >
               Add reminder
             </button>

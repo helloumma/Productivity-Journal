@@ -26,7 +26,12 @@ const Picker = dynamic(
  * - Bug: opening edit modal and then opening new modal pre-populates data from first item of list
  */
 
-export default function HabitTracker() {
+export default function HabitTracker({
+  getData,
+  handleEditsSubmit,
+  handleAdd,
+  handleDelete,
+}: any) {
   const [data, setData] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
@@ -55,13 +60,13 @@ export default function HabitTracker() {
     setChosenEmoji(emojiObject);
   };
 
-  useEffect(() => {
-    const fetchHabits = async () => {
-      const getData = await getHabit();
-      setData(getData);
-    };
-    fetchHabits();
-  }, []);
+  // useEffect(() => {
+  //   const fetchHabits = async () => {
+  //     const getData = await getHabit();
+  //     setData(getData);
+  //   };
+  //   fetchHabits();
+  // }, []);
 
   const handleSubmit = () => {
     window.location.reload();
@@ -79,10 +84,10 @@ export default function HabitTracker() {
     setShowModal(false);
     setEditModal(false);
   };
-  const handleDelete = async (id: string) => {
-    await deleteHabit(id);
-    window.location.reload();
-  };
+  // const handleDelete = async (id: string) => {
+  //   await deleteHabit(id);
+  //   window.location.reload();
+  // };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault;
@@ -225,7 +230,7 @@ export default function HabitTracker() {
       </Modal>
 
       <div className="pt-4">
-        {data?.map((habits: any) => (
+        {getData?.map((habits: any) => (
           <>
             <div className="flex items-center ">
               <div className="pb-3 px-6 w-full" key={habits.id}>
