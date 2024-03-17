@@ -1,9 +1,7 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const createClient = (request: NextRequest) => {
-  const cookieStore = cookies();
   // Create an unmodified response
   let response = NextResponse.next({
     request: {
@@ -17,11 +15,11 @@ export const createClient = (request: NextRequest) => {
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value;
+          return request.cookies.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
           // If the cookie is updated, update the cookies for the request and response
-          cookieStore.set({
+          request.cookies.set({
             name,
             value,
             ...options,
@@ -31,7 +29,7 @@ export const createClient = (request: NextRequest) => {
               headers: request.headers,
             },
           });
-          cookieStore.set({
+          response.cookies.set({
             name,
             value,
             ...options,
@@ -39,7 +37,7 @@ export const createClient = (request: NextRequest) => {
         },
         remove(name: string, options: CookieOptions) {
           // If the cookie is removed, update the cookies for the request and response
-          cookieStore.set({
+          request.cookies.set({
             name,
             value: "",
             ...options,
@@ -49,7 +47,7 @@ export const createClient = (request: NextRequest) => {
               headers: request.headers,
             },
           });
-          cookieStore.set({
+          response.cookies.set({
             name,
             value: "",
             ...options,
