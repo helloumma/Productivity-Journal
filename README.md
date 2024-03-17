@@ -38,4 +38,4 @@ This app enables you to be able to:
 - Enable save button on each page
 - Change application to an SPA instead of using a SSR framework like Next.js
 
-**March 2024: This project is abounded until further improvements/clearer direction is made on Next.js server components working with auth within Supabase as there is a known error of: `Invariant: Method expects to have requestAsyncStorage, none available` when deploying. In addition to this, functionality such as `revalidatePath` also seem to be in flight mode and not working as it should be.**
+**March 2024: This project is abandoned until further improvements/clearer direction is made on Next.js server components working with auth within Supabase as there is a known error of: `Invariant: Method expects to have requestAsyncStorage, none available` when deploying. In addition to this, functionality such as `revalidatePath` also seem to be in flight mode and not working as it should be.**
