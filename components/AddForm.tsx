@@ -27,6 +27,8 @@ export default function AddForm({
   onChangeToDoTitle,
   onChangeToDoTime,
   onBlurToDoTime,
+  showModal,
+  handleToDoSubmit,
 }: AddForm) {
   return (
     <>
@@ -197,7 +199,7 @@ export default function AddForm({
             <button
               className="px-4 border py-2 border-gray-300 text-gray-800 rounded hover:bg-gray-200 dark:text-white"
               type="submit"
-              // onClick={() => setShowModal(false)}
+              onClick={handleToDoSubmit}
             >
               Add task
             </button>

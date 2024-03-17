@@ -94,6 +94,7 @@ export default async function Page() {
               getData={getHabitsData}
               handleDelete={handleHabitDelete}
               handleAdd={newHabit}
+              handleEditsSubmit={handleHabitEdit}
             />
           </div>
           <div className="w-full ml-2 rounded border-slate-600 border">
@@ -101,7 +102,6 @@ export default async function Page() {
               getData={getReminderData}
               handleDelete={handleReminderDelete}
               handleAdd={newReminder}
-              handleEditsSubmit={handleHabitEdit}
             />
           </div>
         </div>

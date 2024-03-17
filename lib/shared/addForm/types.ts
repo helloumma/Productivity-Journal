@@ -45,4 +45,6 @@ export type AddForm = {
   onChangeToDoTime?: ChangeEventHandler<HTMLInputElement>;
   onBlurToDoTime?: FocusEventHandler<HTMLInputElement>;
   handleSubmitReminder?: any;
+  showModal?: () => void;
+  handleToDoSubmit?: any;
 };

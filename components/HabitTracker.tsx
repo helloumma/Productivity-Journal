@@ -225,7 +225,7 @@ export default function HabitTracker() {
       </Modal>
 
       <div className="pt-4">
-        {data?.map((habits: habit) => (
+        {data?.map((habits: any) => (
           <>
             <div className="flex items-center ">
               <div className="pb-3 px-6 w-full" key={habits.id}>

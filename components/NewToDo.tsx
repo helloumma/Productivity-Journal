@@ -95,7 +95,7 @@ export default function NewToDo({
     }
     setShowModal(false);
     setShowDropdown(false);
-    //window.location.reload();
+    window.location.reload();
   };
 
   const title = (
@@ -107,6 +107,9 @@ export default function NewToDo({
 
   const handleBlur = (field: string) => {
     setIsTouched((prev) => ({ ...prev, [field]: true }));
+  };
+  const handleSubmit = () => {
+    window.location.reload();
   };
   return (
     <>
@@ -150,6 +153,8 @@ export default function NewToDo({
               setIsTouched((prev) => ({ ...prev, time: false }))
             }
             onBlurToDoTime={() => handleBlur("time")}
+            showModal={() => setShowModal(false)}
+            handleToDoSubmit={handleSubmit}
           />
         )}
       </Modal>

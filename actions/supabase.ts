@@ -5,6 +5,7 @@ import { defer } from "@defer/client";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import SendEmail from "../defer/Email";
+import router from "next/navigation";
 
 const cookieStore = cookies();
 const supabase = createClient(cookieStore);
@@ -32,7 +33,6 @@ export async function newToDo(formData: FormData, state: any) {
   await supabase.from("todo").insert({ title, userId: (await user)?.id, time });
 
   revalidatePath("/notes");
-  console.log(formData);
   return { message: true };
 }
 
