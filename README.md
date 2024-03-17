@@ -9,7 +9,7 @@ This app enables you to be able to:
 - Sign up
 - Log in/out
 - Add an item into the 'To Do' list with a specific time
-- See the "To Do' item in the schedule at the given time
+- See the 'To Do' item in the schedule at the given time
 - Edit and delete items in 'To Do', 'Reminders' and 'Habit Tracker'
 - Add items into 'Reminders' and 'Habit Tracker'
 - Select an emoji from the picker on 'Habit Tracker'
