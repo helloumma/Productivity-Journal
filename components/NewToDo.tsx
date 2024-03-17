@@ -9,8 +9,6 @@ import { ToDoIcon, AddIcon, ToggleDropDownIcon } from "./Assets";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 
-// BUG TO BE FIXED: Modal should close when user adds a new item and list should be updated
-
 export default function NewToDo({
   getData,
   handleDelete,
@@ -111,6 +109,7 @@ export default function NewToDo({
   const handleSubmit = () => {
     window.location.reload();
   };
+
   return (
     <>
       <div className="pl-6 flex items-center border-b-4 border-gray-500 border-double justify-between">

@@ -9,11 +9,11 @@ import router from "next/navigation";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const cookieStore = cookies();
-const supabase = createServerComponentClient({ cookies });
+const supabase = createClient(cookieStore);
 const user = getUser();
 
 export async function getUser() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },
@@ -22,7 +22,6 @@ export async function getUser() {
 }
 
 export async function getToDo() {
-  const supabase = createServerComponentClient({ cookies });
 
   const { data: todos } = await supabase
     .from("todo")
@@ -32,8 +31,6 @@ export async function getToDo() {
 }
 
 export async function newToDo(formData: FormData, state: any) {
-  const supabase = createServerComponentClient({ cookies });
-
   const title = formData.get("titleToDo");
   const time = formData.get("time");
 
@@ -44,14 +41,12 @@ export async function newToDo(formData: FormData, state: any) {
 }
 
 export async function deleteToDo(id: string) {
-  const supabase = createServerComponentClient({ cookies });
 
   await supabase.from("todo").delete().eq("id", id);
   revalidatePath("/notes");
 }
 
 export async function editToDo(title: any, id: string, time: any) {
-  const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
     .from("todo")
@@ -64,7 +59,6 @@ export async function editToDo(title: any, id: string, time: any) {
 }
 
 export async function getReminder() {
-  const supabase = createServerComponentClient({ cookies });
 
   const { data: reminder } = await supabase
     .from("reminders")
@@ -79,8 +73,6 @@ export async function newReminder(
     message: string;
   }
 ) {
-  const supabase = createServerComponentClient({ cookies });
-
   const reminder = formData.get("reminder");
   const time = formData.get("time");
   const date = formData.get("date");
@@ -110,14 +102,12 @@ export async function newReminder(
 }
 
 export async function deleteReminder(id: string) {
-  const supabase = createServerComponentClient({ cookies });
-
+ 
   await supabase.from("reminders").delete().eq("id", id);
   revalidatePath("/notes");
 }
 
 export async function getHabit() {
-  const supabase = createServerComponentClient({ cookies });
 
   const { data: habit } = await supabase
     .from("habitTracker")
@@ -127,7 +117,6 @@ export async function getHabit() {
 }
 
 export async function newHabit(formData: FormData) {
-  const supabase = createServerComponentClient({ cookies });
 
   const habit = formData.get("habit");
   const emoji = formData.get("emoji");
@@ -140,14 +129,11 @@ export async function newHabit(formData: FormData) {
 }
 
 export async function deleteHabit(id: string) {
-  const supabase = createServerComponentClient({ cookies });
-
   await supabase.from("habitTracker").delete().eq("id", id);
   revalidatePath("/notes");
 }
 
 export async function editHabit(habit: any, id: string, emoji: any) {
-  const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
     .from("habitTracker")
@@ -161,7 +147,6 @@ export async function editHabit(habit: any, id: string, emoji: any) {
 }
 
 export async function getSchedule() {
-  const supabase = createServerComponentClient({ cookies });
 
   const { data: schedule } = await supabase
     .from("schedule")
@@ -172,8 +157,6 @@ export async function getSchedule() {
 
 // only use for testing purposes
 export async function newSchedule(formData: FormData) {
-  const supabase = createServerComponentClient({ cookies });
-
   const item = formData.get("item");
   await supabase
     .from("schedule")

@@ -22,27 +22,15 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-
-/**
- * TO DO
- * - Move all data handling to be HERE and then send things like new Habit, getReminders from this component
- * - BUG: Check add function in "To Do"
- * - BUG: Check add function in "Reminders"
- * - BUG: Edit on Habit Tracker currently not working
- * - BUG: Hydration issue with Dial in Habit Tracker
- * - BUG: Validation messages show on initial render of each modal
- * - BUG: Modal doesn't close on reminders after add
- * - BUG: Reminders are deleted based on date rather than the date AND time set
- * - BUG: Reminders notification modal should show based on the time of the day given the date
- * - BUG: ALL type fixes on all pages
- */
+import supabaseServerComponentClient from "@/lib/supabase";
 
 export default async function Page() {
+  await supabaseServerComponentClient();
   const getToDoData = await getToDo();
   const getReminderData = await getReminder();
   const getHabitsData = await getHabit();
 
-  const handleToDoDelete = async (id: string) => {
+  const handleToDoDelete: any = async (id: string) => {
     "use server";
     await deleteToDo(id);
   };

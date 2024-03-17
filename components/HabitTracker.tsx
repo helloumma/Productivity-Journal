@@ -19,13 +19,6 @@ const Picker = dynamic(
   { ssr: false }
 );
 
-/**
- * TO DO
- * - Need to think about to get around editing emoji for each habit in the edit modal
- * - When modal opens, set showModal to false (like in to do component)
- * - Bug: opening edit modal and then opening new modal pre-populates data from first item of list
- */
-
 export default function HabitTracker({
   getData,
   handleEditsSubmit,
@@ -49,24 +42,11 @@ export default function HabitTracker({
     setShowPicker(false);
     setChosenEmoji(emojiObject.emoji);
   };
-  console.log(chosenEmoji);
 
   const handleClick = (e: any) => {
     e.preventDefault;
     console.log("click");
   };
-
-  const onEmojiClickNEW = (event: any, emojiObject: any) => {
-    setChosenEmoji(emojiObject);
-  };
-
-  // useEffect(() => {
-  //   const fetchHabits = async () => {
-  //     const getData = await getHabit();
-  //     setData(getData);
-  //   };
-  //   fetchHabits();
-  // }, []);
 
   const handleSubmit = () => {
     window.location.reload();
@@ -84,10 +64,6 @@ export default function HabitTracker({
     setShowModal(false);
     setEditModal(false);
   };
-  // const handleDelete = async (id: string) => {
-  //   await deleteHabit(id);
-  //   window.location.reload();
-  // };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault;
@@ -126,7 +102,6 @@ export default function HabitTracker({
       currentHabit.emoji
     );
 
-    //console.log(updatedData);
     if (updatedData) {
       const getData = await getHabit(); // Refetch the updated list
       setData(getData); // Update the state with the new list
@@ -294,17 +269,6 @@ export default function HabitTracker({
           </>
         ))}
       </div>
-
-      {/* <div className="flex flex-wrap">
-        {data?.map((habits: habit) => (
-          <CircleDial
-            key={habits.id}
-            percentage={Math.floor(Math.random() * 100).toPrecision(1)}
-            emoji={habits.emoji}
-            title={habits.habit}
-          />
-        ))}
-      </div> */}
     </>
   );
 }
