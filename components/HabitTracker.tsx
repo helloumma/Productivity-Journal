@@ -232,7 +232,7 @@ export default function HabitTracker({
       <div className="pt-4">
         {getData?.map((habits: any) => (
           <>
-            <div className="flex items-center ">
+            <div className="flex items-center">
               <div className="pb-3 px-6 w-full" key={habits.id}>
                 <div className="flex justify-between  rounded bg-green-200 mb-2 dark:bg-green-700">
                   <div className="flex items-center">
@@ -245,7 +245,11 @@ export default function HabitTracker({
                         emoji={habits.emoji}
                       />
                     </div>
-                    <p className="text-xl font-bold ml-2" onClick={handleClick}>
+                    <p
+                      className="text-xl font-bold ml-2"
+                      onClick={handleClick}
+                      key={habits.id}
+                    >
                       {habits.habit}
                     </p>
                   </div>

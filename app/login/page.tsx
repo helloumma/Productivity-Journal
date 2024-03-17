@@ -2,8 +2,6 @@ import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { cache } from "react";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Login({
   searchParams,
@@ -16,13 +14,8 @@ export default function Login({
     const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const createServerClient = cache(() => {
-      const cookieStore = cookies();
-      return createServerComponentClient<any>({
-        cookies: () => cookieStore,
-      });
-    });
-    const supabase = createClient(createServerClient as any);
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
 
     const { error } = await supabase.auth.signUp({
       email,
