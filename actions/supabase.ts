@@ -6,9 +6,13 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import SendEmail from "../defer/Email";
 import router from "next/navigation";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 
 const cookieStore = cookies();
-const supabase = createClient(cookieStore);
+//const supabase = createClient(cookieStore);
+const supabase = createServerActionClient<any>({
+  cookies: () => cookieStore,
+});
 const user = getUser();
 
 export async function getUser() {
